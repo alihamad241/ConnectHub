@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
+
 public class UserManager {
     private static final String USERS_FILE = "databases/users.json";
 
@@ -17,7 +19,7 @@ public class UserManager {
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
             if (user.getString("email").equals(email)) {
-                System.out.println("Email already exists!");
+                JOptionPane.showMessageDialog(null,"Email already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         }
@@ -39,5 +41,27 @@ public class UserManager {
         DatabaseManager.writeJSONFile(USERS_FILE, users);
 
         return true;
+    }
+
+    public User login(String email, String password) {
+        // Check if the user exists
+        JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+        for (Object obj : users) {
+            JSONObject user = (JSONObject) obj;
+            if (user.getString("email").equals(email)) {
+                // Check if the password is correct
+                if (PasswordHashing.checkPassword(password, user.getString("hashedPassword"))) {
+                    // Return the user
+                    JOptionPane.showMessageDialog(null,"Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    return new User(user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
+                } else {
+                    JOptionPane.showMessageDialog(null,"Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null,"User not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
     }
 }

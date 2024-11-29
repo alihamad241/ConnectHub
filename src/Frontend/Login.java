@@ -4,6 +4,9 @@
  */
 package Frontend;
 
+import Backend.User;
+import Backend.UserManager;
+
 /**
  *
  * @author mrali
@@ -127,7 +130,20 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        String username = jTextField1.getText().trim();
+        String password = new String(jPasswordField1.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            System.out.println("Please fill in all fields!");
+            return;
+        }
+
+        // Check if the user exists
+        UserManager userManager = new UserManager();
+        User user = userManager.login(username, password);
+
+        // Open the main menu
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
