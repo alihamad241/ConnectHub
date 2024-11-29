@@ -4,6 +4,10 @@
  */
 package Frontend;
 
+import Backend.UserManager;
+
+import javax.swing.*;
+
 /**
  *
  * @author mrali
@@ -152,6 +156,22 @@ public class Signup extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //signup
+
+        String name = jTextField1.getText();
+        String email = jTextField2.getText();
+        String username = jTextField3.getText();
+        String password = jTextField6.getText();
+        String dateOfBirth = jDateChooser1.getDate().toString();
+
+        UserManager userManager = new UserManager();
+        if(userManager.signup(name, email, username, password, dateOfBirth)){
+            JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            new Login().setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Signup failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

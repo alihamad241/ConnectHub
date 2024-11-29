@@ -38,9 +38,9 @@ public class UserManager {
         newUserObject.put("status", "offline");
 
         users.put(newUserObject);
-        DatabaseManager.writeJSONFile(USERS_FILE, users);
 
-        return true;
+
+        return DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
 
     public User login(String email, String password) {
