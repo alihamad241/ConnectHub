@@ -30,6 +30,7 @@ public class Posts extends javax.swing.JFrame {
      */
     public Posts() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
