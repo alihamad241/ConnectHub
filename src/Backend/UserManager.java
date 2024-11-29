@@ -30,6 +30,7 @@ public class UserManager {
         // Save the user to the file
         String userId = UUID.randomUUID().toString();
         JSONObject newUserObject = new JSONObject();
+        newUserObject.put("Name", name);
         newUserObject.put("userId", userId);
         newUserObject.put("email", email);
         newUserObject.put("username", username);

@@ -17,6 +17,8 @@ public class User {
         this.status = "offline";
     }
 
+
+
     public String getUserId() {
         return userId;
     }

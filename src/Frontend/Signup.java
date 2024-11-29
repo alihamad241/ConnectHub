@@ -7,6 +7,8 @@ package Frontend;
 import Backend.UserManager;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -74,6 +76,11 @@ public class Signup extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,14 +164,18 @@ public class Signup extends javax.swing.JFrame {
         // TODO add your handling code here:
         //signup
 
-        String name = jTextField1.getText();
-        String email = jTextField2.getText();
-        String username = jTextField3.getText();
-        String password = jTextField6.getText();
-        String dateOfBirth = jDateChooser1.getDate().toString();
+        String name = jTextField1.getText().trim();
+        String email = jTextField2.getText().trim();
+        String username = jTextField3.getText().trim();
+        String password = jTextField6.getText().trim();
+        Date dateOfBirth = jDateChooser1.getDate();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d-M-y");
+        String formattedDateOfBirth = dateFormat.format(dateOfBirth);
+
 
         UserManager userManager = new UserManager();
-        if(userManager.signup(name, email, username, password, dateOfBirth)){
+        if(userManager.signup(name, email, username, password, formattedDateOfBirth)) {
             JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             new Login().setVisible(true);
             dispose();
@@ -173,6 +184,12 @@ public class Signup extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new StartMenu().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
