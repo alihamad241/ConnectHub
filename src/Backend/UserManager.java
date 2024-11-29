@@ -44,12 +44,12 @@ public class UserManager {
         return DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
 
-    public User login(String email, String password) {
+    public User login(String username, String password) {
         // Check if the user exists
         JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
-            if (user.getString("email").equals(email)) {
+            if (user.getString("username").equals(username)) {
                 // Check if the password is correct
                 if (PasswordHashing.checkPassword(password, user.getString("hashedPassword"))) {
                     // Return the user
