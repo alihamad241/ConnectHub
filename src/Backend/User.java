@@ -1,3 +1,4 @@
+
 package Backend;
 
 public class User {
@@ -16,8 +17,6 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = "offline";
     }
-
-
 
     public String getUserId() {
         return userId;
@@ -66,4 +65,4 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-}
+
