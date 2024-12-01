@@ -39,7 +39,6 @@ public class UserManager {
 
         users.put(newUserObject);
 
-
         return DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
 
@@ -64,7 +63,11 @@ public class UserManager {
             }
         }
 
+
         JOptionPane.showMessageDialog(null,"User not found!", "Error", JOptionPane.ERROR_MESSAGE);
         return null;
     }
+
+
+
 }
