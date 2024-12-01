@@ -11,18 +11,21 @@ public class ProfileManager {
     private static final String USERS_FILE = "databases/users.json";
     JSONArray users;
 
-    public  List<UserProfile> getUsers() throws IOException {
-        return JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+    public  JSONArray getUsers() throws IOException {
+        return DatabaseManager.readJSONFile(USERS_FILE);
     }
 
-    public  void saveUsers(List<UserProfile> users) throws IOException {
+    public  void saveUsers(JSONArray users) throws IOException {
         DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
 
     public  UserProfile findUserById(String userId) throws IOException {
-        List<UserProfile> users = getUsers();
-        for (UserProfile user : users) {
-            if (user.getUserID().equals(userId)) {
-                return user;
+        JSONArray users = getUsers();
+        for (Object user : users) {
+            if (((UserProfile)user).getUserID().equals(userId)) {
+                return (UserProfile) user;
             }
+        }
+        return null;
+    }
 }
