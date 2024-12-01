@@ -16,5 +16,14 @@
         "Name": "Hanine Yasser",
         "username": "nino123",
         "status": "offline"
+    },
+    {
+        "hashedPassword": "$2a$10$DqigOoAfvsoFVqyVQSw8.eEfdC0tlTen9Ip4ritvZjCyG7wPlyjEO",
+        "dateOfBirth": "12-12-2024",
+        "userId": "96af9b91-6801-4cc7-b74a-83b39722446c",
+        "email": "daejh@faei",
+        "Name": "you",
+        "username": "joe",
+        "status": "offline"
     }
 ]
