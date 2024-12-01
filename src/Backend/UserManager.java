@@ -54,7 +54,9 @@ public class UserManager {
                 if (PasswordHashing.checkPassword(password, user.getString("hashedPassword"))) {
                     // Return the user
                     JOptionPane.showMessageDialog(null,"Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    return new User(user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
+                    User newUser = new User(user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
+                    newUser.setStatus("online");
+                    return newUser;
                 } else {
                     JOptionPane.showMessageDialog(null,"Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
                     return null;
