@@ -162,6 +162,12 @@ public class FriendManagement {
                         sentRequests.add(findUser((String) sentArray.get(i)));
                     }
 
+                    // Populate blocked users
+                    JSONArray blockedArray = json.getJSONArray("blockedUsers");
+                    for (int i = 0; i < blockedArray.length(); i++) {
+                        blockedUsers.add(findUser((String) blockedArray.get(i)));
+                    }
+
                 } catch (IOException e) {
                     System.err.println("Error reading friends data file: " + e.getMessage());
                 }
@@ -187,10 +193,16 @@ public class FriendManagement {
             sentArray.put(user.getUserId());
         }
 
+        JSONArray blockedArray = new JSONArray();
+        for (User user : blockedUsers) {
+            blockedArray.put(user.getUserId());
+        }
+
         // Build JSON object
         json.put("friends", friendsArray);
         json.put("receivedRequests", receivedArray);
         json.put("sentRequests", sentArray);
+        json.put("blockedUsers", blockedArray);
 
         // Write to file
         try (FileWriter writer = new FileWriter(FRIENDS_FILE_PATH)) {
