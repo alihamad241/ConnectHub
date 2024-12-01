@@ -35,6 +35,8 @@ public class UpdateProfile {
     }
 
 
+
+
         public void updateCoverPhoto( String coverPhotoPath, String userId) throws IOException {
 
             ProfileManager profileManager = new ProfileManager();

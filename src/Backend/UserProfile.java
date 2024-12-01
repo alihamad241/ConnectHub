@@ -8,6 +8,7 @@ public class UserProfile {
     private String bio;
     private String hashedPassword;
 
+
     public UserProfile() {
     }
 
