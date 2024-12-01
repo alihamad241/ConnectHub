@@ -1,10 +1,8 @@
 package Backend;
 
 import java.util.UUID;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import javax.swing.*;
 
 public class UserManager {
@@ -16,6 +14,7 @@ public class UserManager {
 
         // Check if email already exists
         JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+        assert users != null:"Users file is empty";
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
             if (user.getString("email").equals(email)) {
@@ -47,6 +46,7 @@ public class UserManager {
     public User login(String username, String password) {
         // Check if the user exists
         JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+        assert users != null:"Users file is empty";
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
             if (user.getString("username").equals(username)) {

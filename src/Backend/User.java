@@ -8,6 +8,7 @@ public class User {
     private String hashedPassword;
     private String dateOfBirth;
     private String status;
+    private FriendManagement friendManagement;
 
     public User(String userId, String email, String username, String hashedPassword, String dateOfBirth) {
         this.userId = userId;
@@ -16,6 +17,7 @@ public class User {
         this.hashedPassword = hashedPassword;
         this.dateOfBirth = dateOfBirth;
         this.status = "offline";
+        this.friendManagement = new FriendManagement(this);
     }
 
     public String getUserId() {
@@ -42,6 +44,10 @@ public class User {
         return status;
     }
 
+    public FriendManagement getFriendManagement() {
+        return friendManagement;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -65,5 +71,10 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public void setFriendManagement(FriendManagement friendManagement) {
+        this.friendManagement = friendManagement;
+    }
+
 }
 
