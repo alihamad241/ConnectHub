@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Posts extends javax.swing.JFrame {
 
     private  User user;
-    private static ContentManager contentManager;
+    private static final ContentManager contentManager = new ContentManager();
     private String path;
 
     /**
@@ -213,7 +213,7 @@ public class Posts extends javax.swing.JFrame {
         Content newContent = new Content(content, path, UUID.randomUUID().toString(), authorId, LocalDateTime.now(), isStory);
         contentManager.addContent(newContent);
         JOptionPane.showMessageDialog(this, "Content added successfully");
-        System.out.println(content.toString());
+        System.out.println(content);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
