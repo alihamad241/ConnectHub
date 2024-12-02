@@ -14,70 +14,65 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
  * @author DELL
  */
 public class UpdateProfile {
     private static final String USERS_FILE = "databases/users.json";
+    private static final ProfileManager profileManager = new ProfileManager();
+    private static final UserManager userManager = new UserManager();
 
-
-    public void updateProfilePhoto( String profilePhotoPath, String userId) throws IOException {
-
-        ProfileManager profileManager = new ProfileManager();
+    public void updateProfilePhoto(String profilePhotoPath, String userId) throws IOException {
         User user = profileManager.findUserById(userId);
         if (user != null) {
             user.getUserProfile().setProfilePhotoPath(profilePhotoPath);
-            profileManager.saveUsers(profileManager.getUsers());
+            userManager.saveUserToDatabase(user);
             JOptionPane.showMessageDialog(null, "Profile photo updated successfully.");
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
 
+    public void updateCoverPhoto(String coverPhotoPath, String userId) throws IOException {
+
+        User user = profileManager.findUserById(userId);
+        if (user != null) {
+            user.getUserProfile().setCoverPhotoPath(coverPhotoPath);
+            userManager.saveUserToDatabase(user);
+            JOptionPane.showMessageDialog(null, "Cover photo updated successfully.");
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
 
-        public void updateCoverPhoto( String coverPhotoPath, String userId) throws IOException {
+    public void updateBio(String bio, String userId) throws IOException {
 
-            ProfileManager profileManager = new ProfileManager();
-            User user = profileManager.findUserById(userId);
-            if (user != null) {
-                user.getUserProfile().setCoverPhotoPath(coverPhotoPath);
-                profileManager.saveUsers(profileManager.getUsers());
-                JOptionPane.showMessageDialog(null, "Cover photo updated successfully.");
-            } else {
-                JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        User user = profileManager.findUserById(userId);
+        if (user != null) {
+            user.getUserProfile().setBio(bio);
+            userManager.saveUserToDatabase(user);
+            JOptionPane.showMessageDialog(null, "Bio updated successfully.");
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 
+    }
 
-            public void updateBio( String bio , String userId) throws IOException {
+    public void updatePassword(String password, String userId) throws IOException {
 
-                ProfileManager profileManager = new ProfileManager();
-                User user = profileManager.findUserById(userId);
-                if (user != null) {
-                    user.getUserProfile().setBio(bio);
-                    profileManager.saveUsers(profileManager.getUsers());
-                    JOptionPane.showMessageDialog(null, "Bio updated successfully.");
-                }else {
-                    JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-                public void updatePassword( String password, String userId) throws IOException {
-
-                    ProfileManager profileManager = new ProfileManager();
-                    User user = profileManager.findUserById(userId);
-                    if (user != null ) {
-                        user.setHashedPassword(PasswordHashing.hashPassword(password));
-                        profileManager.saveUsers(profileManager.getUsers());
-                        JOptionPane.showMessageDialog(null, "Password updated successfully.");
-                    }else {
-                        JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-
-
+        User user = profileManager.findUserById(userId);
+        if (user != null) {
+            user.setHashedPassword(PasswordHashing.hashPassword(password));
+            userManager.saveUserToDatabase(user);
+            JOptionPane.showMessageDialog(null, "Password updated successfully.");
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
 }

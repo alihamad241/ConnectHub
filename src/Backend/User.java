@@ -2,6 +2,7 @@
 package Backend;
 
 public class User {
+    private String Name;
     private String userId;
     private String email;
     private String username;
@@ -11,7 +12,8 @@ public class User {
     private FriendManagement friendManagement;
     private UserProfile userProfile;
 
-    public User(String userId, String email, String username, String hashedPassword, String dateOfBirth) {
+    public User(String Name, String userId, String email, String username, String hashedPassword, String dateOfBirth) {
+        this.Name = Name;
         this.userId = userId;
         this.email = email;
         this.username = username;
@@ -70,12 +72,12 @@ public class User {
         this.username = username;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public void setFriendManagement(FriendManagement friendManagement) {
         this.friendManagement = friendManagement;
+    }
+
+    public String getName() {
+        return Name;
     }
 
     public UserProfile getUserProfile() {
