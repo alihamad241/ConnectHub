@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "imagePath": "images/hello.jpg",
+        "contentId": "1",
+        "isStory": false,
+        "time": "2024-12-02T22:32:50.774410500",
+        "authorId": "1",
+        "content": "Hello World!"
+    },
+    {
+        "imagePath": "images/goodbye.jpg",
+        "contentId": "2",
+        "isStory": false,
+        "time": "2024-12-02T22:32:50.775465500",
+        "authorId": "1",
+        "content": "Goodbye World!"
+    }
+]
