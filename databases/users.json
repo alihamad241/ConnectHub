@@ -25,5 +25,17 @@
         "Name": "you",
         "username": "joe",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$iExySay200TiAWbtxYLML.YRMoPHsoCYYFIZUW4tBHhVUKazz5zXy",
+        "bio": "",
+        "dateOfBirth": "24-11-2004",
+        "coverPhotoPath": "",
+        "userId": "261fadef-002a-44a6-87c4-0f7da5f53afd",
+        "email": "ali@yahoo.com",
+        "Name": "ali",
+        "username": "ali123",
+        "status": "offline"
     }
 ]
