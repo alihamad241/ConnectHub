@@ -59,6 +59,9 @@ public class UserManager {
                     // Return the user
                     JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     User newUser = new User(user.getString("Name"), user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
+                    newUser.getUserProfile().setProfilePhotoPath(user.getString("profilePhotoPath"));
+                    newUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
+                    newUser.getUserProfile().setBio(user.getString("bio"));
                     newUser.setStatus("online");
                     return newUser;
                 } else {

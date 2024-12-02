@@ -10,8 +10,8 @@ package Backend;
  */
 public class Friend extends User {
     
-    public Friend(String userId, String email, String username, String hashedPassword, String dateOfBirth) {
-        super(userId, email, username, hashedPassword, dateOfBirth);
+    public Friend(String name, String userId, String email, String username, String hashedPassword, String dateOfBirth) {
+        super(name, userId, email, username, hashedPassword, dateOfBirth);
     }
     
 }
