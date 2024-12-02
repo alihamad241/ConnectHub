@@ -28,10 +28,6 @@ public class EditProfile extends javax.swing.JFrame {
         initComponents();
           setTitle(" Edit Profile");
     }
-    public void SetUserId (String Id)
-    {
-        UserId=Id;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
