@@ -151,6 +151,7 @@ public class EditProfile extends javax.swing.JFrame {
         else{
             path = "";
         }
+
     }//GEN-LAST:event_CoverPhotoActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
