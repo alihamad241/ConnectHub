@@ -143,9 +143,9 @@ public class Login extends javax.swing.JFrame {
         // Check if the user exists
         UserManager userManager = new UserManager();
         User user = userManager.login(username, password);
-
+        
         // Open the main menu
-
+        new Newsfeed(user).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
