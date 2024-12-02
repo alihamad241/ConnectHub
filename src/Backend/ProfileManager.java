@@ -22,7 +22,7 @@ public class ProfileManager {
     public  UserProfile findUserById(String userId) throws IOException {
         JSONArray users = getUsers();
         for (Object user : users) {
-            if (((UserProfile)user).getUserID().equals(userId)) {
+            if (((User)user).getUserID().equals(userId)) {
                 return (UserProfile) user;
             }
         }
