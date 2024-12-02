@@ -1,29 +1,26 @@
 [
     {
-        "hashedPassword": "$2a$10$NI24NiYIxE1RxKhuq1vio.1v2UsuCD/Lo47JlJFr1cIPJTfWA0COm",
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$iExySay200TiAWbtxYLML.YRMoPHsoCYYFIZUW4tBHhVUKazz5zXy",
+        "bio": "",
         "dateOfBirth": "24-11-2004",
-        "userId": "187db7bc-daa3-486c-98d2-db2e0756c57a",
-        "email": "ah41079@gmail.com",
-        "Name": "Ali Hamad",
-        "username": "Alihamad2411",
+        "coverPhotoPath": "",
+        "userId": "261fadef-002a-44a6-87c4-0f7da5f53afd",
+        "email": "ali@yahoo.com",
+        "Name": "ali",
+        "username": "ali123",
         "status": "offline"
     },
     {
-        "hashedPassword": "$2a$10$oN60VTI39lPTt0nDhljUoOvMfDSRZc9vvwP0NLqcWuZnPBZ7OvBge",
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$v2Jpx3Zcb/Ne723bKbad2e0dtws84DevdXUSM/m6zb3b6OrMEwFia",
+        "bio": "",
         "dateOfBirth": "14-6-2003",
-        "userId": "216dd1bc-50dd-4436-9402-beaa9acc6ffe",
-        "email": "hanineyasser214@gmail.com",
-        "Name": "Hanine Yasser",
-        "username": "nino123",
-        "status": "offline"
-    },
-    {
-        "hashedPassword": "$2a$10$DqigOoAfvsoFVqyVQSw8.eEfdC0tlTen9Ip4ritvZjCyG7wPlyjEO",
-        "dateOfBirth": "12-12-2024",
-        "userId": "96af9b91-6801-4cc7-b74a-83b39722446c",
-        "email": "daejh@faei",
-        "Name": "you",
-        "username": "joe",
+        "coverPhotoPath": "",
+        "userId": "6f9f36f9-d41d-4a7c-aa4a-8e81fd22b910",
+        "email": "hanine214@gmail.com",
+        "Name": "Hanine",
+        "username": "hanine1231",
         "status": "offline"
     }
 ]
