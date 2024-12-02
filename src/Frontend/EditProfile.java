@@ -18,15 +18,16 @@ import javax.swing.JOptionPane;
  */
 public class EditProfile extends javax.swing.JFrame {
  private String path = null;
- String UserId;
+String UserId;
  
 
     /**
      * Creates new form EditProfile
      */
-    public EditProfile() {
+    public EditProfile(String UserId) {
         initComponents();
           setTitle(" Edit Profile");
+          this.UserId=UserId;
     }
 
     /**
@@ -223,7 +224,8 @@ public class EditProfile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditProfile().setVisible(true);
+                String UserId=new String();
+                new EditProfile(UserId).setVisible(true);
             }
         });
     }

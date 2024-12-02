@@ -39,9 +39,12 @@ public class UserService {
 
     }
 
-    public ArrayList<Friend> getUserFriends(int userId) {
+    public ArrayList<User> getUserFriends(String userId) {
         // Fetch user's friends and their online/offline status
-          return null;
+        ProfileManager profileManager = new ProfileManager();
+        User user = profileManager.findUserById(userId);
+        FriendManagement friendManagement =new FriendManagement(user);
+        return friendManagement.getFriends();;
 
     }
 }
