@@ -36,6 +36,9 @@ public class UserManager {
         newUserObject.put("hashedPassword", hashedPassword);
         newUserObject.put("dateOfBirth", dateOfBirth);
         newUserObject.put("status", "offline");
+        newUserObject.put("profilePhotoPath", newUser.getUserProfile().getProfilePhotoPath());
+        newUserObject.put("coverPhotoPath", newUser.getUserProfile().getCoverPhotoPath());
+        newUserObject.put("bio", newUser.getUserProfile().getBio());
 
         users.put(newUserObject);
 

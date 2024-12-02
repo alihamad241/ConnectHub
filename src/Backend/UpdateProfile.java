@@ -24,9 +24,9 @@ public class UpdateProfile {
     public void updateProfilePhoto( String profilePhotoPath, String userId) throws IOException {
 
         ProfileManager profileManager = new ProfileManager();
-        UserProfile user = profileManager.findUserById(userId);
+        User user = profileManager.findUserById(userId);
         if (user != null) {
-            user.setProfilePhotoPath(profilePhotoPath);
+            user.getUserProfile().setProfilePhotoPath(profilePhotoPath);
             profileManager.saveUsers(profileManager.getUsers());
             JOptionPane.showMessageDialog(null, "Profile photo updated successfully.");
         } else {
@@ -40,9 +40,9 @@ public class UpdateProfile {
         public void updateCoverPhoto( String coverPhotoPath, String userId) throws IOException {
 
             ProfileManager profileManager = new ProfileManager();
-            UserProfile user = profileManager.findUserById(userId);
+            User user = profileManager.findUserById(userId);
             if (user != null) {
-                user.setCoverPhotoPath(coverPhotoPath);
+                user.getUserProfile().setCoverPhotoPath(coverPhotoPath);
                 profileManager.saveUsers(profileManager.getUsers());
                 JOptionPane.showMessageDialog(null, "Cover photo updated successfully.");
             } else {
@@ -55,9 +55,9 @@ public class UpdateProfile {
             public void updateBio( String bio , String userId) throws IOException {
 
                 ProfileManager profileManager = new ProfileManager();
-                UserProfile user = profileManager.findUserById(userId);
+                User user = profileManager.findUserById(userId);
                 if (user != null) {
-                    user.setBio(bio);
+                    user.getUserProfile().setBio(bio);
                     profileManager.saveUsers(profileManager.getUsers());
                     JOptionPane.showMessageDialog(null, "Bio updated successfully.");
                 }else {
@@ -67,7 +67,7 @@ public class UpdateProfile {
                 public void updatePassword( String password, String userId) throws IOException {
 
                     ProfileManager profileManager = new ProfileManager();
-                    UserProfile user = profileManager.findUserById(userId);
+                    User user = profileManager.findUserById(userId);
                     if (user != null ) {
                         user.setHashedPassword(PasswordHashing.hashPassword(password));
                         profileManager.saveUsers(profileManager.getUsers());

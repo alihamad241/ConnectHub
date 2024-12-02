@@ -7,10 +7,12 @@ public class UserProfile {
     private String coverPhotoPath;
     private String bio;
 
+
     public UserProfile() {
+        this.profilePhotoPath = "";
+        this.coverPhotoPath = "";
+        this.bio = "";
     }
-
-
 
     public String getBio() {
         return bio;

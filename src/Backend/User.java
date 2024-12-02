@@ -9,6 +9,7 @@ public class User {
     private String dateOfBirth;
     private String status;
     private FriendManagement friendManagement;
+    private UserProfile userProfile;
 
     public User(String userId, String email, String username, String hashedPassword, String dateOfBirth) {
         this.userId = userId;
@@ -18,6 +19,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = "offline";
         this.friendManagement = new FriendManagement(this);
+        this.userProfile = new UserProfile();
     }
 
     public String getUserId() {
@@ -75,6 +77,11 @@ public class User {
     public void setFriendManagement(FriendManagement friendManagement) {
         this.friendManagement = friendManagement;
     }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
 
 }
 
