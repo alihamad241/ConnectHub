@@ -16,6 +16,7 @@ public class Newsfeed extends javax.swing.JFrame {
      * Creates new form newsfeed
      */
     User user;
+
     public Newsfeed(User user) {
         initComponents();
         this.user = user;
