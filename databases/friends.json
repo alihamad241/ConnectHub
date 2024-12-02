@@ -1,6 +1,61 @@
-{
-  "friends": [],
-  "receivedRequests": [],
-  "sentRequests": [],
-  "blockedUsers": []
-}
+[
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "1",
+        "friends": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "2",
+        "friends": [
+            "3",
+            "4",
+            "5"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "3",
+        "friends": [
+            "1",
+            "2",
+            "4",
+            "5"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "4",
+        "friends": [
+            "1",
+            "2",
+            "3",
+            "5"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "5",
+        "friends": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "sentRequests": []
+    }
+]
