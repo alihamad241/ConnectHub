@@ -17,7 +17,12 @@ public class DatabaseManager {
                 jsonData.append(line);
             }
         } catch (IOException e) {
+<<<<<<< HEAD
             return null;
+=======
+            e.printStackTrace();
+            return new JSONArray();
+>>>>>>> origin
         }
         return new JSONArray(jsonData.toString());
     }
