@@ -8,7 +8,12 @@ public class test {
         User user4 = new User("Ahmed", "4", "aef2@daef", "aef", "aef", "aef");
         User user5 = new User("Ahmed", "5", "ae1f@daef", "aef", "aef", "aef");
 
-        user2.removeFriend(user1);
+        UserManager manager = new UserManager();
+
+
+
+        User user6 = manager.login("uehd","aef");
+        User user7 = manager.login("uehd1","aef");
 
 
 
