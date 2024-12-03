@@ -30,30 +30,21 @@ public class FriendManagement {
         suggestedFriends = new ArrayList<>();
         blockedUsers = new ArrayList<>();
         loadFriends();
-//        fillSuggestedFriends(user);
+        this.fillSuggestedFriends();
     }
 
 
     public User findUser(String userId) {
-        JSONArray users = DatabaseManager.readJSONFile(USERS_FILE_PATH);
-        if (users == null || users.isEmpty()) {
-            throw new IllegalStateException("Users file is empty or could not be read.");
-        }
-
-        for (Object obj : users) {
-            // Cast each element to JSONObject
-            JSONObject jsonUser = (JSONObject) obj;
-
-            // Check if the userId matches
-            if (jsonUser.getString("userId").equals(userId)) {
-                return new User(jsonUser); // Return the matching JSONObject
-            }
-        }
-        return null; // Return null if no user is found
+      for(User user : UserManager.allUsers){
+          if(user.getUserId().equals(userId)){
+              return user;
+          }
+      }
+        return null;
     }
 
     public boolean checkDupe(User user){
-        return this.user.getUserId().equals(user.getUserId());
+        return !this.user.getUserId().equals(user.getUserId());
     }
 
 
@@ -75,7 +66,7 @@ public class FriendManagement {
     }
 
     public void sendFriendRequest(User user){
-       if(!checkDupe(user)){
+       if(checkDupe(user)){
         sentRequests.add(user);
         user.getFriendManagement().receivedRequests.add(this.user);
         saveFriends();
@@ -95,7 +86,7 @@ public class FriendManagement {
     }
 
     public void acceptFriendRequest(User user){
-        if(!checkDupe(user)){
+        if(checkDupe(user)){
         receivedRequests.remove(user);
         friends.add(user);
         user.getFriendManagement().sentRequests.remove(this.user);
@@ -161,16 +152,16 @@ public class FriendManagement {
         return suggestedFriends;
     }
 
-    public void fillSuggestedFriends(User user){
-        suggestedFriends.clear();
-        for(User friend : friends){
-            for(User suggestedFriend : friend.getFriendManagement().getFriends()){
-                if(!suggestedFriends.contains(suggestedFriend) && !suggestedFriend.equals(user) && !friends.contains(suggestedFriend) && !sentRequests.contains(suggestedFriend) && !receivedRequests.contains(suggestedFriend) && !blockedUsers.contains(suggestedFriend)){
-                    suggestedFriends.add(suggestedFriend);
-                }
+   public void fillSuggestedFriends(){
+    suggestedFriends.clear();
+    for(User friend : friends){
+        for(User suggestedFriend : friend.getFriendManagement().getFriends()){
+            if(!suggestedFriends.contains(suggestedFriend) && !suggestedFriend.equals(user) && !friends.contains(suggestedFriend) && !sentRequests.contains(suggestedFriend) && !receivedRequests.contains(suggestedFriend) && !blockedUsers.contains(suggestedFriend)){
+                suggestedFriends.add(suggestedFriend);
             }
         }
     }
+}
 
     public void loadFriends(){
             File file = new File(FRIENDS_FILE_PATH);
@@ -179,6 +170,7 @@ public class FriendManagement {
 
                 for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
                     JSONObject existingUser = userFriends.getJSONObject(i);
+                    System.out.println(existingUser.getString("userId").equals(user.getUserId()));
                     if (existingUser.getString("userId").equals(user.getUserId())) {
                         JSONArray friendsArray = existingUser.getJSONArray("friends");
                         JSONArray receivedArray = existingUser.getJSONArray("receivedRequests");
@@ -186,19 +178,26 @@ public class FriendManagement {
                         JSONArray blockedArray = existingUser.getJSONArray("blockedUsers");
 
                         for (int j = 0; j < friendsArray.length(); j++) {
-                            friends.add(findUser(friendsArray.getString(j)));
+                            if(findUser(friendsArray.getString(j)) != null)
+                            {
+                                friends.add(findUser(friendsArray.getString(j)));
+                            }
                         }
 
                         for (int j = 0; j < receivedArray.length(); j++) {
-                            receivedRequests.add(findUser(receivedArray.getString(j)));
+                            if(findUser(receivedArray.getString(j)) != null)
+                             receivedRequests.add(findUser(receivedArray.getString(j)));
                         }
 
                         for (int j = 0; j < sentArray.length(); j++) {
-                            sentRequests.add(findUser(sentArray.getString(j)));
+                            if(findUser(sentArray.getString(j)) != null)
+                             sentRequests.add(findUser(sentArray.getString(j)));
                         }
 
                         for (int j = 0; j < blockedArray.length(); j++) {
-                            blockedUsers.add(findUser(blockedArray.getString(j)));
+                            if(findUser(blockedArray.getString(j)) != null) {
+                                blockedUsers.add(findUser(blockedArray.getString(j)));
+                            }
                         }
                         break; // Exit loop after finding the matching entry
                     }

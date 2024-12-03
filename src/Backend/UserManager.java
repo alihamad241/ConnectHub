@@ -1,5 +1,6 @@
 package Backend;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.json.JSONArray;
@@ -10,7 +11,17 @@ import javax.swing.*;
 public class UserManager {
     private static final String USERS_FILE = "databases/users.json";
     public static JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+    public static ArrayList<User> allUsers = new ArrayList<>();
 
+
+    public UserManager() {
+        loadAllUsers();
+    }
+
+
+    public ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
 
     public boolean signup(String name, String email, String username, String password, String dateOfBirth) {
         // Hash the password
@@ -57,30 +68,15 @@ public class UserManager {
     }
 
     public User login(String username, String password) {
-        // Check if the user exists
-        assert users != null : "Users file is empty";
-        for (Object obj : users) {
-            JSONObject user = (JSONObject) obj;
-            if (user.getString("username").equals(username)) {
-                // Check if the password is correct
-                if (PasswordHashing.checkPassword(password, user.getString("hashedPassword"))) {
-                    // Return the user
-                    JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    User newUser = new User(user.getString("Name"), user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
-                    newUser.getUserProfile().setProfilePhotoPath(user.getString("profilePhotoPath"));
-                    newUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
-                    newUser.getUserProfile().setBio(user.getString("bio"));
-                    newUser.setStatus("online");
-                    saveUserToDatabase(newUser);
-                    return newUser;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
-                    return null;
-                }
+        // Hash the password
+        String hashedPassword = PasswordHashing.hashPassword(password);
+
+        for(User user : allUsers){
+            if(user.getUsername().equals(username) && user.getHashedPassword().equals(hashedPassword)){
+                user.setStatus("online");
+                return user;
             }
         }
-
-
         JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
         return null;
     }
@@ -108,6 +104,20 @@ public class UserManager {
         }
         DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
+
+    public void loadAllUsers() {
+        for (Object obj : users) {
+            JSONObject user = (JSONObject) obj;
+            User newUser = new User(user.getString("Name"), user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
+            newUser.getUserProfile().setProfilePhotoPath(user.getString("profilePhotoPath"));
+            newUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
+            newUser.getUserProfile().setBio(user.getString("bio"));
+            newUser.setStatus(user.getString("status"));
+            allUsers.add(newUser);
+        }
+    }
+
+
 
 
 }
