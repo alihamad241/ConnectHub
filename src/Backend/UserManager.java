@@ -68,18 +68,18 @@ public class UserManager {
     }
 
     public User login(String username, String password) {
-        // Hash the password
-        String hashedPassword = PasswordHashing.hashPassword(password);
-
-        for(User user : allUsers){
-            if(user.getUsername().equals(username) && user.getHashedPassword().equals(hashedPassword)){
-                user.setStatus("online");
-                return user;
-            }
+    // Has
+    for (User user : allUsers) {
+        if (user.getUsername().equals(username) && PasswordHashing.checkPassword(password, user.getHashedPassword())) {
+            user.setStatus("online");
+            saveUserToDatabase(user);// Save the updated status to the database
+            JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            return user;
         }
-        JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
-        return null;
     }
+    JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
+    return null;
+}
 
 
     public void logout(User user) {

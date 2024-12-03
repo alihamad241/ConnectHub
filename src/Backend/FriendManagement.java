@@ -152,12 +152,14 @@ public class FriendManagement {
         return suggestedFriends;
     }
 
-   public void fillSuggestedFriends(){
+  public void fillSuggestedFriends(){
     suggestedFriends.clear();
     for(User friend : friends){
-        for(User suggestedFriend : friend.getFriendManagement().getFriends()){
-            if(!suggestedFriends.contains(suggestedFriend) && !suggestedFriend.equals(user) && !friends.contains(suggestedFriend) && !sentRequests.contains(suggestedFriend) && !receivedRequests.contains(suggestedFriend) && !blockedUsers.contains(suggestedFriend)){
-                suggestedFriends.add(suggestedFriend);
+        if (friend != null && friend.getFriendManagement() != null) {
+            for(User suggestedFriend : friend.getFriendManagement().getFriends()){
+                if(!suggestedFriends.contains(suggestedFriend) && !suggestedFriend.equals(user) && !friends.contains(suggestedFriend) && !sentRequests.contains(suggestedFriend) && !receivedRequests.contains(suggestedFriend) && !blockedUsers.contains(suggestedFriend)){
+                    suggestedFriends.add(suggestedFriend);
+                }
             }
         }
     }
@@ -170,7 +172,6 @@ public class FriendManagement {
 
                 for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
                     JSONObject existingUser = userFriends.getJSONObject(i);
-                    System.out.println(existingUser.getString("userId").equals(user.getUserId()));
                     if (existingUser.getString("userId").equals(user.getUserId())) {
                         JSONArray friendsArray = existingUser.getJSONArray("friends");
                         JSONArray receivedArray = existingUser.getJSONArray("receivedRequests");
