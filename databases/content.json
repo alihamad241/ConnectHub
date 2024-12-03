@@ -14,5 +14,12 @@
         "time": "2024-12-02T22:32:50.775465500",
         "authorId": "1",
         "content": "Goodbye World!"
+    },
+    {
+        "contentId": "01b6ebe7-40b1-4e1a-829d-96bac55bb652",
+        "isStory": true,
+        "time": "2024-12-03T23:15:57.850424200",
+        "authorId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+        "content": "hiiiii"
     }
 ]

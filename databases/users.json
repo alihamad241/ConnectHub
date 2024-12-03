@@ -82,5 +82,17 @@
         "Name": "Ahmed",
         "username": "uehd4",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$CfmFnh2bw9.j3sirtwhQUulUxPzHoiN2PGe/P4sCVYXB47qzrXkU.",
+        "bio": "",
+        "dateOfBirth": "24-11-2004",
+        "coverPhotoPath": "",
+        "userId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+        "email": "ah41079@gmail.com",
+        "Name": "Ali Hamad",
+        "username": "fahdbinhamad",
+        "status": "online"
     }
 ]

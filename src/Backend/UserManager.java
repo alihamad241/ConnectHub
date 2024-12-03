@@ -25,6 +25,14 @@ public class UserManager {
                 return false;
             }
         }
+        //check if username already exists
+        for (Object obj : users) {
+            JSONObject user = (JSONObject) obj;
+            if (user.getString("username").equals(username)) {
+                JOptionPane.showMessageDialog(null, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
         String userId = UUID.randomUUID().toString();
         // Create a new user
         User newUser = new User(name, userId, email, username, hashedPassword, dateOfBirth);
@@ -63,6 +71,7 @@ public class UserManager {
                     newUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
                     newUser.getUserProfile().setBio(user.getString("bio"));
                     newUser.setStatus("online");
+                    saveUserToDatabase(newUser);
                     return newUser;
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
