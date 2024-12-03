@@ -1,20 +1,24 @@
 
 package Backend;
 
+import org.json.JSONObject;
+
+import java.util.UUID;
+
 public class User {
-    private String Name;
-    private String userId;
+    private String name;
+    private final String userId;
     private String email;
     private String username;
     private String hashedPassword;
     private String dateOfBirth;
     private String status;
-    private FriendManagement friendManagement;
-    private UserProfile userProfile;
+    private final FriendManagement friendManagement;
+    private final UserProfile userProfile;
 
     public User(String Name, String userId, String email, String username, String hashedPassword, String dateOfBirth) {
-        this.Name = Name;
-        this.userId = userId;
+        this.name = Name;
+        this.userId= userId;
         this.email = email;
         this.username = username;
         this.hashedPassword = hashedPassword;
@@ -23,6 +27,19 @@ public class User {
         this.friendManagement = new FriendManagement(this);
         this.userProfile = new UserProfile();
     }
+
+    public User(JSONObject jsonUser) {
+        this.name = jsonUser.getString("Name");
+        this.userId = jsonUser.getString("userId");
+        this.email = jsonUser.getString("email");
+        this.username = jsonUser.getString("username");
+        this.hashedPassword = jsonUser.getString("hashedPassword");
+        this.dateOfBirth = jsonUser.getString("dateOfBirth");
+        this.status = jsonUser.getString("status");
+        this.friendManagement = null;
+        this.userProfile = new UserProfile();
+    }
+
 
     public String getUserId() {
         return userId;
@@ -72,17 +89,53 @@ public class User {
         this.username = username;
     }
 
-    public void setFriendManagement(FriendManagement friendManagement) {
-        this.friendManagement = friendManagement;
+    public String getName() {
+        return name;
     }
 
-    public String getName() {
-        return Name;
+    public void setName(String name){
+        this.name = name;
     }
 
     public UserProfile getUserProfile() {
         return userProfile;
     }
+
+    public void addFriend(User user){
+        friendManagement.addFriend(user);
+    }
+
+    public void removeFriend(User user){
+        friendManagement.removeFriend(user);
+    }
+
+    public void acceptFriendRequest(User user){
+        friendManagement.acceptFriendRequest(user);
+    }
+
+    public void declineFriendRequest(User user){
+        friendManagement.declineFriendRequest(user);
+    }
+
+    public void blockUser(User user){
+        friendManagement.blockUser(user);
+    }
+
+    public void unblockUser(User user){
+        friendManagement.unblockUser(user);
+    }
+
+    public void sendFriendRequest(User user){
+        friendManagement.sendFriendRequest(user);
+    }
+
+    public void cancelFriendRequest(User user){
+        friendManagement.cancelFriendRequest(user);
+    }
+
+
+
+
 
 
 }

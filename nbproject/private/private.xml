@@ -3,9 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Backend/ProfileManager.java</file>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Posts.java</file>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Login.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/Validation.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Frontend/StartMenu.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/UserService.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/ContentManager.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/FriendManagement.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/UpdateProfile.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/PasswordHashing.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/User.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Frontend/EditProfile.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Frontend/Login.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/Content.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/ProfileManager.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Frontend/Posts.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/Friend.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/DatabaseManager.java</file>
+            <file>file:/C:/Users/youss/OneDrive/Documents/GitHub/lab-9/src/Backend/UserProfile.java</file>
         </group>
     </open-files>
 </project-private>

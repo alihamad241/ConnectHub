@@ -1,6 +1,16 @@
-{
-  "friends": [],
-  "receivedRequests": [],
-  "sentRequests": [],
-  "blockedUsers": []
-}
+[
+    {
+        "receivedRequests": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
+        "blockedUsers": [],
+        "userId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "friends": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "friends": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
+        "sentRequests": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"]
+    }
+]

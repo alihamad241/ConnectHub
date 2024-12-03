@@ -4,12 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class FriendManagement {
@@ -22,8 +20,7 @@ public class FriendManagement {
 
     private static final String FRIENDS_FILE_PATH = "databases/friends.json";
     private static final String USERS_FILE_PATH = "databases/users.json";
-
-
+    private static JSONArray userFriends = DatabaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
     public FriendManagement(User user){
         this.user = user;
@@ -33,81 +30,119 @@ public class FriendManagement {
         suggestedFriends = new ArrayList<>();
         blockedUsers = new ArrayList<>();
         loadFriends();
-        fillSuggestedFriends(user);
+//        fillSuggestedFriends(user);
     }
 
 
-    public User findUser(String userId){
+    public User findUser(String userId) {
         JSONArray users = DatabaseManager.readJSONFile(USERS_FILE_PATH);
-        assert users != null: "Users file is empty";
-        for(Object obj : users){
-            if(user.getUserId().equals(userId)){
-                return user;
+        if (users == null || users.isEmpty()) {
+            throw new IllegalStateException("Users file is empty or could not be read.");
+        }
+
+        for (Object obj : users) {
+            // Cast each element to JSONObject
+            JSONObject jsonUser = (JSONObject) obj;
+
+            // Check if the userId matches
+            if (jsonUser.getString("userId").equals(userId)) {
+                return new User(jsonUser); // Return the matching JSONObject
             }
         }
-        return null;
+        return null; // Return null if no user is found
     }
 
+    public boolean checkDupe(User user){
+        return this.user.getUserId().equals(user.getUserId());
+    }
+
+
     public void addFriend(User user){
+        if(checkDupe(user)){
         friends.add(user);
+        user.getFriendManagement().friends.add(this.user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
+    }
+
     }
 
     public void removeFriend(User user){
         friends.remove(user);
+        user.getFriendManagement().friends.remove(this.user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
     }
 
     public void sendFriendRequest(User user){
+       if(!checkDupe(user)){
         sentRequests.add(user);
+        user.getFriendManagement().receivedRequests.add(this.user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
     }
+        else
+        {
+            System.out.println("error");
+        }
+ }
 
     public void cancelFriendRequest(User user){
         sentRequests.remove(user);
+        user.getFriendManagement().receivedRequests.remove(this.user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
     }
 
     public void acceptFriendRequest(User user){
+        if(!checkDupe(user)){
         receivedRequests.remove(user);
         friends.add(user);
+        user.getFriendManagement().sentRequests.remove(this.user);
+        user.getFriendManagement().friends.add(this.user);
         saveFriends();
-    }
+        user.getFriendManagement().saveFriends();
+    }}
 
     public void declineFriendRequest(User user){
         receivedRequests.remove(user);
+        user.getFriendManagement().sentRequests.remove(this.user);
         saveFriends();
-    }
-
-    public ArrayList<User> getBlockedUsers() {
-        return new ArrayList<>(blockedUsers);
-    }
-
-    public ArrayList<User> getFriends() {
-        return new ArrayList<>(friends);
-    }
-
-    public ArrayList<User> getReceivedRequests() {
-        return new ArrayList<>(receivedRequests);
-    }
-
-    public ArrayList<User> getSentRequests() {
-        return new ArrayList<>(sentRequests);
-    }
-
-    public ArrayList<User> getSuggestedFriends() {
-        return new ArrayList<>(suggestedFriends);
+        user.getFriendManagement().saveFriends();
     }
 
     public void blockUser(User user){
         blockedUsers.add(user);
         friends.remove(user);
+        user.getFriendManagement().friends.remove(this.user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
     }
 
     public void unblockUser(User user){
         blockedUsers.remove(user);
         saveFriends();
+        user.getFriendManagement().saveFriends();
+    }
+
+    public ArrayList<User> getBlockedUsers() {
+        return blockedUsers;
+    }
+
+    public ArrayList<User> getFriends() {
+        return friends;
+    }
+
+    public ArrayList<User> getReceivedRequests() {
+        return receivedRequests;
+    }
+
+    public ArrayList<User> getSentRequests() {
+        return sentRequests;
+    }
+
+    public ArrayList<User> getSuggestedFriends() {
+        return suggestedFriends;
     }
 
     public Map<String,String> getFriendsStatus(){
@@ -123,7 +158,7 @@ public class FriendManagement {
     }
 
     public ArrayList<User> getSuggestedFriends(User user){
-        return new ArrayList<>(suggestedFriends);
+        return suggestedFriends;
     }
 
     public void fillSuggestedFriends(User user){
@@ -140,43 +175,51 @@ public class FriendManagement {
     public void loadFriends(){
             File file = new File(FRIENDS_FILE_PATH);
             if (file.exists()) {
-                try {
-                    String content = new String(Files.readAllBytes(file.toPath()));
-                    JSONObject json = new JSONObject(content);
+                userFriends = DatabaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
-                    // Populate friends list
-                    JSONArray friendsArray = json.getJSONArray("friends");
-                    for (int i = 0; i < friendsArray.length(); i++) {
-                        friends.add(findUser((String) friendsArray.get(i)));
+                for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
+                    JSONObject existingUser = userFriends.getJSONObject(i);
+                    if (existingUser.getString("userId").equals(user.getUserId())) {
+                        JSONArray friendsArray = existingUser.getJSONArray("friends");
+                        JSONArray receivedArray = existingUser.getJSONArray("receivedRequests");
+                        JSONArray sentArray = existingUser.getJSONArray("sentRequests");
+                        JSONArray blockedArray = existingUser.getJSONArray("blockedUsers");
+
+                        for (int j = 0; j < friendsArray.length(); j++) {
+                            friends.add(findUser(friendsArray.getString(j)));
+                        }
+
+                        for (int j = 0; j < receivedArray.length(); j++) {
+                            receivedRequests.add(findUser(receivedArray.getString(j)));
+                        }
+
+                        for (int j = 0; j < sentArray.length(); j++) {
+                            sentRequests.add(findUser(sentArray.getString(j)));
+                        }
+
+                        for (int j = 0; j < blockedArray.length(); j++) {
+                            blockedUsers.add(findUser(blockedArray.getString(j)));
+                        }
+                        break; // Exit loop after finding the matching entry
                     }
-
-                    // Populate received requests
-                    JSONArray receivedArray = json.getJSONArray("receivedRequests");
-                    for (int i = 0; i < receivedArray.length(); i++) {
-                        receivedRequests.add(findUser((String) receivedArray.get(i)));
-                    }
-
-                    // Populate sent requests
-                    JSONArray sentArray = json.getJSONArray("sentRequests");
-                    for (int i = 0; i < sentArray.length(); i++) {
-                        sentRequests.add(findUser((String) sentArray.get(i)));
-                    }
-
-                    // Populate blocked users
-                    JSONArray blockedArray = json.getJSONArray("blockedUsers");
-                    for (int i = 0; i < blockedArray.length(); i++) {
-                        blockedUsers.add(findUser((String) blockedArray.get(i)));
-                    }
-
-                } catch (IOException e) {
-                    System.err.println("Error reading friends data file: " + e.getMessage());
                 }
+
             }
     }
 
     public void saveFriends() {
         JSONObject json = new JSONObject();
 
+
+        for (int i = 0; i < userFriends.length(); i++) {
+            JSONObject existingUser = userFriends.getJSONObject(i);
+            if (existingUser.getString("userId").equals(user.getUserId())) {
+                userFriends.remove(i);
+                break; // Exit loop after removing the matching entry
+            }
+        }
+
+        json.put("userId",user.getUserId());
         // Convert lists to JSON arrays
         JSONArray friendsArray = new JSONArray();
         for (User user : friends) {
@@ -204,13 +247,12 @@ public class FriendManagement {
         json.put("sentRequests", sentArray);
         json.put("blockedUsers", blockedArray);
 
+        userFriends.put(json);
+
         // Write to file
-        try (FileWriter writer = new FileWriter(FRIENDS_FILE_PATH)) {
-            writer.write(json.toString(4)); // Pretty-print JSON
-        } catch (IOException e) {
-            System.err.println("Error saving friends data file: " + e.getMessage());
-        }
-    }
+        DatabaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
+
+}
 
 }
 

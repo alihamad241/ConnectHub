@@ -4,14 +4,8 @@
  */
 package Backend;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
-
 import javax.swing.*;
 import java.io.IOException;
-
-import java.util.List;
 
 /**
  * @author DELL

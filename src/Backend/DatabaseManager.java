@@ -28,7 +28,6 @@ public class DatabaseManager {
             file.write(jsonArray.toString(4)); // Indent with 4 spaces for readability
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }

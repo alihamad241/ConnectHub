@@ -3,7 +3,6 @@ package Backend;
 import org.json.JSONArray;
 
 import java.io.IOException;
-import java.util.List;
 
 
 
@@ -19,7 +18,7 @@ public class ProfileManager {
         DatabaseManager.writeJSONFile(USERS_FILE, users);
     }
 
-    public  User findUserById(String userId) throws IOException {
+    public User findUserById(String userId) throws IOException {
         JSONArray users = getUsers();
         for (Object user : users) {
             if (((User)user).getUserId().equals(userId)) {
