@@ -4,7 +4,14 @@
  */
 package Frontend;
 
+import Backend.Content;
+import Backend.ContentManager;
 import Backend.User;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -16,6 +23,7 @@ public class Newsfeed extends javax.swing.JFrame {
      * Creates new form newsfeed
      */
     User user;
+
 
     public Newsfeed(User user) {
         initComponents();

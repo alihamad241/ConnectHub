@@ -1,25 +1,8 @@
-[
-    {
-        "imagePath": "images/hello.jpg",
-        "contentId": "1",
-        "isStory": false,
-        "time": "2024-12-02T22:32:50.774410500",
-        "authorId": "1",
-        "content": "Hello World!"
-    },
-    {
-        "imagePath": "images/goodbye.jpg",
-        "contentId": "2",
-        "isStory": false,
-        "time": "2024-12-02T22:32:50.775465500",
-        "authorId": "1",
-        "content": "Goodbye World!"
-    },
-    {
-        "contentId": "01b6ebe7-40b1-4e1a-829d-96bac55bb652",
-        "isStory": true,
-        "time": "2024-12-03T23:15:57.850424200",
-        "authorId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "content": "hiiiii"
-    }
-]
+[{
+    "imagePath": "C:\\Users\\mrali\\OneDrive\\Pictures\\iris.jpg",
+    "contentId": "7ade63a1-c232-44aa-8128-35a8825966ff",
+    "isStory": false,
+    "time": "2024-12-04T13:43:12.875824700",
+    "authorId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+    "content": "idkkkkk"
+}]
