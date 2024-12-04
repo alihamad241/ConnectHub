@@ -22,5 +22,21 @@
         "time": "2024-12-04T12:05:52.900907700",
         "authorId": "3",
         "content": "Hello"
+    },
+    {
+        "imagePath": "C:\\Users\\DELL\\Desktop\\images\\image1.jpg",
+        "contentId": "3",
+        "isStory": true,
+        "time": "2024-12-04T12:05:52.894903800",
+        "authorId": "1",
+        "content": "Hello"
+    },
+    {
+        "imagePath": "",
+        "contentId": "9",
+        "isStory": false,
+        "time": "2023-12-04T12:05:52.894903800",
+        "authorId": "1",
+        "content": "BYEEE"
     }
 ]

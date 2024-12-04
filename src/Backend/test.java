@@ -27,14 +27,15 @@ public class test {
         }
 
 
-        Content content1=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image1.jpg", "1", "1", LocalDateTime.now(), false);
-        Content content2=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image2.jpg", "2", "2", LocalDateTime.now().minusDays(2), true);
-        Content content3=new Content("Hello", "", "3", "3", LocalDateTime.now(), true);
-        ContentManager manager1=new ContentManager();
-        manager1.addContent(content1);
-        manager1.addContent(content2);
-        manager1.addContent(content3);
+//        Content content1=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image1.jpg", "1", "1", LocalDateTime.now(), false);
+//        Content content2=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image2.jpg", "2", "2", LocalDateTime.now().minusDays(2), true);
+//        Content content3=new Content("Hello", "", "3", "3", LocalDateTime.now(), true);
+//        ContentManager manager1=new ContentManager();
+//        manager1.addContent(content1);
+//        manager1.addContent(content2);
+//        manager1.addContent(content3);
         ArrayList<Content>posts=ContentManager.readContent();
+        System.out.println("All posts");
         for (Content post : posts) {
             System.out.println(post.getContent());
             System.out.println(post.getTime());
@@ -44,8 +45,16 @@ public class test {
             System.out.println(post.getIsStory());
 
         }
-
-
+        System.out.println("User posts");
+        ArrayList<Content> userPosts = ContentManager.UserContent("1");
+        for (Content post : userPosts) {
+            System.out.println(post.getContent());
+            System.out.println(post.getTime());
+            System.out.println(post.getAuthorId());
+            System.out.println(post.getContentId());
+            System.out.println(post.getImagePath());
+            System.out.println(post.getIsStory());
+        }
 
 
 
