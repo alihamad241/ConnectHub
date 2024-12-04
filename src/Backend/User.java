@@ -3,11 +3,10 @@ package Backend;
 
 import org.json.JSONObject;
 
-import java.util.UUID;
 
 public class User {
     private String name;
-    private final String userId;
+    private String userId;
     private String email;
     private String username;
     private String hashedPassword;
@@ -26,6 +25,10 @@ public class User {
         this.status = "offline";
         this.friendManagement = new FriendManagement(this);
         this.userProfile = new UserProfile();
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 //    public User(JSONObject jsonUser) {
