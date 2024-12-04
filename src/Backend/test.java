@@ -9,31 +9,31 @@ public class test {
     public static void main(String[] args) {
 
 
-//        UserManager manager = new UserManager();
-//
-//
-//
-//        User user6 = manager.login("uehd","aef");
-//        User user7 = manager.login("uehd1","aef");
-//        User user8 = manager.login("ue2hd","aef");
-//        User user9 = manager.login("uehd3","aef");
-//        User user10 = manager.login("uehd4","aef");
-//
-//
-//
-//        ArrayList<User> suggested = user8.getFriendManagement().getSuggestedFriends();
-//        for (User user : suggested) {
-//            System.out.println(user.getName());
-//        }
+        UserManager manager = new UserManager();
+
+
+
+        User user6 = manager.login("uehd","aef");
+        User user7 = manager.login("uehd1","aef");
+        User user8 = manager.login("ue2hd","aef");
+        User user9 = manager.login("uehd3","aef");
+        User user10 = manager.login("uehd4","aef");
+
+
+
+        ArrayList<User> suggested = user8.getFriendManagement().getSuggestedFriends();
+        for (User user : suggested) {
+            System.out.println(user.getName());
+        }
 
 
         Content content1=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image1.jpg", "1", "1", LocalDateTime.now(), false);
         Content content2=new Content("Hello", "C:\\Users\\DELL\\Desktop\\images\\image2.jpg", "2", "2", LocalDateTime.now().minusDays(2), true);
         Content content3=new Content("Hello", "", "3", "3", LocalDateTime.now(), true);
-        ContentManager manager=new ContentManager();
-        manager.addContent(content1);
-        manager.addContent(content2);
-        manager.addContent(content3);
+        ContentManager manager1=new ContentManager();
+        manager1.addContent(content1);
+        manager1.addContent(content2);
+        manager1.addContent(content3);
         ArrayList<Content>posts=ContentManager.readContent();
         for (Content post : posts) {
             System.out.println(post.getContent());
