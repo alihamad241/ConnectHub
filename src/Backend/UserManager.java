@@ -52,6 +52,7 @@ public class UserManager {
         String userId = UUID.randomUUID().toString();
         // Create a new user
         User newUser = new User(name, userId, email, username, hashedPassword, dateOfBirth);
+        allUsers.add(newUser);
 
         // Save the user to the file
 
