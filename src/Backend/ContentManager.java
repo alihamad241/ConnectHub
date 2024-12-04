@@ -7,7 +7,10 @@ package Backend;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,6 +23,7 @@ public class ContentManager {
 
     private ArrayList<Content> contents;
     private static final String CONTENTS_FILE = "databases/content.json";
+    public static JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
 
     public ContentManager() {
         contents = new ArrayList<>();
@@ -32,7 +36,6 @@ public class ContentManager {
 
     public void removeContent(Content content) {
         contents.remove(content);
-        JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
         for(int i = 0; i < contentsArray.length(); i++){
             JSONObject contents = contentsArray.getJSONObject(i);
             if(contents.getString("contentId").equals(content.getContentId())){
@@ -58,7 +61,11 @@ public class ContentManager {
         JSONObject newContentObject = new JSONObject();
         JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
             newContentObject.put("content", content.getContent());
-            newContentObject.put("imagePath", content.getImagePath());
+            if(content.getImagePath() == null){
+                newContentObject.put("imagePath", "null");
+            }
+            else{
+            newContentObject.put("imagePath", content.getImagePath());}
             newContentObject.put("contentId", content.getContentId());
             newContentObject.put("authorId", content.getAuthorId());
             newContentObject.put("time", content.getTime());
@@ -70,7 +77,27 @@ public class ContentManager {
 
     }
 
+    public static ArrayList<Content> readContent(){
+        ArrayList<Content> allContents = new ArrayList<>();
+        try{
+            String json=new String(Files.readAllBytes(Paths.get(CONTENTS_FILE)));
+            JSONArray contentsArray = new JSONArray(json);
+            DateTimeFormatter formatter=DateTimeFormatter.ISO_DATE;
+            for(int i=0;i<contentsArray.length();i++){
+                JSONObject content=contentsArray.getJSONObject(i);
+                String contentId=content.getString("contentId");
+                String authorId=content.getString("authorId");
+                String contentText=content.getString("content");
+                String imagePath=content.getString("imagePath");
+                LocalDateTime time=LocalDateTime.parse(content.getString("time"));
+                boolean isStory=content.getBoolean("isStory");
+                Content newContent=new Content(contentText,imagePath,contentId,authorId,time,isStory);
+                allContents.add(newContent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allContents;
+    }
 
-
-    
 }
