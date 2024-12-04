@@ -30,7 +30,6 @@ public class FriendManagement {
         sentRequests = new ArrayList<>();
         suggestedFriends = new ArrayList<>();
         blockedUsers = new ArrayList<>();
-        this.fillSuggestedFriends();
     }
 
 
@@ -132,7 +131,7 @@ public class FriendManagement {
     public Map<String, String> getFriendsStatus() {
         Map<String, String> friendsStatus = new HashMap<>();
         for(User friend : friends){
-            friendsStatus.put(friend.getName(), friend.getStatus());
+            friendsStatus.put(friend.getUserId(), friend.getStatus());
         }
         return friendsStatus;
     }
@@ -198,6 +197,7 @@ public class FriendManagement {
                             blockedUsers.add(blockedUser);
                         }
                     }
+                    fillSuggestedFriends();
                     break; // Exit loop after finding the matching entry
                 }
             }

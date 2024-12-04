@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
+
+import static Backend.UserManager.findUser;
 
 
 /**
@@ -91,7 +94,7 @@ public class ContentManager {
                 String imagePath=content.getString("imagePath");
                 LocalDateTime time=LocalDateTime.parse(content.getString("time"));
                 boolean isStory=content.getBoolean("isStory");
-                Content newContent=new Content(contentText,imagePath,contentId,authorId,time,isStory);
+                Content newContent=new Content(contentText,imagePath,contentId,authorId,time,isStory, Objects.requireNonNull(findUser(authorId)).getUsername());
                 allContents.add(newContent);
             }
         } catch (Exception e) {
@@ -111,4 +114,42 @@ public class ContentManager {
         return userContents;
     }
 
+    public static ArrayList<Content> getUserStories(User user){
+        ArrayList<Content> stories=new ArrayList<>();
+        ArrayList<Content> allContents = UserContent(user.getUserId());
+        for(Content content:allContents){
+            if(content.getIsStory() && content.getTime().isAfter(LocalDateTime.now().minusDays(1))){
+                stories.add(content);
+            }
+        }
+        return stories;
+    }
+
+    public static ArrayList<Content> getFriendsPosts(User user) {
+        ArrayList<Content> mainfriendsPosts = new ArrayList<>();
+        ArrayList<User> friends = user.getFriendManagement().getFriends();
+
+        for (User friend : friends) {
+            ArrayList<Content> friendPosts = UserContent(friend.getUserId());
+            for(Content post: friendPosts){
+                if(!post.getIsStory()){
+                    mainfriendsPosts.add(post);
+                }
+            }
+        }
+        mainfriendsPosts.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
+        return mainfriendsPosts;
+    }
+
+    public static ArrayList<Content> getFriendsStories(User user) {
+        ArrayList<Content> mainFriendsStories = new ArrayList<>();
+        ArrayList<User> friends = user.getFriendManagement().getFriends();
+
+        for (User friend : friends) {
+            ArrayList<Content> friendStories = getUserStories(friend);
+            mainFriendsStories.addAll(friendStories);
+        }
+        mainFriendsStories.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
+        return mainFriendsStories;
+    }
 }
