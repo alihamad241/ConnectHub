@@ -4,16 +4,9 @@
  */
 package Frontend;
 
-import Backend.Content;
-import Backend.ContentManager;
 import Backend.User;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.*;
 
-import static Backend.UserManager.allUsers;
-import static Backend.UserManager.users;
+import javax.swing.*;
 
 /**
  *
@@ -224,7 +217,7 @@ public class Newsfeed extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new Posts(user).setVisible(true);
+        new CreateContent(user).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

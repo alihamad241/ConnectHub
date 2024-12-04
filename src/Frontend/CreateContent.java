@@ -19,7 +19,7 @@ import java.util.UUID;
  *
  * @author DELL
  */
-public class Posts extends javax.swing.JFrame {
+public class CreateContent extends javax.swing.JFrame {
 
     private  User user;
     private static final ContentManager contentManager = new ContentManager();
@@ -28,7 +28,7 @@ public class Posts extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public Posts(User user) {
+    public CreateContent(User user) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.user = user;
