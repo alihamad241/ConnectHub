@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class User {
     private String name;
-    private final String userId;
+    private String userId;
     private String email;
     private String username;
     private String hashedPassword;
@@ -29,6 +29,7 @@ public class User {
         this.friendManagement = new FriendManagement(this);
         this.userProfile = new UserProfile();
     }
+
 
 
 

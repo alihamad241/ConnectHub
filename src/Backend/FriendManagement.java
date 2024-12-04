@@ -21,7 +21,6 @@ public class FriendManagement {
     private final User user;
 
     private static final String FRIENDS_FILE_PATH = "databases/friends.json";
-    private static final String USERS_FILE_PATH = "databases/users.json";
     private static JSONArray userFriends = DatabaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
     public FriendManagement(User user) {
@@ -40,72 +39,75 @@ public class FriendManagement {
     }
 
 
-    public void addFriend(User user) {
-        if (checkDupe(user)) {
-            friends.add(user);
-            user.getFriendManagement().friends.add(this.user);
-            saveFriends();
-            user.getFriendManagement().saveFriends();
-        }
+    public void addFriend(User user){
+        if(checkDupe(user) && !friends.contains(user) && !sentRequests.contains(user) && !receivedRequests.contains(user) && !blockedUsers.contains(user)){
+        friends.add(user);
+        user.getFriendManagement().friends.add(this.user);
+        saveFriends();
+        user.getFriendManagement().saveFriends();
+    }
 
     }
 
-    public void removeFriend(User user) {
+    public void removeFriend(User user){
+        if(friends.contains(user)){
         friends.remove(user);
         user.getFriendManagement().friends.remove(this.user);
         saveFriends();
         user.getFriendManagement().saveFriends();
-    }
+    }}
+    
 
-    public void sendFriendRequest(User user) {
-        if (checkDupe(user)) {
-            sentRequests.add(user);
-            user.getFriendManagement().receivedRequests.add(this.user);
-            saveFriends();
-            user.getFriendManagement().saveFriends();
-        } else {
-            System.out.println("error");
-        }
+    public void sendFriendRequest(User user){
+       if(checkDupe(user) && !friends.contains(user) && !sentRequests.contains(user) && !receivedRequests.contains(user) && !blockedUsers.contains(user)){
+        sentRequests.add(user);
+        user.getFriendManagement().receivedRequests.add(this.user);
+        saveFriends();
+        user.getFriendManagement().saveFriends();
     }
+ }
 
-    public void cancelFriendRequest(User user) {
+    public void cancelFriendRequest(User user){
+        if (sentRequests.contains(user)){
         sentRequests.remove(user);
         user.getFriendManagement().receivedRequests.remove(this.user);
         saveFriends();
         user.getFriendManagement().saveFriends();
-    }
+    }}
 
-    public void acceptFriendRequest(User user) {
-        if (checkDupe(user)) {
-            receivedRequests.remove(user);
-            friends.add(user);
-            user.getFriendManagement().sentRequests.remove(this.user);
-            user.getFriendManagement().friends.add(this.user);
-            saveFriends();
-            user.getFriendManagement().saveFriends();
-        }
-    }
+    public void acceptFriendRequest(User user){
+        if(checkDupe(user) && !friends.contains(user) && !sentRequests.contains(user) && receivedRequests.contains(user) && !blockedUsers.contains(user)){
+        receivedRequests.remove(user);
+        friends.add(user);
+        user.getFriendManagement().sentRequests.remove(this.user);
+        user.getFriendManagement().friends.add(this.user);
+        saveFriends();
+        user.getFriendManagement().saveFriends();
+    }}
 
-    public void declineFriendRequest(User user) {
+    public void declineFriendRequest(User user){
+        if(receivedRequests.contains(user) && !friends.contains(user)){
         receivedRequests.remove(user);
         user.getFriendManagement().sentRequests.remove(this.user);
         saveFriends();
         user.getFriendManagement().saveFriends();
-    }
+    }}
 
-    public void blockUser(User user) {
+    public void blockUser(User user){
+        if(checkDupe(user)  && !blockedUsers.contains(user)){
         blockedUsers.add(user);
         friends.remove(user);
         user.getFriendManagement().friends.remove(this.user);
         saveFriends();
         user.getFriendManagement().saveFriends();
-    }
+    }}
 
-    public void unblockUser(User user) {
+    public void unblockUser(User user){
+        if(blockedUsers.contains(user)){
         blockedUsers.remove(user);
         saveFriends();
         user.getFriendManagement().saveFriends();
-    }
+    }}
 
     public ArrayList<User> getBlockedUsers() {
         return blockedUsers;
