@@ -131,8 +131,8 @@ public class FriendManagement {
 
     public Map<String, String> getFriendsStatus() {
         Map<String, String> friendsStatus = new HashMap<>();
-        for (User friend : friends) {
-            friendsStatus.put(friend.getUserId(), friend.getStatus());
+        for(User friend : friends){
+            friendsStatus.put(friend.getName(), friend.getStatus());
         }
         return friendsStatus;
     }
