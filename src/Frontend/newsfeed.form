@@ -165,7 +165,6 @@
             <LineBorder thickness="2"/>
           </Border>
         </Property>
-        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
         <Property name="verticalScrollBarPolicy" type="int" value="22"/>
       </Properties>
 
@@ -179,7 +178,6 @@
           </Border>
         </Property>
         <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
-        <Property name="verticalScrollBarPolicy" type="int" value="21"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>

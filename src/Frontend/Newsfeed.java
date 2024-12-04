@@ -25,6 +25,7 @@ public class Newsfeed extends javax.swing.JFrame {
         this.user = user;
         UpdateFriends();
         UpdateSuggestedFriends();
+        UpdatePosts();
     }
 
     public void UpdateFriends() {
@@ -65,6 +66,28 @@ public class Newsfeed extends javax.swing.JFrame {
     }
     suggestedFriendPanel.setViewportView(containerPanel);
 }
+
+public void UpdatePosts(){
+    JPanel containerPanel = new JPanel();
+    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+    containerPanel.setLayout(boxLayout);
+
+    for (int i=0;i<user.getPosts().size();i++){
+        JLabel postLabel = new JLabel(user.getPosts().get(i).getContent());
+        ImageIcon image=new ImageIcon(user.getPosts().get(i).getImagePath());
+        JLabel photo = new JLabel(image);
+        JPanel postPanel = new JPanel();
+        postPanel.add(postLabel);
+        postPanel.add(photo);
+        containerPanel.add(postPanel);
+
+//        JPanel post = new ViewPosts(user.getPosts().get(i));
+//        containerPanel.add(post);
+
+    }
+    jScrollPane2.setViewportView(containerPanel);
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,12 +148,10 @@ public class Newsfeed extends javax.swing.JFrame {
         });
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         suggestedFriendPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
