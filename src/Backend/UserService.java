@@ -5,6 +5,8 @@
 package Backend;
 
 import org.json.JSONArray;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -37,12 +39,12 @@ public class UserService {
 
     }
 
-    public ArrayList<User> getUserFriends(String userId) {
+    public ArrayList<User> getUserFriends(String userId) throws IOException {
         // Fetch user's friends and their online/offline status
         ProfileManager profileManager = new ProfileManager();
         User user = profileManager.findUserById(userId);
         FriendManagement friendManagement =new FriendManagement(user);
-        return friendManagement.getFriends();;
+        return friendManagement.getFriends();
 
     }
 }

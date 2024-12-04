@@ -33,7 +33,7 @@
         "email": "aged@a2d1e",
         "Name": "Ahmed",
         "username": "uehd",
-        "status": "offline"
+        "status": "online"
     },
     {
         "profilePhotoPath": "",
@@ -45,7 +45,7 @@
         "email": "aged@a2d32e",
         "Name": "Ahmed",
         "username": "uehd1",
-        "status": "offline"
+        "status": "online"
     },
     {
         "profilePhotoPath": "",
@@ -57,7 +57,7 @@
         "email": "aged@a2davvfee",
         "Name": "Ahmed",
         "username": "ue2hd",
-        "status": "offline"
+        "status": "online"
     },
     {
         "profilePhotoPath": "",
@@ -69,7 +69,7 @@
         "email": "aged@a2dadfae",
         "Name": "Ahmed",
         "username": "uehd3",
-        "status": "offline"
+        "status": "online"
     },
     {
         "profilePhotoPath": "",
@@ -81,6 +81,18 @@
         "email": "aged@adacvv2e",
         "Name": "Ahmed",
         "username": "uehd4",
-        "status": "offline"
+        "status": "online"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$CfmFnh2bw9.j3sirtwhQUulUxPzHoiN2PGe/P4sCVYXB47qzrXkU.",
+        "bio": "",
+        "dateOfBirth": "24-11-2004",
+        "coverPhotoPath": "",
+        "userId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+        "email": "ah41079@gmail.com",
+        "Name": "Ali Hamad",
+        "username": "fahdbinhamad",
+        "status": "online"
     }
 ]
