@@ -100,4 +100,15 @@ public class ContentManager {
         return allContents;
     }
 
+    public static ArrayList<Content> UserContent(String userId){
+        ArrayList<Content> userContents=new ArrayList<>();
+        ArrayList<Content> allContents=readContent();
+        for(Content content:allContents){
+            if(content.getAuthorId().equals(userId)){
+                userContents.add(content);
+            }
+        }
+        return userContents;
+    }
+
 }
