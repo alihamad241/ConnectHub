@@ -3,11 +3,13 @@ package Backend;
 
 import org.json.JSONObject;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class User {
     private String name;
-    private final String userId;
+    private String userId;
     private String email;
     private String username;
     private String hashedPassword;
@@ -28,17 +30,7 @@ public class User {
         this.userProfile = new UserProfile();
     }
 
-//    public User(JSONObject jsonUser) {
-//        this.name = jsonUser.getString("Name");
-//        this.userId = jsonUser.getString("userId");
-//        this.email = jsonUser.getString("email");
-//        this.username = jsonUser.getString("username");
-//        this.hashedPassword = jsonUser.getString("hashedPassword");
-//        this.dateOfBirth = jsonUser.getString("dateOfBirth");
-//        this.status = jsonUser.getString("status");
-//        this.friendManagement = new FriendManagement(this);
-//        this.userProfile = new UserProfile();
-//    }
+
 
 
     public String getUserId() {
@@ -134,9 +126,9 @@ public class User {
     }
 
 
+    public ArrayList<Content> getPosts() {
+        return ContentManager.UserContent(this.getUserId());
 
-
-
-
+    }
 }
 

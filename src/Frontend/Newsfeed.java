@@ -4,6 +4,8 @@
  */
 package Frontend;
 
+import Backend.Content;
+import Backend.ContentManager;
 import Backend.User;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class Newsfeed extends javax.swing.JFrame {
      * Creates new form newsfeed
      */
     User user;
+
 
     public Newsfeed(User user) {
         initComponents();

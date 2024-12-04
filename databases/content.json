@@ -1,42 +1,8 @@
-[
-    {
-        "imagePath": "C:\\Users\\DELL\\Desktop\\images\\image1.jpg",
-        "contentId": "1",
-        "isStory": false,
-        "time": "2024-12-04T12:05:52.894903800",
-        "authorId": "1",
-        "content": "Hello"
-    },
-    {
-        "imagePath": "C:\\Users\\DELL\\Desktop\\images\\image2.jpg",
-        "contentId": "2",
-        "isStory": true,
-        "time": "2024-12-02T12:05:52.900907700",
-        "authorId": "2",
-        "content": "Hello"
-    },
-    {
-        "imagePath": "",
-        "contentId": "3",
-        "isStory": true,
-        "time": "2024-12-04T12:05:52.900907700",
-        "authorId": "3",
-        "content": "Hello"
-    },
-    {
-        "imagePath": "C:\\Users\\DELL\\Desktop\\images\\image1.jpg",
-        "contentId": "3",
-        "isStory": true,
-        "time": "2024-12-04T12:05:52.894903800",
-        "authorId": "1",
-        "content": "Hello"
-    },
-    {
-        "imagePath": "",
-        "contentId": "9",
-        "isStory": false,
-        "time": "2023-12-04T12:05:52.894903800",
-        "authorId": "1",
-        "content": "BYEEE"
-    }
-]
+[{
+    "imagePath": "C:\\Users\\mrali\\OneDrive\\Pictures\\iris.jpg",
+    "contentId": "7ade63a1-c232-44aa-8128-35a8825966ff",
+    "isStory": false,
+    "time": "2024-12-04T13:43:12.875824700",
+    "authorId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+    "content": "idkkkkk"
+}]
