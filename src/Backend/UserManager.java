@@ -1,7 +1,9 @@
 package Backend;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,16 +15,19 @@ public class UserManager {
     public static JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
     public static ArrayList<User> allUsers = new ArrayList<>();
 
-
     public UserManager() {
         loadAllUsers();
     }
 
 
-    public ArrayList<User> getAllUsers() {
-        return allUsers;
+    public static User findUser(String userId) {
+        for (User user : allUsers) {
+            if (user.getUserId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
     }
-
     public boolean signup(String name, String email, String username, String password, String dateOfBirth) {
         // Hash the password
         String hashedPassword = PasswordHashing.hashPassword(password);
@@ -115,7 +120,11 @@ public class UserManager {
             newUser.setStatus(user.getString("status"));
             allUsers.add(newUser);
         }
+        for(User user: allUsers){
+            user.getFriendManagement().loadFriends();
+        }
     }
+
 
 
 

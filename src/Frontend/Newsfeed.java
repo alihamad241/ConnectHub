@@ -4,10 +4,13 @@
  */
 package Frontend;
 
+import Backend.Content;
+import Backend.ContentManager;
 import Backend.User;
 
+import javax.swing.*;
 import java.awt.*;
-
+import java.util.ArrayList;
 
 
 /**
@@ -20,10 +23,40 @@ public class Newsfeed extends javax.swing.JFrame {
      * Creates new form newsfeed
      */
     User user;
+    private JPanel postsPanel;
 
     public Newsfeed(User user) {
         initComponents();
         this.user = user;
+        CustomInit();
+        loadFriendsPosts();
+    }
+
+    public void CustomInit(){
+        jScrollPane2 = new JScrollPane();
+        postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        jScrollPane2.setViewportView(postsPanel);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        add(jScrollPane2, BorderLayout.CENTER);
+        pack();
+    }
+
+
+
+    private void loadFriendsPosts() {
+        ArrayList<User> friends = user.getFriendManagement().getFriends();
+        for (User friend : friends) {
+            ArrayList<Content> friendPosts = ContentManager.UserContent(friend.getUserId());
+            for (Content post : friendPosts) {
+                ViewPosts viewPostPanel = new ViewPosts(post);
+                postsPanel.add(viewPostPanel);
+            }
+        }
+        postsPanel.revalidate();
+        postsPanel.repaint();
     }
 
     /**
