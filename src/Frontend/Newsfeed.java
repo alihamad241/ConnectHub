@@ -7,6 +7,9 @@ package Frontend;
 import Backend.User;
 
 import javax.swing.*;
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -67,23 +70,52 @@ public class Newsfeed extends javax.swing.JFrame {
     suggestedFriendPanel.setViewportView(containerPanel);
 }
 
-public void UpdatePosts(){
+public void UpdatePosts() {
     JPanel containerPanel = new JPanel();
     BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
     containerPanel.setLayout(boxLayout);
 
-    for (int i=0;i<user.getPosts().size();i++){
-        JLabel postLabel = new JLabel(user.getPosts().get(i).getContent());
-        ImageIcon image=new ImageIcon(user.getPosts().get(i).getImagePath());
-        JLabel photo = new JLabel(image);
+    for (int i = 0; i < user.getFriendsPosts().size(); i++) {
+        JLabel postLabel = new JLabel(user.getFriendsPosts().get(i).getContent());
+        JLabel nameLabel = new JLabel(user.getFriendsPosts().get(i).getAuthorUserName());
+        long  time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+        if(time>60 && time <120){
+            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
+        }else if(time>120 && time <1440) {
+            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
+        }else if(time>1440 && time <2880) {
+            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
+        }else if(time>2880) {
+            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
+        }else {
+            nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
+        }
+        // Resize the image
+        ImageIcon imageIcon = new ImageIcon(user.getFriendsPosts().get(i).getImagePath());
+        Image image = imageIcon.getImage();
+        Image resizedImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+
+        JLabel photo = new JLabel(resizedImageIcon);
         JPanel postPanel = new JPanel();
-        postPanel.add(postLabel);
+        postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+        postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// Add padding
+        postPanel.add(nameLabel);
         postPanel.add(photo);
+        postPanel.add(postLabel);
+        postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
+
+        // Add margin between posts
+        postPanel.setBorder(BorderFactory.createCompoundBorder(
+                postPanel.getBorder(),
+                BorderFactory.createEmptyBorder(10, 0, 10, 0)
+        ));
+
         containerPanel.add(postPanel);
-
-//        JPanel post = new ViewPosts(user.getPosts().get(i));
-//        containerPanel.add(post);
-
     }
     jScrollPane2.setViewportView(containerPanel);
 }
@@ -243,7 +275,7 @@ public void UpdatePosts(){
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-//        new Profile(user).setVisible(true);
+        new ProfilePage(user).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

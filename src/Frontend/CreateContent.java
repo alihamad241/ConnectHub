@@ -211,7 +211,7 @@ public class CreateContent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please choose if you wanna add a story or a post");
         }
         String authorId = user.getUserId();
-        Content newContent = new Content(content, path, UUID.randomUUID().toString(), authorId, LocalDateTime.now(), isStory);
+        Content newContent = new Content(content, path, UUID.randomUUID().toString(), authorId, LocalDateTime.now(), isStory, user.getUsername());
         contentManager.addContent(newContent);
         JOptionPane.showMessageDialog(this, "Content added successfully");
         System.out.println(content);

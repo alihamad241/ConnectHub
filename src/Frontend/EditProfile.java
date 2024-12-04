@@ -181,13 +181,10 @@ String UserId;
             // Call your updateBio  to update the bio for the user
              UpdateProfile profileEditor=new UpdateProfile();
             try {
-             profileEditor.updateBio(newBio, newBio);
+             profileEditor.updateBio(newBio, UserId);
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Bio updated successfully!");
-            
-           
         } else {
             JOptionPane.showMessageDialog(null, "Bio cannot be empty or input was canceled!");
         }

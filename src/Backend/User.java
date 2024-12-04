@@ -130,5 +130,9 @@ public class User {
         return ContentManager.UserContent(this.getUserId());
 
     }
+
+    public ArrayList<Content> getFriendsPosts() {
+        return ContentManager.getFriendsPosts(this);
+    }
 }
 
