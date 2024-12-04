@@ -19,7 +19,7 @@ public class UserManager {
     }
 
 
-    public ArrayList<User> getAllUsers() {
+    public static ArrayList<User> getAllUsers() {
         return allUsers;
     }
 
@@ -114,6 +114,9 @@ public class UserManager {
             newUser.getUserProfile().setBio(user.getString("bio"));
             newUser.setStatus(user.getString("status"));
             allUsers.add(newUser);
+        }
+        for(User user : allUsers){
+            user.getFriendManagement().loadFriends();
         }
     }
 
