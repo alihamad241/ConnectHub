@@ -136,13 +136,7 @@ public class FriendManagement {
         return friendsStatus;
     }
 
-    public boolean isFriend(User user) {
-        return friends.contains(user);
-    }
 
-    public ArrayList<User> getSuggestedFriends(User user) {
-        return suggestedFriends;
-    }
 
     public void fillSuggestedFriends() {
         suggestedFriends.clear();

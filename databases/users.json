@@ -26,14 +26,14 @@
     {
         "profilePhotoPath": "",
         "hashedPassword": "$2a$10$F/pSicV8mYcKVBKiRerkhOPgObnW34T6kjUUzRE4XKXa6CUbQdsO2",
-        "bio": "",
+        "bio": "hi ",
         "dateOfBirth": "12-12-2004",
-        "coverPhotoPath": "",
+        "coverPhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\Pictures\\101MSDCF\\DSC01533.JPG",
         "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "email": "aged@a2d1e",
         "Name": "Ahmed",
         "username": "uehd",
-        "status": "online"
+        "status": "offline"
     },
     {
         "profilePhotoPath": "",
@@ -84,7 +84,7 @@
         "status": "online"
     },
     {
-        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture1.png",
+        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
         "hashedPassword": "$2a$10$CfmFnh2bw9.j3sirtwhQUulUxPzHoiN2PGe/P4sCVYXB47qzrXkU.",
         "bio": "i WILL kms",
         "dateOfBirth": "24-11-2004",
@@ -93,7 +93,7 @@
         "email": "ah41079@gmail.com",
         "Name": "Ali Hamad",
         "username": "fahdbinhamad",
-        "status": "offline"
+        "status": "online"
     },
     {
         "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\Pictures\\101MSDCF\\DSC01532.JPG",

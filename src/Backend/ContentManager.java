@@ -126,19 +126,19 @@ public class ContentManager {
     }
 
     public static ArrayList<Content> getFriendsPosts(User user) {
-        ArrayList<Content> mainfriendsPosts = new ArrayList<>();
+        ArrayList<Content> mainFriendsPosts = new ArrayList<>();
         ArrayList<User> friends = user.getFriendManagement().getFriends();
 
         for (User friend : friends) {
             ArrayList<Content> friendPosts = UserContent(friend.getUserId());
             for(Content post: friendPosts){
                 if(!post.getIsStory()){
-                    mainfriendsPosts.add(post);
+                    mainFriendsPosts.add(post);
                 }
             }
         }
-        mainfriendsPosts.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
-        return mainfriendsPosts;
+        mainFriendsPosts.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
+        return mainFriendsPosts;
     }
 
     public static ArrayList<Content> getFriendsStories(User user) {
