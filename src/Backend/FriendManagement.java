@@ -21,7 +21,8 @@ public class FriendManagement {
     private final User user;
 
     private static final String FRIENDS_FILE_PATH = "databases/friends.json";
-    private static JSONArray userFriends = DatabaseManager.readJSONFile(FRIENDS_FILE_PATH);
+    private static final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private static JSONArray userFriends = databaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
     public FriendManagement(User user) {
         this.user = user;
@@ -154,7 +155,7 @@ public class FriendManagement {
     public void loadFriends() {
         File file = new File(FRIENDS_FILE_PATH);
         if (file.exists()) {
-            userFriends = DatabaseManager.readJSONFile(FRIENDS_FILE_PATH);
+            userFriends = databaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
             for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
                 JSONObject existingUser = userFriends.getJSONObject(i);
@@ -242,7 +243,7 @@ public class FriendManagement {
         userFriends.put(json);
 
         // Write to file
-        DatabaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
+        databaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
 
     }
 

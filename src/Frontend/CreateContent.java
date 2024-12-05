@@ -22,7 +22,7 @@ import java.util.UUID;
 public class CreateContent extends javax.swing.JFrame {
 
     private final  User user;
-    private static final ContentManager contentManager = new ContentManager();
+    private static final ContentManager contentManager = ContentManager.getInstance();
     private String path = null;
 
     /**

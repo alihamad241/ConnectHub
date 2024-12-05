@@ -10,7 +10,8 @@ import javax.swing.*;
 
 public class UserManager {
     private static final String USERS_FILE = "databases/users.json";
-    public static JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
+    private static final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    public static JSONArray users = databaseManager.readJSONFile(USERS_FILE);
     public static ArrayList<User> allUsers = new ArrayList<>();
     private static UserManager instance;
 
@@ -77,7 +78,7 @@ public class UserManager {
 
         users.put(newUserObject);
 
-        return DatabaseManager.writeJSONFile(USERS_FILE, users);
+        return databaseManager.writeJSONFile(USERS_FILE, users);
     }
 
     public User login(String username, String password) {
@@ -115,7 +116,7 @@ public class UserManager {
                 userObject.put("bio", user.getUserProfile().getBio());
             }
         }
-        DatabaseManager.writeJSONFile(USERS_FILE, users);
+        databaseManager.writeJSONFile(USERS_FILE, users);
     }
 
     public void loadAllUsers() {
