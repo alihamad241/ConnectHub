@@ -87,9 +87,10 @@ public class UserManager {
 
     public static void logout(User user) {
         user.setStatus("offline");
+        saveUserToDatabase(user);
     }
 
-    public void saveUserToDatabase(User user) {
+    public static void saveUserToDatabase(User user) {
         // Save the user to the file
         for (Object obj : users) {
             JSONObject userObject = (JSONObject) obj;
