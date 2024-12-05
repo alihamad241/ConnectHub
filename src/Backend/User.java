@@ -134,5 +134,9 @@ public class User {
     public ArrayList<Content> getFriendsPosts() {
         return ContentManager.getFriendsPosts(this);
     }
+
+    public ArrayList<Content> getFriendsStories() {
+        return ContentManager.getFriendsStories(this);
+    }
 }
 

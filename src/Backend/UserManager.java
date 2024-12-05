@@ -85,11 +85,12 @@ public class UserManager {
     return null;
 }
 
-    public void logout(User user) {
+    public static void logout(User user) {
         user.setStatus("offline");
+        saveUserToDatabase(user);
     }
 
-    public void saveUserToDatabase(User user) {
+    public static void saveUserToDatabase(User user) {
         // Save the user to the file
         for (Object obj : users) {
             JSONObject userObject = (JSONObject) obj;
@@ -124,6 +125,15 @@ public class UserManager {
     }
 
 
+    public static ArrayList<User> searchByName(String name, User user) {
+    ArrayList<User> searchResults = new ArrayList<>();
+    for (User search : allUsers) {
+        if ((search.getName().toLowerCase().contains(name.toLowerCase()) || search.getUsername().toLowerCase().contains(name.toLowerCase())) && !user.equals(search)) {
+            searchResults.add(search);
+        }
+    }
+    return searchResults;
+}
 
 
 

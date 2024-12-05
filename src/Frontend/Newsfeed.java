@@ -28,6 +28,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdatePosts();
+        UpdateStories();
     }
 
     public void UpdateFriends() {
@@ -36,7 +37,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         containerPanel.setLayout(boxLayout);
 
         for (int i = 0; i < user.getFriendManagement().getFriends().size(); i++) {
-            JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getName());
+            JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getUsername());
             JLabel statusLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getStatus());
             JPanel friendPanel = new JPanel();
             friendPanel.add(friendLabel);
@@ -53,12 +54,13 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     for (int i=0;i<user.getFriendManagement().getSuggestedFriends().size();i++){
         User suggestedFriend = user.getFriendManagement().getSuggestedFriends().get(i);
-        JLabel friendLabel = new JLabel(suggestedFriend.getName());
+        JLabel friendLabel = new JLabel(suggestedFriend.getUsername());
         JButton addFriendButton = new JButton("Add Friend");
         addFriendButton.addActionListener((java.awt.event.ActionEvent evt) -> {
             user.getFriendManagement().sendFriendRequest(suggestedFriend);
             JOptionPane.showMessageDialog(null, "Friend Request Sent");
             user.getFriendManagement().fillSuggestedFriends();
+            UpdateSuggestedFriends();
         });
         JPanel suggestedFriendPanel = new JPanel();
         suggestedFriendPanel.add(friendLabel);
@@ -95,7 +97,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         // Resize the image
         ImageIcon imageIcon = new ImageIcon(user.getFriendsPosts().get(i).getImagePath());
         Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        Image resizedImage = image.getScaledInstance(postPanel.getWidth(), 300, Image.SCALE_SMOOTH);
         ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
         JLabel photo = new JLabel(resizedImageIcon);
@@ -116,6 +118,56 @@ public final class Newsfeed extends javax.swing.JFrame {
         containerPanel.add(postPanel);
     }
     postPanel.setViewportView(containerPanel);
+}
+
+    public void UpdateStories() {
+    JPanel containerPanel = new JPanel();
+    FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+    containerPanel.setLayout(flowLayout);
+
+    for (int i = 0; i < user.getFriendsStories().size(); i++) {
+        JLabel storyLabel = new JLabel(user.getFriendsStories().get(i).getContent());
+        JLabel nameLabel = new JLabel(user.getFriendsStories().get(i).getAuthorUserName());
+        long time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+        if (time > 60 && time < 120) {
+            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
+        } else if (time > 120 && time < 1440) {
+            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
+        } else if (time > 1440 && time < 2880) {
+            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
+        } else if (time > 2880) {
+            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+            nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
+        } else {
+            nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
+        }
+        // Resize the image
+        ImageIcon imageIcon = new ImageIcon(user.getFriendsStories().get(i).getImagePath());
+        Image image = imageIcon.getImage();
+        Image resizedImage = image.getScaledInstance(100, storyPanel.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+
+        JLabel photo = new JLabel(resizedImageIcon);
+        JPanel storyPanel = new JPanel();
+        storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
+        storyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
+        storyPanel.add(nameLabel);
+        storyPanel.add(photo);
+        storyPanel.add(storyLabel);
+        storyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
+
+        // Add margin between stories
+        storyPanel.setBorder(BorderFactory.createCompoundBorder(
+                storyPanel.getBorder(),
+                BorderFactory.createEmptyBorder(10, 0, 10, 0)
+        ));
+
+        containerPanel.add(storyPanel);
+    }
+    storyPanel.setViewportView(containerPanel);
 }
 
 
@@ -244,9 +296,9 @@ public final class Newsfeed extends javax.swing.JFrame {
                                 .addComponent(suggestedFriendPanel)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(storyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(storyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                        .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(friendManagement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +320,7 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     private void profileManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileManagementActionPerformed
         // TODO add your handling code here:
-        new ProfilePage(user).setVisible(true);
+        new ProfilePage(user, this).setVisible(true);
     }//GEN-LAST:event_profileManagementActionPerformed
 
     private void friendManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendManagementActionPerformed
@@ -278,7 +330,11 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
-
+        //REFRESH
+        UpdateFriends();
+        UpdateSuggestedFriends();
+        UpdatePosts();
+        UpdateStories();
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

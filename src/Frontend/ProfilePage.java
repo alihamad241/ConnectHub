@@ -5,6 +5,8 @@
 package Frontend;
 
 import Backend.User;
+import Backend.UserManager;
+
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
@@ -17,14 +19,16 @@ import java.time.temporal.ChronoUnit;
  */
 public final class ProfilePage extends javax.swing.JFrame {
     private final User user;
+    private final JFrame newsFeedFrame;
     /**
      * Creates new form ProfilePage
      * @param user
      */
     
-    public ProfilePage(User user) {
+    public ProfilePage(User user, JFrame newsFeedFrame) {
         initComponents();
         this.user=user;
+        this.newsFeedFrame=newsFeedFrame;
         UpdateProfile();
         UpdateProfilePosts();
         this.setLocationRelativeTo(null);
@@ -51,6 +55,8 @@ public final class ProfilePage extends javax.swing.JFrame {
             containerPanel.add(friendPanel);
         }
         friendsList.setViewportView(containerPanel);
+
+
     }
 
     public void UpdateProfilePosts(){
@@ -80,7 +86,7 @@ public final class ProfilePage extends javax.swing.JFrame {
             // Resize the image
             ImageIcon imageIcon = new ImageIcon(user.getPosts().get(i).getImagePath());
             Image image = imageIcon.getImage();
-            Image resizedImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            Image resizedImage = image.getScaledInstance(jScrollPane1.getWidth() -10, 300, Image.SCALE_SMOOTH);
             ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
             JLabel photo = new JLabel(resizedImageIcon);
@@ -145,7 +151,7 @@ public final class ProfilePage extends javax.swing.JFrame {
 
         refresh.setBackground(new java.awt.Color(0, 0, 0));
         refresh.setForeground(new java.awt.Color(255, 255, 255));
-        refresh.setText("Refresh");
+        refresh.setText("Logout");
         refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshActionPerformed(evt);
@@ -214,12 +220,18 @@ public final class ProfilePage extends javax.swing.JFrame {
 
     private void editProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProfileActionPerformed
         // TODO add your handling code here:
-        new EditProfile(user.getUserId()).setVisible(true);
+        new EditProfile(user.getUserId(), this).setVisible(true);
     }//GEN-LAST:event_editProfileActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
-        //refresh the page
+        UserManager.logout(user);
+        JOptionPane.showMessageDialog(null, "Logged out successfully.");
+        dispose();
+        if(newsFeedFrame!=null) {
+            newsFeedFrame.dispose();
+        }
+        new StartMenu().setVisible(true);
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
