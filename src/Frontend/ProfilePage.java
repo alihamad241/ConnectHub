@@ -86,7 +86,7 @@ public final class ProfilePage extends javax.swing.JFrame {
             // Resize the image
             ImageIcon imageIcon = new ImageIcon(user.getPosts().get(i).getImagePath());
             Image image = imageIcon.getImage();
-            Image resizedImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            Image resizedImage = image.getScaledInstance(jScrollPane1.getWidth() -10, 300, Image.SCALE_SMOOTH);
             ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
             JLabel photo = new JLabel(resizedImageIcon);

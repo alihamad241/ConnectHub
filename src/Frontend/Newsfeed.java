@@ -97,7 +97,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         // Resize the image
         ImageIcon imageIcon = new ImageIcon(user.getFriendsPosts().get(i).getImagePath());
         Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        Image resizedImage = image.getScaledInstance(postPanel.getWidth(), 300, Image.SCALE_SMOOTH);
         ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
         JLabel photo = new JLabel(resizedImageIcon);
@@ -147,7 +147,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         // Resize the image
         ImageIcon imageIcon = new ImageIcon(user.getFriendsStories().get(i).getImagePath());
         Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(100, 300, Image.SCALE_SMOOTH);
+        Image resizedImage = image.getScaledInstance(100, storyPanel.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
         JLabel photo = new JLabel(resizedImageIcon);
@@ -296,9 +296,9 @@ public final class Newsfeed extends javax.swing.JFrame {
                                 .addComponent(suggestedFriendPanel)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(storyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(storyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                        .addComponent(postPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(friendManagement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
