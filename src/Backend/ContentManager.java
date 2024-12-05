@@ -24,7 +24,7 @@ import static Backend.UserManager.findUser;
  */
 public class ContentManager {
 
-    private ArrayList<Content> contents;
+    private final ArrayList<Content> contents;
     private static final String CONTENTS_FILE = "databases/content.json";
     public static JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
 

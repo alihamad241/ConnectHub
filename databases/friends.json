@@ -2,63 +2,51 @@
     {
         "receivedRequests": [],
         "blockedUsers": [],
-        "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "userId": "3",
         "friends": [
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-            "ea37b028-525c-4401-8f24-bae15d5b1b09",
-            "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-            "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f"
+            "2",
+            "4",
+            "5"
         ],
         "sentRequests": []
     },
     {
         "receivedRequests": [],
         "blockedUsers": [],
-        "userId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "userId": "2",
         "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
+            "4",
+            "5",
+            "3"
         ],
-        "sentRequests": []
-    },
-    {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
-        "blockedUsers": [],
-        "userId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-        "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
-        ],
-        "sentRequests": []
-    },
-    {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
-        "blockedUsers": [],
-        "userId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "friends": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
         "sentRequests": []
     },
     {
         "receivedRequests": [],
         "blockedUsers": [],
-        "userId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "userId": "4",
         "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
+            "2",
+            "3",
+            "5"
         ],
-        "sentRequests": [
-            "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-            "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f"
-        ]
+        "sentRequests": []
     },
     {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
+        "receivedRequests": [],
         "blockedUsers": [],
-        "userId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "userId": "1",
+        "friends": [],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "5",
         "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
+            "4",
+            "2",
+            "3"
         ],
         "sentRequests": []
     }

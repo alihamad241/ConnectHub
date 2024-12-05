@@ -1,9 +1,7 @@
 package Backend;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,7 +17,6 @@ public class UserManager {
         loadAllUsers();
     }
 
-
     public static User findUser(String userId) {
         for (User user : allUsers) {
             if (user.getUserId().equals(userId)) {
@@ -28,6 +25,7 @@ public class UserManager {
         }
         return null;
     }
+
     public boolean signup(String name, String email, String username, String password, String dateOfBirth) {
         // Hash the password
         String hashedPassword = PasswordHashing.hashPassword(password);
@@ -86,7 +84,6 @@ public class UserManager {
     JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
     return null;
 }
-
 
     public void logout(User user) {
         user.setStatus("offline");
