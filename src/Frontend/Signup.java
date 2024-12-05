@@ -5,10 +5,12 @@
 package Frontend;
 
 import Backend.UserManager;
+import Backend.Validation;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 /**
  *
@@ -174,17 +176,26 @@ public class Signup extends javax.swing.JFrame {
         String password = PASSWORD.getText().trim();
         Date dateOfBirth = DATEOFBIRTH.getDate();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d-M-y");
-        String formattedDateOfBirth = dateFormat.format(dateOfBirth);
-
-
-        UserManager userManager = new UserManager();
-        if(userManager.signup(name, email, username, password, formattedDateOfBirth)) {
-            JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            new Login().setVisible(true);
-            dispose();
+        if(name.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || dateOfBirth == null) {
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (!Validation.isValidPassword(password)) {
+            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!Validation.isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Signup failed!", "Error", JOptionPane.ERROR_MESSAGE);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d-M-y");
+            String formattedDateOfBirth = dateFormat.format(dateOfBirth);
+
+
+            UserManager userManager = UserManager.getInstance();
+
+            if (userManager.signup(name, email, username, password, formattedDateOfBirth)) {
+                JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                new Login().setVisible(true);
+                dispose();
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

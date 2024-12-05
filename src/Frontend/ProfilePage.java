@@ -8,10 +8,6 @@ import Backend.User;
 import Backend.UserManager;
 
 import javax.swing.*;
-import javax.swing.JLabel;
-import java.awt.*;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -34,80 +30,16 @@ public final class ProfilePage extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-    
+
     public void UpdateProfile(){
-        userName.setText(user.getName());
-        bio.setText(user.getUserProfile().getBio());
-        ImageIcon profile=new ImageIcon(user.getUserProfile().getProfilePhotoPath());
-        profileImage.setIcon(profile);
-        ImageIcon cover=new ImageIcon(user.getUserProfile().getCoverPhotoPath());
-        coverImage.setIcon(cover);
-
-        JPanel containerPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-        containerPanel.setLayout(boxLayout);
-        for (int i = 0; i < user.getFriendManagement().getFriends().size(); i++) {
-            JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getName());
-            JLabel statusLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getStatus());
-            JPanel friendPanel = new JPanel();
-            friendPanel.add(friendLabel);
-            friendPanel.add(statusLabel);
-            containerPanel.add(friendPanel);
-        }
-        friendsList.setViewportView(containerPanel);
-
-
+        Profile_Updates.UpdateProfile(user, userName, bio, profileImage, coverImage, friendsList);
     }
 
     public void UpdateProfilePosts(){
-        JPanel containerPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-        containerPanel.setLayout(boxLayout);
-
-        for (int i = 0; i < user.getPosts().size(); i++) {
-            JLabel postLabel = new JLabel(user.getPosts().get(i).getContent());
-            JLabel nameLabel = new JLabel(user.getPosts().get(i).getAuthorUserName());
-            long  time = user.getPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-            if(time>60 && time <120){
-                time = user.getPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-            }else if(time>120 && time <1440) {
-                time = user.getPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-            }else if(time>1440 && time <2880) {
-                time = user.getPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-            }else if(time>2880) {
-                time = user.getPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-            }else {
-                nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
-            }
-            // Resize the image
-            ImageIcon imageIcon = new ImageIcon(user.getPosts().get(i).getImagePath());
-            Image image = imageIcon.getImage();
-            Image resizedImage = image.getScaledInstance(jScrollPane1.getWidth() -10, 300, Image.SCALE_SMOOTH);
-            ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
-
-            JLabel photo = new JLabel(resizedImageIcon);
-            JPanel postPanel = new JPanel();
-            postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
-            postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// Add padding
-            postPanel.add(nameLabel);
-            postPanel.add(photo);
-            postPanel.add(postLabel);
-            postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
-
-            // Add margin between posts
-            postPanel.setBorder(BorderFactory.createCompoundBorder(
-                    postPanel.getBorder(),
-                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
-            ));
-
-            containerPanel.add(postPanel);
-        }
-        jScrollPane1.setViewportView(containerPanel);
+        Profile_Updates.UpdateProfilePosts(user, jScrollPane1);
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,8 +50,6 @@ public final class ProfilePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        coverImage = new javax.swing.JLabel();
-        profileImage = new javax.swing.JLabel();
         userName = new javax.swing.JLabel();
         bio = new javax.swing.JLabel();
         editProfile = new javax.swing.JButton();
@@ -127,12 +57,11 @@ public final class ProfilePage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         friendsList = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
+        coverImage = new javax.swing.JLabel();
+        profileImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        coverImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
-        profileImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        setResizable(false);
 
         userName.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         userName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -164,17 +93,23 @@ public final class ProfilePage extends javax.swing.JFrame {
 
         friendsList.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        coverImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        profileImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(coverImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(coverImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                             .addComponent(bio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -191,27 +126,31 @@ public final class ProfilePage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(coverImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addComponent(coverImage, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(bio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(profileImage, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(friendsList, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1)))
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)))
                 .addGap(12, 12, 12))
         );
 

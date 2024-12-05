@@ -13,13 +13,12 @@ import static Backend.UserManager.findUser;
  * @author DELL
  */
 public class UpdateProfile {
-    private static final UserManager userManager = new UserManager();
 
     public void updateProfilePhoto(String profilePhotoPath, String userId) throws IOException {
         User user = findUser(userId);
         if (user != null) {
             user.getUserProfile().setProfilePhotoPath(profilePhotoPath);
-            userManager.saveUserToDatabase(user);
+            UserManager.saveUserToDatabase(user);
             JOptionPane.showMessageDialog(null, "Profile photo updated successfully.");
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -32,7 +31,7 @@ public class UpdateProfile {
         User user = findUser(userId);
         if (user != null) {
             user.getUserProfile().setCoverPhotoPath(coverPhotoPath);
-            userManager.saveUserToDatabase(user);
+            UserManager.saveUserToDatabase(user);
             JOptionPane.showMessageDialog(null, "Cover photo updated successfully.");
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -46,7 +45,7 @@ public class UpdateProfile {
         User user = findUser(userId);
         if (user != null) {
             user.getUserProfile().setBio(bio);
-            userManager.saveUserToDatabase(user);
+            UserManager.saveUserToDatabase(user);
             JOptionPane.showMessageDialog(null, "Bio updated successfully.");
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -60,7 +59,7 @@ public class UpdateProfile {
         User user = findUser(userId);
         if (user != null) {
             user.setHashedPassword(PasswordHashing.hashPassword(password));
-            userManager.saveUserToDatabase(user);
+            UserManager.saveUserToDatabase(user);
             JOptionPane.showMessageDialog(null, "Password updated successfully.");
         } else {
             JOptionPane.showMessageDialog(null, "User not found.", "Error", JOptionPane.ERROR_MESSAGE);

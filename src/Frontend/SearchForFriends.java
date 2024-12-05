@@ -120,23 +120,26 @@ public class SearchForFriends extends javax.swing.JFrame {
             JPanel userPanel = new JPanel();
             userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
 
+
             JLabel nameLabel = new JLabel(selected.getName() + " - " + selected.getUsername());
             JButton addButton = new JButton("Add Friend");
-            addButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    user.getFriendManagement().sendFriendRequest(selected);
-                    JOptionPane.showMessageDialog(null, "Friend request sent to " + user.getUsername());
-                    addButton.setEnabled(false);
-                    addButton.setText("Pending");
-                }
-            });
+            if(!user.getFriendManagement().isFriend(selected)){
+                addButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        user.getFriendManagement().sendFriendRequest(selected);
+                        JOptionPane.showMessageDialog(null, "Friend request sent to " + user.getUsername());
+                        addButton.setEnabled(false);
+                        addButton.setText("Pending");
+                    }
+                });
+                userPanel.add(nameLabel);
+                userPanel.add(Box.createHorizontalStrut(10)); // Add some space between the label and button
+                userPanel.add(addButton);
 
-            userPanel.add(nameLabel);
-            userPanel.add(Box.createHorizontalStrut(10)); // Add some space between the label and button
-            userPanel.add(addButton);
+                resultsPanel.add(userPanel);
+                resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
+            }
 
-            resultsPanel.add(userPanel);
-            resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
         }
 
         jScrollPane1.setViewportView(resultsPanel);

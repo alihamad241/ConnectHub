@@ -26,10 +26,23 @@ public class ContentManager {
 
     private final ArrayList<Content> contents;
     private static final String CONTENTS_FILE = "databases/content.json";
-    public static JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
+    private static final DatabaseManager databaseManager = Backend.DatabaseManager.getInstance();
+    public static JSONArray contentsArray = databaseManager.readJSONFile(CONTENTS_FILE);
 
-    public ContentManager() {
+    // Singleton instance
+    private static ContentManager instance;
+
+    // Private constructor to prevent instantiation
+    private ContentManager() {
         contents = new ArrayList<>();
+    }
+
+    // Public method to provide access to the instance
+    public static ContentManager getInstance() {
+        if (instance == null) {
+            instance = new ContentManager();
+        }
+        return instance;
     }
 
     public void addContent(Content content) {
@@ -46,7 +59,7 @@ public class ContentManager {
                 break;
             }
         }
-        DatabaseManager.writeJSONFile(CONTENTS_FILE, contentsArray);
+        databaseManager.writeJSONFile(CONTENTS_FILE, contentsArray);
     }
 
     public void removeStory() {
@@ -62,7 +75,7 @@ public class ContentManager {
 
     public static void writeContent(Content content) {
         JSONObject newContentObject = new JSONObject();
-        JSONArray contentsArray = DatabaseManager.readJSONFile(CONTENTS_FILE);
+        JSONArray contentsArray = databaseManager.readJSONFile(CONTENTS_FILE);
             newContentObject.put("content", content.getContent());
             if(content.getImagePath() == null){
                 newContentObject.put("imagePath", "null");
@@ -76,7 +89,7 @@ public class ContentManager {
             contentsArray.put(newContentObject);
 
 
-        DatabaseManager.writeJSONFile(CONTENTS_FILE, contentsArray);
+        databaseManager.writeJSONFile(CONTENTS_FILE, contentsArray);
 
     }
 
@@ -94,7 +107,15 @@ public class ContentManager {
                 String imagePath=content.getString("imagePath");
                 LocalDateTime time=LocalDateTime.parse(content.getString("time"));
                 boolean isStory=content.getBoolean("isStory");
-                Content newContent=new Content(contentText,imagePath,contentId,authorId,time,isStory, Objects.requireNonNull(findUser(authorId)).getUsername());
+                Content newContent = new Content.Builder()
+                        .setContent(contentText)
+                        .setImagePath(imagePath)
+                        .setContentId(contentId)
+                        .setAuthorId(authorId)
+                        .setTime(time)
+                        .setIsStory(isStory)
+                        .setAuthorUserName(Objects.requireNonNull(findUser(authorId)).getUsername())
+                        .build();
                 allContents.add(newContent);
             }
         } catch (Exception e) {
@@ -126,19 +147,19 @@ public class ContentManager {
     }
 
     public static ArrayList<Content> getFriendsPosts(User user) {
-        ArrayList<Content> mainfriendsPosts = new ArrayList<>();
+        ArrayList<Content> mainFriendsPosts = new ArrayList<>();
         ArrayList<User> friends = user.getFriendManagement().getFriends();
 
         for (User friend : friends) {
             ArrayList<Content> friendPosts = UserContent(friend.getUserId());
             for(Content post: friendPosts){
                 if(!post.getIsStory()){
-                    mainfriendsPosts.add(post);
+                    mainFriendsPosts.add(post);
                 }
             }
         }
-        mainfriendsPosts.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
-        return mainfriendsPosts;
+        mainFriendsPosts.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
+        return mainFriendsPosts;
     }
 
     public static ArrayList<Content> getFriendsStories(User user) {

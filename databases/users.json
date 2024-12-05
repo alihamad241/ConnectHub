@@ -24,16 +24,16 @@
         "status": "offline"
     },
     {
-        "profilePhotoPath": "",
+        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
         "hashedPassword": "$2a$10$F/pSicV8mYcKVBKiRerkhOPgObnW34T6kjUUzRE4XKXa6CUbQdsO2",
-        "bio": "",
+        "bio": "I WILL KMS",
         "dateOfBirth": "12-12-2004",
-        "coverPhotoPath": "",
+        "coverPhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture1.png",
         "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "email": "aged@a2d1e",
         "Name": "Ahmed",
         "username": "uehd",
-        "status": "online"
+        "status": "offline"
     },
     {
         "profilePhotoPath": "",
@@ -57,7 +57,7 @@
         "email": "aged@a2davvfee",
         "Name": "Ahmed",
         "username": "ue2hd",
-        "status": "online"
+        "status": "offline"
     },
     {
         "profilePhotoPath": "",
@@ -81,18 +81,30 @@
         "email": "aged@adacvv2e",
         "Name": "Ahmed",
         "username": "uehd4",
-        "status": "online"
+        "status": "offline"
     },
     {
-        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture1.png",
+        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
         "hashedPassword": "$2a$10$CfmFnh2bw9.j3sirtwhQUulUxPzHoiN2PGe/P4sCVYXB47qzrXkU.",
         "bio": "i WILL kms",
         "dateOfBirth": "24-11-2004",
-        "coverPhotoPath": "C:\\Users\\youss\\OneDrive\\Documents\\WhatsApp Image 2024-01-16 at 03.35.49_72f26a72.jpg",
+        "coverPhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture4.png",
         "userId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
         "email": "ah41079@gmail.com",
         "Name": "Ali Hamad",
         "username": "fahdbinhamad",
+        "status": "offline"
+    },
+    {
+        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\Pictures\\101MSDCF\\DSC01532.JPG",
+        "hashedPassword": "$2a$10$5Fl5/Fg/VElGU5flESRfZ.91gbSD5ZcII.emLCyngiEoo82XOVMOu",
+        "bio": "",
+        "dateOfBirth": "15-12-2004",
+        "coverPhotoPath": "",
+        "userId": "c8b661ee-6247-4049-a0c1-dfd6ab72d7b9",
+        "email": "mo@gmail.com",
+        "Name": "mohamed",
+        "username": "mo123",
         "status": "offline"
     }
 ]

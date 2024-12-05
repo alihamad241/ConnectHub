@@ -14,21 +14,21 @@ import java.time.LocalDateTime;
 public class Content {
 
     private String content;
-    private String imagePath;
-    private String contentId;
-    private String authorId;
-    private LocalDateTime time;
-    private boolean isStory;
+    private final String imagePath;
+    private final String contentId;
+    private final String authorId;
+    private final LocalDateTime time;
+    private final boolean isStory;
     private final String authorUserName;
 
-    public Content(String content, String imagePath, String contentId, String authorId, LocalDateTime time, boolean isStory, String authorUserName) {
-        this.content = content;
-        this.imagePath = imagePath;
-        this.contentId = contentId;
-        this.authorId = authorId;
-        this.time = time;
-        this.isStory = isStory;
-        this.authorUserName = authorUserName;
+    private Content(Builder builder) {
+        this.content = builder.content;
+        this.imagePath = builder.imagePath;
+        this.contentId = builder.contentId;
+        this.authorId = builder.authorId;
+        this.time = builder.time;
+        this.isStory = builder.isStory;
+        this.authorUserName = builder.authorUserName;
     }
 
 
@@ -64,28 +64,57 @@ public class Content {
         this.content = content;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public void setContentId(String contentId) {
-        this.contentId = contentId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    public void setIsStory(boolean isStory) {
-        this.isStory = isStory;
-    }
-
     public String toString(){
         return "Content: " + content + " ImagePath: " + imagePath + " ContentId: " + contentId + " AuthorId: " + authorId + " Time: " + time + " IsStory: " + isStory;
+    }
+
+    public static class Builder {
+        private String content;
+        private String imagePath;
+        private String contentId;
+        private String authorId;
+        private LocalDateTime time;
+        private boolean isStory;
+        private String authorUserName;
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder setImagePath(String imagePath) {
+            this.imagePath = imagePath;
+            return this;
+        }
+
+        public Builder setContentId(String contentId) {
+            this.contentId = contentId;
+            return this;
+        }
+
+        public Builder setAuthorId(String authorId) {
+            this.authorId = authorId;
+            return this;
+        }
+
+        public Builder setTime(LocalDateTime time) {
+            this.time = time;
+            return this;
+        }
+
+        public Builder setIsStory(boolean isStory) {
+            this.isStory = isStory;
+            return this;
+        }
+
+        public Builder setAuthorUserName(String authorUserName) {
+            this.authorUserName = authorUserName;
+            return this;
+        }
+
+        public Content build() {
+            return new Content(this);
+        }
     }
     
 }

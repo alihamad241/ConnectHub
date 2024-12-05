@@ -5,9 +5,12 @@
 package Frontend;
 
 import Backend.User;
+import Backend.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -29,145 +32,30 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdateSuggestedFriends();
         UpdatePosts();
         UpdateStories();
+        this.setLocationRelativeTo(null);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                UserManager.logout(user);
+            }
+        });
     }
 
     public void UpdateFriends() {
-        JPanel containerPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-        containerPanel.setLayout(boxLayout);
-
-        for (int i = 0; i < user.getFriendManagement().getFriends().size(); i++) {
-            JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getUsername());
-            JLabel statusLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getStatus());
-            JPanel friendPanel = new JPanel();
-            friendPanel.add(friendLabel);
-            friendPanel.add(statusLabel);
-            containerPanel.add(friendPanel);
-        }
-        friendsList.setViewportView(containerPanel);
+        NewsFeed_Updates.UpdateFriends(user, friendsList);
     }
 
     public void UpdateSuggestedFriends(){
-    JPanel containerPanel = new JPanel();
-    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-    containerPanel.setLayout(boxLayout);
-
-    for (int i=0;i<user.getFriendManagement().getSuggestedFriends().size();i++){
-        User suggestedFriend = user.getFriendManagement().getSuggestedFriends().get(i);
-        JLabel friendLabel = new JLabel(suggestedFriend.getUsername());
-        JButton addFriendButton = new JButton("Add Friend");
-        addFriendButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-            user.getFriendManagement().sendFriendRequest(suggestedFriend);
-            JOptionPane.showMessageDialog(null, "Friend Request Sent");
-            user.getFriendManagement().fillSuggestedFriends();
-            UpdateSuggestedFriends();
-        });
-        JPanel suggestedFriendPanel = new JPanel();
-        suggestedFriendPanel.add(friendLabel);
-        suggestedFriendPanel.add(addFriendButton);
-        containerPanel.add(suggestedFriendPanel);
-    }
-    suggestedFriendPanel.setViewportView(containerPanel);
+        NewsFeed_Updates.UpdateSuggestedFriends(user, suggestedFriendPanel);
 }
 
     public void UpdatePosts() {
-    JPanel containerPanel = new JPanel();
-    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-    containerPanel.setLayout(boxLayout);
-
-    for (int i = 0; i < user.getFriendsPosts().size(); i++) {
-        JLabel postLabel = new JLabel(user.getFriendsPosts().get(i).getContent());
-        JLabel nameLabel = new JLabel(user.getFriendsPosts().get(i).getAuthorUserName());
-        long  time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-        if(time>60 && time <120){
-            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-        }else if(time>120 && time <1440) {
-            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-        }else if(time>1440 && time <2880) {
-            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-        }else if(time>2880) {
-            time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-        }else {
-            nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
-        }
-        // Resize the image
-        ImageIcon imageIcon = new ImageIcon(user.getFriendsPosts().get(i).getImagePath());
-        Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(postPanel.getWidth(), 300, Image.SCALE_SMOOTH);
-        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
-
-        JLabel photo = new JLabel(resizedImageIcon);
-        JPanel postPanel = new JPanel();
-        postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
-        postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// Add padding
-        postPanel.add(nameLabel);
-        postPanel.add(photo);
-        postPanel.add(postLabel);
-        postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
-
-        // Add margin between posts
-        postPanel.setBorder(BorderFactory.createCompoundBorder(
-                postPanel.getBorder(),
-                BorderFactory.createEmptyBorder(10, 0, 10, 0)
-        ));
-
-        containerPanel.add(postPanel);
-    }
-    postPanel.setViewportView(containerPanel);
+    NewsFeed_Updates.UpdatePosts(user, postPanel);
 }
 
     public void UpdateStories() {
-    JPanel containerPanel = new JPanel();
-    FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
-    containerPanel.setLayout(flowLayout);
-
-    for (int i = 0; i < user.getFriendsStories().size(); i++) {
-        JLabel storyLabel = new JLabel(user.getFriendsStories().get(i).getContent());
-        JLabel nameLabel = new JLabel(user.getFriendsStories().get(i).getAuthorUserName());
-        long time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-        if (time > 60 && time < 120) {
-            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-        } else if (time > 120 && time < 1440) {
-            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-        } else if (time > 1440 && time < 2880) {
-            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-        } else if (time > 2880) {
-            time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-            nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-        } else {
-            nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
-        }
-        // Resize the image
-        ImageIcon imageIcon = new ImageIcon(user.getFriendsStories().get(i).getImagePath());
-        Image image = imageIcon.getImage();
-        Image resizedImage = image.getScaledInstance(100, storyPanel.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
-
-        JLabel photo = new JLabel(resizedImageIcon);
-        JPanel storyPanel = new JPanel();
-        storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
-        storyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
-        storyPanel.add(nameLabel);
-        storyPanel.add(photo);
-        storyPanel.add(storyLabel);
-        storyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
-
-        // Add margin between stories
-        storyPanel.setBorder(BorderFactory.createCompoundBorder(
-                storyPanel.getBorder(),
-                BorderFactory.createEmptyBorder(10, 0, 10, 0)
-        ));
-
-        containerPanel.add(storyPanel);
-    }
-    storyPanel.setViewportView(containerPanel);
+        NewsFeed_Updates.UpdateStories(user, storyPanel);
 }
 
 

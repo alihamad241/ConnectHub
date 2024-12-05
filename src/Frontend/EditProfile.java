@@ -126,6 +126,7 @@ public class EditProfile extends javax.swing.JFrame {
                profileEditor.updateProfilePhoto(path,UserId );
                profilePage.UpdateProfile();
                profilePage.UpdateProfilePosts();
+               dispose();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
            }
@@ -149,6 +150,7 @@ public class EditProfile extends javax.swing.JFrame {
                profileEditor.updateCoverPhoto(path, UserId);
                profilePage.UpdateProfile();
                profilePage.UpdateProfilePosts();
+               dispose();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
            }
@@ -173,6 +175,7 @@ public class EditProfile extends javax.swing.JFrame {
                   profileEditor.updatePassword(newPassword, UserId);
                 profilePage.UpdateProfile();
                 profilePage.UpdateProfilePosts();
+                dispose();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -194,6 +197,7 @@ public class EditProfile extends javax.swing.JFrame {
              profileEditor.updateBio(newBio, UserId);
                 profilePage.UpdateProfile();
                 profilePage.UpdateProfilePosts();
+                dispose();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
