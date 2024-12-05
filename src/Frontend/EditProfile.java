@@ -19,16 +19,18 @@ import javax.swing.JOptionPane;
 public class EditProfile extends javax.swing.JFrame {
     private String path = null;
     private final String UserId;
+    private final ProfilePage profilePage;
  
 
     /**
      * Creates new form EditProfile
      * @param UserId
      */
-    public EditProfile(String UserId) {
+    public EditProfile(String UserId, ProfilePage profilePage) {
         initComponents();
           setTitle(" Edit Profile");
           this.UserId=UserId;
+          this.profilePage=profilePage;
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -122,6 +124,8 @@ public class EditProfile extends javax.swing.JFrame {
             UpdateProfile profileEditor =new UpdateProfile();
            try {
                profileEditor.updateProfilePhoto(path,UserId );
+               profilePage.UpdateProfile();
+               profilePage.UpdateProfilePosts();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
            }
@@ -143,6 +147,8 @@ public class EditProfile extends javax.swing.JFrame {
             UpdateProfile profileEditor =new UpdateProfile();
            try {
                profileEditor.updateCoverPhoto(path, UserId);
+               profilePage.UpdateProfile();
+               profilePage.UpdateProfilePosts();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
            }
@@ -165,6 +171,8 @@ public class EditProfile extends javax.swing.JFrame {
                        UpdateProfile profileEditor=new UpdateProfile();
             try {
                   profileEditor.updatePassword(newPassword, UserId);
+                profilePage.UpdateProfile();
+                profilePage.UpdateProfilePosts();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -184,6 +192,8 @@ public class EditProfile extends javax.swing.JFrame {
              UpdateProfile profileEditor=new UpdateProfile();
             try {
              profileEditor.updateBio(newBio, UserId);
+                profilePage.UpdateProfile();
+                profilePage.UpdateProfilePosts();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
             }

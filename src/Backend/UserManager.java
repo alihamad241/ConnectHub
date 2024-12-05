@@ -85,7 +85,7 @@ public class UserManager {
     return null;
 }
 
-    public void logout(User user) {
+    public static void logout(User user) {
         user.setStatus("offline");
     }
 

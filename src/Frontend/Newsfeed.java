@@ -278,7 +278,10 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
-
+        //REFRESH
+        UpdateFriends();
+        UpdateSuggestedFriends();
+        UpdatePosts();
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

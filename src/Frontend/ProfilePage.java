@@ -5,6 +5,8 @@
 package Frontend;
 
 import Backend.User;
+import Backend.UserManager;
+
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
@@ -51,6 +53,8 @@ public final class ProfilePage extends javax.swing.JFrame {
             containerPanel.add(friendPanel);
         }
         friendsList.setViewportView(containerPanel);
+
+
     }
 
     public void UpdateProfilePosts(){
@@ -145,7 +149,7 @@ public final class ProfilePage extends javax.swing.JFrame {
 
         refresh.setBackground(new java.awt.Color(0, 0, 0));
         refresh.setForeground(new java.awt.Color(255, 255, 255));
-        refresh.setText("Refresh");
+        refresh.setText("Logout");
         refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshActionPerformed(evt);
@@ -214,12 +218,15 @@ public final class ProfilePage extends javax.swing.JFrame {
 
     private void editProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProfileActionPerformed
         // TODO add your handling code here:
-        new EditProfile(user.getUserId()).setVisible(true);
+        new EditProfile(user.getUserId(), this).setVisible(true);
     }//GEN-LAST:event_editProfileActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         // TODO add your handling code here:
-        //refresh the page
+        UserManager.logout(user);
+        JOptionPane.showMessageDialog(null, "Logged out successfully.");
+        dispose();
+        new StartMenu().setVisible(true);
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
