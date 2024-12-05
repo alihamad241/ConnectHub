@@ -5,9 +5,12 @@
 package Frontend;
 
 import Backend.User;
+import Backend.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -29,6 +32,14 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdateSuggestedFriends();
         UpdatePosts();
         UpdateStories();
+        this.setLocationRelativeTo(null);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                UserManager.logout(user);
+            }
+        });
     }
 
     public void UpdateFriends() {

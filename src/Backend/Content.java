@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 public class Content {
 
     private String content;
-    private String imagePath;
-    private String contentId;
-    private String authorId;
-    private LocalDateTime time;
-    private boolean isStory;
+    private final String imagePath;
+    private final String contentId;
+    private final String authorId;
+    private final LocalDateTime time;
+    private final boolean isStory;
     private final String authorUserName;
 
     private Content(Builder builder) {
