@@ -94,5 +94,17 @@
         "Name": "Ali Hamad",
         "username": "fahdbinhamad",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\Pictures\\101MSDCF\\DSC01532.JPG",
+        "hashedPassword": "$2a$10$5Fl5/Fg/VElGU5flESRfZ.91gbSD5ZcII.emLCyngiEoo82XOVMOu",
+        "bio": "",
+        "dateOfBirth": "15-12-2004",
+        "coverPhotoPath": "",
+        "userId": "c8b661ee-6247-4049-a0c1-dfd6ab72d7b9",
+        "email": "mo@gmail.com",
+        "Name": "mohamed",
+        "username": "mo123",
+        "status": "online"
     }
 ]

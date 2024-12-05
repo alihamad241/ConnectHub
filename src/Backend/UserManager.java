@@ -12,10 +12,19 @@ public class UserManager {
     private static final String USERS_FILE = "databases/users.json";
     public static JSONArray users = DatabaseManager.readJSONFile(USERS_FILE);
     public static ArrayList<User> allUsers = new ArrayList<>();
+    private static UserManager instance;
 
-    public UserManager() {
+    private UserManager() {
         loadAllUsers();
     }
+
+    public static UserManager getInstance() {
+        if (instance == null) {
+            instance = new UserManager();
+        }
+        return instance;
+    }
+
 
     public static User findUser(String userId) {
         for (User user : allUsers) {

@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 /**
  *
  * @author mrali
@@ -178,7 +179,8 @@ public class Signup extends javax.swing.JFrame {
         String formattedDateOfBirth = dateFormat.format(dateOfBirth);
 
 
-        UserManager userManager = new UserManager();
+        UserManager userManager = UserManager.getInstance();
+
         if(userManager.signup(name, email, username, password, formattedDateOfBirth)) {
             JOptionPane.showMessageDialog(null, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             new Login().setVisible(true);
