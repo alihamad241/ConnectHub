@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class User {
     private String name;
-    private String userId;
+    private final String userId;
     private String email;
     private String username;
     private String hashedPassword;

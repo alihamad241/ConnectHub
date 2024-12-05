@@ -17,7 +17,6 @@ public class DatabaseManager {
                 jsonData.append(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
             return new JSONArray();
         }
         return new JSONArray(jsonData.toString());

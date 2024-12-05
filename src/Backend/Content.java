@@ -19,7 +19,7 @@ public class Content {
     private String authorId;
     private LocalDateTime time;
     private boolean isStory;
-    private String authorUserName;
+    private final String authorUserName;
 
     public Content(String content, String imagePath, String contentId, String authorId, LocalDateTime time, boolean isStory, String authorUserName) {
         this.content = content;
