@@ -125,6 +125,15 @@ public class UserManager {
     }
 
 
+    public static ArrayList<User> searchByName(String name, User user) {
+    ArrayList<User> searchResults = new ArrayList<>();
+    for (User search : allUsers) {
+        if ((search.getName().toLowerCase().contains(name.toLowerCase()) || search.getUsername().toLowerCase().contains(name.toLowerCase())) && !user.equals(search)) {
+            searchResults.add(search);
+        }
+    }
+    return searchResults;
+}
 
 
 
