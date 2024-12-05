@@ -19,14 +19,16 @@ import java.time.temporal.ChronoUnit;
  */
 public final class ProfilePage extends javax.swing.JFrame {
     private final User user;
+    private final JFrame newsFeedFrame;
     /**
      * Creates new form ProfilePage
      * @param user
      */
     
-    public ProfilePage(User user) {
+    public ProfilePage(User user, JFrame newsFeedFrame) {
         initComponents();
         this.user=user;
+        this.newsFeedFrame=newsFeedFrame;
         UpdateProfile();
         UpdateProfilePosts();
         this.setLocationRelativeTo(null);
@@ -226,6 +228,9 @@ public final class ProfilePage extends javax.swing.JFrame {
         UserManager.logout(user);
         JOptionPane.showMessageDialog(null, "Logged out successfully.");
         dispose();
+        if(newsFeedFrame!=null) {
+            newsFeedFrame.dispose();
+        }
         new StartMenu().setVisible(true);
     }//GEN-LAST:event_refreshActionPerformed
 

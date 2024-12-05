@@ -28,6 +28,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdatePosts();
+        UpdateStories();
     }
 
     public void UpdateFriends() {
@@ -121,26 +122,26 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     public void UpdateStories() {
     JPanel containerPanel = new JPanel();
-    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-    containerPanel.setLayout(boxLayout);
+    FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+    containerPanel.setLayout(flowLayout);
 
-    for(int i=0;i<user.getFriendsStories().size();i++){
+    for (int i = 0; i < user.getFriendsStories().size(); i++) {
         JLabel storyLabel = new JLabel(user.getFriendsStories().get(i).getContent());
         JLabel nameLabel = new JLabel(user.getFriendsStories().get(i).getAuthorUserName());
-        long  time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-        if(time>60 && time <120){
+        long time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+        if (time > 60 && time < 120) {
             time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
             nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-        }else if(time>120 && time <1440) {
+        } else if (time > 120 && time < 1440) {
             time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
             nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-        }else if(time>1440 && time <2880) {
+        } else if (time > 1440 && time < 2880) {
             time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
             nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-        }else if(time>2880) {
+        } else if (time > 2880) {
             time = user.getFriendsStories().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
             nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-        }else {
+        } else {
             nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
         }
         // Resize the image
@@ -152,19 +153,22 @@ public final class Newsfeed extends javax.swing.JFrame {
         JLabel photo = new JLabel(resizedImageIcon);
         JPanel storyPanel = new JPanel();
         storyPanel.setLayout(new BoxLayout(storyPanel, BoxLayout.Y_AXIS));
-        storyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// Add padding
+        storyPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
         storyPanel.add(nameLabel);
         storyPanel.add(photo);
         storyPanel.add(storyLabel);
         storyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
 
-        // Add margin between posts
+        // Add margin between stories
         storyPanel.setBorder(BorderFactory.createCompoundBorder(
                 storyPanel.getBorder(),
-                BorderFactory.createEmptyBorder(10, 0, 10, 0)));
+                BorderFactory.createEmptyBorder(10, 0, 10, 0)
+        ));
+
+        containerPanel.add(storyPanel);
     }
     storyPanel.setViewportView(containerPanel);
-    }
+}
 
 
     /**
@@ -316,7 +320,7 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     private void profileManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileManagementActionPerformed
         // TODO add your handling code here:
-        new ProfilePage(user).setVisible(true);
+        new ProfilePage(user, this).setVisible(true);
     }//GEN-LAST:event_profileManagementActionPerformed
 
     private void friendManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendManagementActionPerformed
@@ -330,6 +334,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdatePosts();
+        UpdateStories();
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
