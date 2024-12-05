@@ -1,6 +1,26 @@
 [
     {
-        "receivedRequests": [],
+        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
+        "blockedUsers": [],
+        "userId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "friends": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
+        "blockedUsers": [],
+        "userId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "friends": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
+        ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
         "blockedUsers": [],
         "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "friends": [
@@ -15,28 +35,15 @@
         "receivedRequests": [],
         "blockedUsers": [],
         "userId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
-        ],
+        "friends": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
         "sentRequests": []
     },
     {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
-        "blockedUsers": [],
-        "userId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-        "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
-        ],
-        "sentRequests": []
-    },
-    {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
+        "receivedRequests": [],
         "blockedUsers": [],
         "userId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "friends": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
-        "sentRequests": []
+        "friends": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
+        "sentRequests": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"]
     },
     {
         "receivedRequests": [],
@@ -51,15 +58,5 @@
             "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
             "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f"
         ]
-    },
-    {
-        "receivedRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"],
-        "blockedUsers": [],
-        "userId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
-        "friends": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
-        ],
-        "sentRequests": []
     }
 ]
