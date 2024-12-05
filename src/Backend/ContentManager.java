@@ -107,7 +107,15 @@ public class ContentManager {
                 String imagePath=content.getString("imagePath");
                 LocalDateTime time=LocalDateTime.parse(content.getString("time"));
                 boolean isStory=content.getBoolean("isStory");
-                Content newContent=new Content(contentText,imagePath,contentId,authorId,time,isStory, Objects.requireNonNull(findUser(authorId)).getUsername());
+                Content newContent = new Content.Builder()
+                        .setContent(contentText)
+                        .setImagePath(imagePath)
+                        .setContentId(contentId)
+                        .setAuthorId(authorId)
+                        .setTime(time)
+                        .setIsStory(isStory)
+                        .setAuthorUserName(Objects.requireNonNull(findUser(authorId)).getUsername())
+                        .build();
                 allContents.add(newContent);
             }
         } catch (Exception e) {
