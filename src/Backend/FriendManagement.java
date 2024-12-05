@@ -129,16 +129,6 @@ public class FriendManagement {
         return suggestedFriends;
     }
 
-    public Map<String, String> getFriendsStatus() {
-        Map<String, String> friendsStatus = new HashMap<>();
-        for(User friend : friends){
-            friendsStatus.put(friend.getUserId(), friend.getStatus());
-        }
-        return friendsStatus;
-    }
-
-
-
     public void fillSuggestedFriends() {
         suggestedFriends.clear();
         for (User friend : friends) {
@@ -245,6 +235,10 @@ public class FriendManagement {
         // Write to file
         databaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
 
+    }
+
+    public boolean isFriend(User user) {
+        return friends.contains(user);
     }
 
 }
