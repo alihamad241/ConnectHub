@@ -7,6 +7,8 @@ package Frontend;
 import Backend.User;
 import Backend.UserManager;
 
+import javax.swing.*;
+
 
 /**
  *
@@ -136,7 +138,7 @@ public class Login extends javax.swing.JFrame {
         String password = new String(passWord.getPassword());
 
         if (username.isEmpty() || password.isEmpty()) {
-            System.out.println("Please fill in all fields!");
+            JOptionPane.showMessageDialog(null, "Please enter a username and password", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
