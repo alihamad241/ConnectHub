@@ -28,6 +28,7 @@ public final class Newsfeed extends javax.swing.JFrame {
     public Newsfeed(User user) {
         initComponents();
         this.user = user;
+        NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel);
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdatePosts();
