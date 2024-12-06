@@ -27,7 +27,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = "offline";
         this.friendManagement = new FriendManagement(this);
-        this.userProfile = new UserProfile();
+        this.userProfile = new UserProfile.Builder().setBio("").setCoverPhotoPath("").setProfilePhotoPath("").build();
     }
 
 
