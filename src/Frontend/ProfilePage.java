@@ -32,10 +32,12 @@ public final class ProfilePage extends javax.swing.JFrame {
     }
 
     public void UpdateProfile(){
+        Profile_Updates.RefreshProfile();
         Profile_Updates.UpdateProfile(user, userName, bio, profileImage, coverImage, friendsList);
     }
 
     public void UpdateProfilePosts(){
+        Profile_Updates.RefreshProfile();
         Profile_Updates.UpdateProfilePosts(user, jScrollPane1);
     }
     

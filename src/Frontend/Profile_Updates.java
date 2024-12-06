@@ -1,13 +1,28 @@
 package Frontend;
 
+import Backend.ContentManager;
 import Backend.User;
+import Backend.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static Backend.UserManager.allUsers;
+
+
 public class Profile_Updates {
+    private static final UserManager userManager = UserManager.getInstance();
+    private static final ContentManager contentManager = Backend.ContentManager.getInstance();
+
+    public static void RefreshProfile() {
+        contentManager.readContent();
+        userManager.loadAllUsers();
+        userManager.loadAllFriends();
+    }
+
 
     public static void UpdateProfilePosts(User user, JScrollPane jScrollPane1) {
         JPanel containerPanel = new JPanel();
@@ -78,6 +93,7 @@ public class Profile_Updates {
         BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
         containerPanel.setLayout(boxLayout);
         for (int i = 0; i < user.getFriendManagement().getFriends().size(); i++) {
+            System.out.println(user.getFriendManagement().getFriends().get(i).getName() + " " + user.getFriendManagement().getFriends().get(i).getStatus());
             JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getName());
             JLabel statusLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getStatus());
             JPanel friendPanel = new JPanel();

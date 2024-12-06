@@ -1,9 +1,13 @@
 package Backend;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -17,6 +21,7 @@ public class UserManager {
 
     private UserManager() {
         loadAllUsers();
+        loadAllFriends();
     }
 
     public static UserManager getInstance() {
@@ -120,6 +125,13 @@ public class UserManager {
     }
 
     public void loadAllUsers() {
+//        allUsers.clear();
+        try{
+            String json=new String(Files.readAllBytes(Paths.get(USERS_FILE)));
+            users = new JSONArray(json);
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
             User newUser = new User(user.getString("Name"), user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
@@ -129,6 +141,9 @@ public class UserManager {
             newUser.setStatus(user.getString("status"));
             allUsers.add(newUser);
         }
+    }
+
+    public void loadAllFriends(){
         for(User user: allUsers){
             user.getFriendManagement().loadFriends();
         }

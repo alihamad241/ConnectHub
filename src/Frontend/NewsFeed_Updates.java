@@ -1,13 +1,29 @@
 package Frontend;
 
+import Backend.ContentManager;
 import Backend.User;
+import Backend.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+
 public class NewsFeed_Updates {
+    private static final UserManager userManager = UserManager.getInstance();
+    private static final ContentManager contentManager = ContentManager.getInstance();
+
+    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel) {
+         contentManager.readContent();
+         userManager.loadAllUsers();
+         userManager.loadAllFriends();
+
+         UpdateFriends(user, friendsList);
+         UpdateSuggestedFriends(user , suggestedFriendPanel);
+         UpdatePosts(user, postPanel);
+            UpdateStories(user, storyPanel);
+    }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
         JPanel containerPanel = new JPanel();
