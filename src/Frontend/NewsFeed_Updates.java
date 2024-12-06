@@ -18,8 +18,10 @@ public class NewsFeed_Updates {
     private static Timer statusUpdateTimer;
 
    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel) {
-
-
+       contentManager.readContent();
+       userManager.loadAllUsers();
+       userManager.loadAllFriends();
+       UpdatePosts(user, postPanel);
 
        // Start the timer to update friend statuses periodically
        if (statusUpdateTimer == null) {
@@ -31,7 +33,6 @@ public class NewsFeed_Updates {
                    userManager.loadAllFriends();
                    UpdateFriends(user, friendsList);
                    UpdateStories(user, storyPanel);
-                   UpdatePosts(user, postPanel);
                    UpdateSuggestedFriends(user, suggestedFriendPanel);
                }
            });

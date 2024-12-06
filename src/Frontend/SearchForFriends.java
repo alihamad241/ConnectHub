@@ -9,6 +9,7 @@ import Backend.UserManager;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -103,11 +104,16 @@ public class SearchForFriends extends javax.swing.JFrame {
             return;
         }
 
+
         // Search for the user
         ArrayList<User> searchResults = UserManager.searchByName(search, user);
-        for(User u : searchResults){
-            if(user.getFriendManagement().getBlockedUsers().contains(u) || user.getFriendManagement().getSentRequests().contains(u) || user.getFriendManagement().getReceivedRequests().contains(u)){
-                searchResults.remove(u);
+        Iterator<User> iterator = searchResults.iterator();
+        while (iterator.hasNext()) {
+            User u = iterator.next();
+            if (user.getFriendManagement().getBlockedUsers().contains(u) ||
+                    user.getFriendManagement().getSentRequests().contains(u) ||
+                    user.getFriendManagement().getReceivedRequests().contains(u)) {
+                iterator.remove();
             }
         }
 

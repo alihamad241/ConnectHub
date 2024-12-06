@@ -130,5 +130,17 @@
         "Name": "Omar",
         "username": "omar",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$SDkTX.leEGy8BV0WBeTRg.UYPobHczjc/XUhzEwZNOvrFNFMhp2OC",
+        "bio": "",
+        "dateOfBirth": "24-5-2005",
+        "coverPhotoPath": "",
+        "userId": "9f11130d-e12b-4235-90d4-0f011dfd202c",
+        "email": "joe@gmail.com",
+        "Name": "joe jr",
+        "username": "joe",
+        "status": "offline"
     }
 ]
