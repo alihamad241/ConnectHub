@@ -233,6 +233,7 @@ public class CreateContent extends javax.swing.JFrame {
         contentManager.addContent(newContent);
         JOptionPane.showMessageDialog(this, "Content added successfully");
         System.out.println(content);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
