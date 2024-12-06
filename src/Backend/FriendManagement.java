@@ -153,12 +153,7 @@ public class FriendManagement {
         blockedUsers.clear();
 
         File file = new File(FRIENDS_FILE_PATH);
-        try{
-            String json=new String(Files.readAllBytes(Paths.get(FRIENDS_FILE_PATH)));
-            userFriends = new JSONArray(json);
-        } catch (JSONException | IOException e) {
-           e.printStackTrace();
-        }
+      JSONArray userFriends = databaseManager.readJSONFile(FRIENDS_FILE_PATH);
         if (file.exists()) {
 
             for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
@@ -254,6 +249,8 @@ public class FriendManagement {
     public boolean isFriend(User user) {
         return friends.contains(user);
     }
+
+
 
 
 }

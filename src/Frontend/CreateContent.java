@@ -211,14 +211,20 @@ public class CreateContent extends javax.swing.JFrame {
         String content = caption.getText();
         if(content.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please write something");
+            return;
             }
-        boolean isStory=false;
+        boolean isStory;
+        if(post.isSelected() && story.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Please choose only one option");
+            return;
+        }
         if(post.isSelected()) {
             isStory = false;
         }else if(story.isSelected()) {
             isStory = true;
-        }else{
+        }else {
             JOptionPane.showMessageDialog(this, "Please choose if you wanna add a story or a post");
+            return;
         }
         String authorId = user.getUserId();
         Content newContent = new Content.Builder()
@@ -232,7 +238,6 @@ public class CreateContent extends javax.swing.JFrame {
                 .build();
         contentManager.addContent(newContent);
         JOptionPane.showMessageDialog(this, "Content added successfully");
-        System.out.println(content);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

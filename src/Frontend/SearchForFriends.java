@@ -105,6 +105,11 @@ public class SearchForFriends extends javax.swing.JFrame {
 
         // Search for the user
         ArrayList<User> searchResults = UserManager.searchByName(search, user);
+        for(User u : searchResults){
+            if(user.getFriendManagement().getBlockedUsers().contains(u) || user.getFriendManagement().getSentRequests().contains(u) || user.getFriendManagement().getReceivedRequests().contains(u)){
+                searchResults.remove(u);
+            }
+        }
 
         if(searchResults.isEmpty()){
             JOptionPane.showMessageDialog(null, "No users found", "Error", JOptionPane.ERROR_MESSAGE);
