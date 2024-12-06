@@ -132,7 +132,7 @@ public class SearchForFriends extends javax.swing.JFrame {
                 addButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         user.getFriendManagement().sendFriendRequest(selected);
-                        JOptionPane.showMessageDialog(null, "Friend request sent to " + user.getUsername());
+                        JOptionPane.showMessageDialog(null, "Friend request sent to " + selected.getName());
                         addButton.setEnabled(false);
                         addButton.setText("Pending");
                     }
