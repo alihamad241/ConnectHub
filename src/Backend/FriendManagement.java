@@ -1,9 +1,13 @@
 package Backend;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +47,7 @@ public class FriendManagement {
         if(checkDupe(user) && !friends.contains(user) && !sentRequests.contains(user) && !receivedRequests.contains(user) && !blockedUsers.contains(user)){
         friends.add(user);
         user.getFriendManagement().friends.add(this.user);
-        saveFriends();
+        this.saveFriends();
         user.getFriendManagement().saveFriends();
     }
 
@@ -143,9 +147,14 @@ public class FriendManagement {
     }
 
     public void loadFriends() {
+        friends.clear();
+        receivedRequests.clear();
+        sentRequests.clear();
+        blockedUsers.clear();
+
         File file = new File(FRIENDS_FILE_PATH);
+      JSONArray userFriends = databaseManager.readJSONFile(FRIENDS_FILE_PATH);
         if (file.exists()) {
-            userFriends = databaseManager.readJSONFile(FRIENDS_FILE_PATH);
 
             for (int i = 0; i < Objects.requireNonNull(userFriends).length(); i++) {
                 JSONObject existingUser = userFriends.getJSONObject(i);
@@ -240,6 +249,9 @@ public class FriendManagement {
     public boolean isFriend(User user) {
         return friends.contains(user);
     }
+
+
+
 
 }
 

@@ -1,13 +1,43 @@
 package Frontend;
 
+import Backend.ContentManager;
 import Backend.User;
+import Backend.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+
 public class NewsFeed_Updates {
+    private static final UserManager userManager = UserManager.getInstance();
+    private static final ContentManager contentManager = ContentManager.getInstance();
+    private static Timer statusUpdateTimer;
+
+   public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel) {
+
+
+
+       // Start the timer to update friend statuses periodically
+       if (statusUpdateTimer == null) {
+           statusUpdateTimer = new Timer(1000, new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   contentManager.readContent();
+                   userManager.loadAllUsers();
+                   userManager.loadAllFriends();
+                   UpdateFriends(user, friendsList);
+                   UpdateStories(user, storyPanel);
+                   UpdatePosts(user, postPanel);
+                   UpdateSuggestedFriends(user, suggestedFriendPanel);
+               }
+           });
+           statusUpdateTimer.start();
+       }
+}
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
         JPanel containerPanel = new JPanel();
@@ -16,6 +46,7 @@ public class NewsFeed_Updates {
 
         for (int i = 0; i < user.getFriendManagement().getFriends().size(); i++) {
             JLabel friendLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getUsername());
+            System.out.println(user.getFriendManagement().getFriends().get(i).getStatus());
             JLabel statusLabel = new JLabel(user.getFriendManagement().getFriends().get(i).getStatus());
             JPanel friendPanel = new JPanel();
             friendPanel.add(friendLabel);

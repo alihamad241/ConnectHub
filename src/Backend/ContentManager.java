@@ -24,7 +24,7 @@ import static Backend.UserManager.findUser;
  */
 public class ContentManager {
 
-    private final ArrayList<Content> contents;
+    public static ArrayList<Content> allContents = new ArrayList<>();
     private static final String CONTENTS_FILE = "databases/content.json";
     private static final DatabaseManager databaseManager = Backend.DatabaseManager.getInstance();
     public static JSONArray contentsArray = databaseManager.readJSONFile(CONTENTS_FILE);
@@ -34,7 +34,7 @@ public class ContentManager {
 
     // Private constructor to prevent instantiation
     private ContentManager() {
-        contents = new ArrayList<>();
+        readContent();
     }
 
     // Public method to provide access to the instance
@@ -46,12 +46,12 @@ public class ContentManager {
     }
 
     public void addContent(Content content) {
-        contents.add(content);
+        allContents.add(content);
         writeContent(content);
     }
 
     public void removeContent(Content content) {
-        contents.remove(content);
+        allContents.remove(content);
         for(int i = 0; i < contentsArray.length(); i++){
             JSONObject contents = contentsArray.getJSONObject(i);
             if(contents.getString("contentId").equals(content.getContentId())){
@@ -63,7 +63,7 @@ public class ContentManager {
     }
 
     public void removeStory() {
-        Iterator<Content> iterator = contents.iterator();
+        Iterator<Content> iterator = allContents.iterator();
         while (iterator.hasNext()) {
             Content content = iterator.next();
             if (content.getIsStory() && content.getTime().isBefore(LocalDateTime.now().minusDays(1))) {
@@ -74,6 +74,7 @@ public class ContentManager {
     }
 
     public static void writeContent(Content content) {
+
         JSONObject newContentObject = new JSONObject();
         JSONArray contentsArray = databaseManager.readJSONFile(CONTENTS_FILE);
             newContentObject.put("content", content.getContent());
@@ -93,8 +94,8 @@ public class ContentManager {
 
     }
 
-    public static ArrayList<Content> readContent(){
-        ArrayList<Content> allContents = new ArrayList<>();
+    public void readContent(){
+      allContents.clear();
         try{
             String json=new String(Files.readAllBytes(Paths.get(CONTENTS_FILE)));
             JSONArray contentsArray = new JSONArray(json);
@@ -121,12 +122,10 @@ public class ContentManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return allContents;
     }
 
     public static ArrayList<Content> UserContent(String userId){
         ArrayList<Content> userContents=new ArrayList<>();
-        ArrayList<Content> allContents=readContent();
         for(Content content:allContents){
             if(content.getAuthorId().equals(userId)){
                 userContents.add(content);

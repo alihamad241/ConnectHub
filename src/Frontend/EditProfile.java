@@ -124,6 +124,7 @@ public class EditProfile extends javax.swing.JFrame {
             UpdateProfile profileEditor =new UpdateProfile();
            try {
                profileEditor.updateProfilePhoto(path,UserId );
+               Profile_Updates.RefreshProfile();
                profilePage.UpdateProfile();
                profilePage.UpdateProfilePosts();
                dispose();
@@ -148,6 +149,7 @@ public class EditProfile extends javax.swing.JFrame {
             UpdateProfile profileEditor =new UpdateProfile();
            try {
                profileEditor.updateCoverPhoto(path, UserId);
+               Profile_Updates.RefreshProfile();
                profilePage.UpdateProfile();
                profilePage.UpdateProfilePosts();
                dispose();
@@ -173,6 +175,7 @@ public class EditProfile extends javax.swing.JFrame {
                        UpdateProfile profileEditor=new UpdateProfile();
             try {
                   profileEditor.updatePassword(newPassword, UserId);
+                Profile_Updates.RefreshProfile();
                 profilePage.UpdateProfile();
                 profilePage.UpdateProfilePosts();
                 dispose();
@@ -195,6 +198,7 @@ public class EditProfile extends javax.swing.JFrame {
              UpdateProfile profileEditor=new UpdateProfile();
             try {
              profileEditor.updateBio(newBio, UserId);
+                Profile_Updates.RefreshProfile();
                 profilePage.UpdateProfile();
                 profilePage.UpdateProfilePosts();
                 dispose();

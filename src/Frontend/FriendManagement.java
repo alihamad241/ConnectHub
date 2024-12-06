@@ -22,6 +22,7 @@ public final class FriendManagement extends javax.swing.JFrame {
     public FriendManagement(User user) {
         initComponents();
         this.user = user;
+        Profile_Updates.RefreshProfile();
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdateFriendRequests();
@@ -42,6 +43,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 user.removeFriend(removedFriend);
                 JOptionPane.showMessageDialog(null, "Friend removed successfully.");
                 user.getFriendManagement().fillSuggestedFriends();
+                Profile_Updates.RefreshProfile();
                 UpdateFriends();
                 UpdateSuggestedFriends();
             });
@@ -50,6 +52,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 user.getFriendManagement().blockUser(removedFriend);
                 JOptionPane.showMessageDialog(null, "User Blocked");
                 user.getFriendManagement().fillSuggestedFriends();
+                Profile_Updates.RefreshProfile();
                 UpdateFriends();
                 UpdateSuggestedFriends();
             });
@@ -78,6 +81,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Friend Request Sent");
                 addFriendButton.setEnabled(false);
                 addFriendButton.setText("Pending");
+                Profile_Updates.RefreshProfile();
                 user.getFriendManagement().fillSuggestedFriends();
             });
             JButton blockFriendButton = new JButton("Block");
@@ -85,6 +89,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 user.getFriendManagement().blockUser(suggestedFriend);
                 JOptionPane.showMessageDialog(null, "User Blocked");
                 user.getFriendManagement().fillSuggestedFriends();
+                Profile_Updates.RefreshProfile();
                 UpdateSuggestedFriends();
                 UpdateFriends();
             });
@@ -111,6 +116,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 user.getFriendManagement().acceptFriendRequest(receivedRequest);
                 JOptionPane.showMessageDialog(null, "Friend Request Accepted");
                 user.getFriendManagement().fillSuggestedFriends();
+                Profile_Updates.RefreshProfile();
                 UpdateFriendRequests();
                 UpdateFriends();
             });
@@ -119,6 +125,7 @@ public final class FriendManagement extends javax.swing.JFrame {
                 user.getFriendManagement().declineFriendRequest(receivedRequest);
                 JOptionPane.showMessageDialog(null, "Friend Request Rejected");
                 user.getFriendManagement().fillSuggestedFriends();
+                Profile_Updates.RefreshProfile();
                 UpdateFriendRequests();
                 UpdateFriends();
             });

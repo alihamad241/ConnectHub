@@ -37,7 +37,8 @@ public final class Newsfeed extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                UserManager.logout(user);
+                user.setStatus("offline");
+                UserManager.saveUserToDatabase(user);
             }
         });
     }
@@ -217,12 +218,8 @@ public final class Newsfeed extends javax.swing.JFrame {
     }//GEN-LAST:event_friendManagementActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        // TODO add your handling code here:
-        //REFRESH
-        UpdateFriends();
-        UpdateSuggestedFriends();
-        UpdatePosts();
-        UpdateStories();
+    // Refresh the news feed
+    NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel);
     }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,9 +1,13 @@
 package Backend;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -17,6 +21,7 @@ public class UserManager {
 
     private UserManager() {
         loadAllUsers();
+        loadAllFriends();
     }
 
     public static UserManager getInstance() {
@@ -25,7 +30,6 @@ public class UserManager {
         }
         return instance;
     }
-
 
     public static User findUser(String userId) {
         for (User user : allUsers) {
@@ -49,7 +53,7 @@ public class UserManager {
                 return false;
             }
         }
-        //check if username already exists
+        // Check if username already exists
         for (Object obj : users) {
             JSONObject user = (JSONObject) obj;
             if (user.getString("username").equals(username)) {
@@ -63,7 +67,6 @@ public class UserManager {
         allUsers.add(newUser);
 
         // Save the user to the file
-
         JSONObject newUserObject = new JSONObject();
         newUserObject.put("Name", name);
         newUserObject.put("userId", userId);
@@ -82,18 +85,17 @@ public class UserManager {
     }
 
     public User login(String username, String password) {
-    // Has
-    for (User user : allUsers) {
-        if (user.getUsername().equals(username) && PasswordHashing.checkPassword(password, user.getHashedPassword())) {
-            user.setStatus("online");
-            saveUserToDatabase(user);// Save the updated status to the database
-            JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            return user;
+        for (User user : allUsers) {
+            if (user.getUsername().equals(username) && PasswordHashing.checkPassword(password, user.getHashedPassword())) {
+                user.setStatus("online");
+                saveUserToDatabase(user); // Save the updated status to the database
+                JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                return user;
+            }
         }
+        JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
     }
-    JOptionPane.showMessageDialog(null, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
-    return null;
-}
 
     public static void logout(User user) {
         user.setStatus("offline");
@@ -120,8 +122,23 @@ public class UserManager {
     }
 
     public void loadAllUsers() {
-        for (Object obj : users) {
-            JSONObject user = (JSONObject) obj;
+    JSONArray newUsers = databaseManager.readJSONFile(USERS_FILE);
+    for (Object obj : newUsers) {
+        JSONObject user = (JSONObject) obj;
+        User existingUser = findUser(user.getString("userId"));
+        if (existingUser != null) {
+            // Update existing user
+            existingUser.setName(user.getString("Name"));
+            existingUser.setEmail(user.getString("email"));
+            existingUser.setUsername(user.getString("username"));
+            existingUser.setHashedPassword(user.getString("hashedPassword"));
+            existingUser.setDateOfBirth(user.getString("dateOfBirth"));
+            existingUser.setStatus(user.getString("status"));
+            existingUser.getUserProfile().setProfilePhotoPath(user.getString("profilePhotoPath"));
+            existingUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
+            existingUser.getUserProfile().setBio(user.getString("bio"));
+        } else {
+            // Add new user
             User newUser = new User(user.getString("Name"), user.getString("userId"), user.getString("email"), user.getString("username"), user.getString("hashedPassword"), user.getString("dateOfBirth"));
             newUser.getUserProfile().setProfilePhotoPath(user.getString("profilePhotoPath"));
             newUser.getUserProfile().setCoverPhotoPath(user.getString("coverPhotoPath"));
@@ -129,22 +146,22 @@ public class UserManager {
             newUser.setStatus(user.getString("status"));
             allUsers.add(newUser);
         }
-        for(User user: allUsers){
+    }
+}
+
+    public void loadAllFriends() {
+        for (User user : allUsers) {
             user.getFriendManagement().loadFriends();
         }
     }
 
-
     public static ArrayList<User> searchByName(String name, User user) {
-    ArrayList<User> searchResults = new ArrayList<>();
-    for (User search : allUsers) {
-        if ((search.getName().toLowerCase().contains(name.toLowerCase()) || search.getUsername().toLowerCase().contains(name.toLowerCase())) && !user.equals(search)) {
-            searchResults.add(search);
+        ArrayList<User> searchResults = new ArrayList<>();
+        for (User search : allUsers) {
+            if ((search.getName().toLowerCase().contains(name.toLowerCase()) || search.getUsername().toLowerCase().contains(name.toLowerCase())) && !user.equals(search)) {
+                searchResults.add(search);
+            }
         }
+        return searchResults;
     }
-    return searchResults;
-}
-
-
-
 }
