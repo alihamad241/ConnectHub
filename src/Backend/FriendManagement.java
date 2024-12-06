@@ -8,10 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static Backend.UserManager.findUser;
 
@@ -200,51 +197,55 @@ public class FriendManagement {
     }
 
     public void saveFriends() {
-        JSONObject json = new JSONObject();
+    JSONObject json = new JSONObject();
 
-
-        for (int i = 0; i < userFriends.length(); i++) {
-            JSONObject existingUser = userFriends.getJSONObject(i);
-            if (existingUser.getString("userId").equals(user.getUserId())) {
-                userFriends.remove(i);
-                break; // Exit loop after removing the matching entry
-            }
-        }
-
-        json.put("userId", user.getUserId());
-        // Convert lists to JSON arrays
-        JSONArray friendsArray = new JSONArray();
-        for (User user : friends) {
-            friendsArray.put(user.getUserId());
-        }
-
-        JSONArray receivedArray = new JSONArray();
-        for (User user : receivedRequests) {
-            receivedArray.put(user.getUserId());
-        }
-
-        JSONArray sentArray = new JSONArray();
-        for (User user : sentRequests) {
-            sentArray.put(user.getUserId());
-        }
-
-        JSONArray blockedArray = new JSONArray();
-        for (User user : blockedUsers) {
-            blockedArray.put(user.getUserId());
-        }
-
-        // Build JSON object
-        json.put("friends", friendsArray);
-        json.put("receivedRequests", receivedArray);
-        json.put("sentRequests", sentArray);
-        json.put("blockedUsers", blockedArray);
-
-        userFriends.put(json);
-
-        // Write to file
-        databaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
-
+    // Check if userFriends is null
+    if (userFriends == null) {
+        userFriends = new JSONArray();
     }
+
+    // Use an iterator to safely remove the existing user data
+    for (Iterator<Object> it = userFriends.iterator(); it.hasNext(); ) {
+        JSONObject existingUser = (JSONObject) it.next();
+        if (existingUser.getString("userId").equals(user.getUserId())) {
+            it.remove();
+            break; // Exit loop after removing the matching entry
+        }
+    }
+
+    json.put("userId", user.getUserId());
+    // Convert lists to JSON arrays
+    JSONArray friendsArray = new JSONArray();
+    for (User user : friends) {
+        friendsArray.put(user.getUserId());
+    }
+
+    JSONArray receivedArray = new JSONArray();
+    for (User user : receivedRequests) {
+        receivedArray.put(user.getUserId());
+    }
+
+    JSONArray sentArray = new JSONArray();
+    for (User user : sentRequests) {
+        sentArray.put(user.getUserId());
+    }
+
+    JSONArray blockedArray = new JSONArray();
+    for (User user : blockedUsers) {
+        blockedArray.put(user.getUserId());
+    }
+
+    // Build JSON object
+    json.put("friends", friendsArray);
+    json.put("receivedRequests", receivedArray);
+    json.put("sentRequests", sentArray);
+    json.put("blockedUsers", blockedArray);
+
+    userFriends.put(json);
+
+    // Write to file
+    databaseManager.writeJSONFile(FRIENDS_FILE_PATH, userFriends);
+}
 
     public boolean isFriend(User user) {
         return friends.contains(user);

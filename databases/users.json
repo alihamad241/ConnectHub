@@ -142,5 +142,17 @@
         "Name": "joe jr",
         "username": "joe",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$k/BFik6BqB3mTZ/HvuBamuvvXFKpIGF44Eusef6F/R7GslQEbNOIW",
+        "bio": "",
+        "dateOfBirth": "1-12-2024",
+        "coverPhotoPath": "",
+        "userId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "email": "rehab@gmail.com",
+        "Name": "rehab",
+        "username": "rehab",
+        "status": "offline"
     }
 ]
