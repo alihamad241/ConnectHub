@@ -4,12 +4,15 @@
  */
 package Frontend;
 
+import Backend.Search;
 import Backend.User;
 import Backend.UserManager;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+
 
 /**
  *
