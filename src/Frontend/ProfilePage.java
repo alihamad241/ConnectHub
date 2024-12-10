@@ -25,23 +25,21 @@ public final class ProfilePage extends javax.swing.JFrame {
         initComponents();
         this.user=user;
         this.newsFeedFrame=newsFeedFrame;
-        UpdateProfile();
-        UpdateProfilePosts();
+        updateProfile();
+        updateProfilePosts();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public void UpdateProfile(){
+    public void updateProfile(){
         Profile_Updates.RefreshProfile();
         Profile_Updates.UpdateProfile(user, userName, bio, profileImage, coverImage, friendsList);
     }
 
-    public void UpdateProfilePosts(){
+    public void updateProfilePosts(){
         Profile_Updates.RefreshProfile();
         Profile_Updates.UpdateProfilePosts(user, jScrollPane1);
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.

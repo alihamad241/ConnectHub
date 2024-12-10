@@ -4,12 +4,15 @@
  */
 package Frontend;
 
+import Backend.Search;
 import Backend.User;
 import Backend.UserManager;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+
 
 /**
  *
@@ -108,14 +111,14 @@ public class SearchForFriends extends javax.swing.JFrame {
         // Search for the user
         ArrayList<User> searchResults = UserManager.searchByName(search, user);
         Iterator<User> iterator = searchResults.iterator();
-        while (iterator.hasNext()) {
-            User u = iterator.next();
-            if (user.getFriendManagement().getBlockedUsers().contains(u) ||
-                    user.getFriendManagement().getSentRequests().contains(u) ||
-                    user.getFriendManagement().getReceivedRequests().contains(u)) {
-                iterator.remove();
-            }
-        }
+//        while (iterator.hasNext()) {
+//            User u = iterator.next();
+//            if (user.getFriendManagement().getBlockedUsers().contains(u) ||
+//                    user.getFriendManagement().getSentRequests().contains(u) ||
+//                    user.getFriendManagement().getReceivedRequests().contains(u)) {
+//                iterator.remove();
+//            }
+//        }
 
         if(searchResults.isEmpty()){
             JOptionPane.showMessageDialog(null, "No users found", "Error", JOptionPane.ERROR_MESSAGE);
@@ -128,13 +131,64 @@ public class SearchForFriends extends javax.swing.JFrame {
 
         // Display the search results
         for (User selected : searchResults) {
+
             JPanel userPanel = new JPanel();
             userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
-
-
             JLabel nameLabel = new JLabel(selected.getName() + " - " + selected.getUsername());
-            JButton addButton = new JButton("Add Friend");
-            if(!user.getFriendManagement().isFriend(selected)){
+            userPanel.add(nameLabel);
+            userPanel.add(Box.createHorizontalStrut(10)); // Add some space between the label and button
+            if (user.getFriendManagement().isFriend(selected)) {
+                JButton removeButton = new JButton("Remove Friend");
+                removeButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        user.getFriendManagement().removeFriend(selected);
+                        JOptionPane.showMessageDialog(null, selected.getName()+" removed");
+                        removeButton.setEnabled(false);
+                        removeButton.setText("Removed");
+                    }
+                });
+
+                userPanel.add(removeButton);
+//                resultsPanel.add(userPanel);
+//                resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
+            }
+
+            if(!user.getFriendManagement().getBlockedUsers().contains(selected)){
+                JButton blockButton = new JButton("Block User");
+                blockButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        user.getFriendManagement().blockUser(selected);
+                        user.getFriendManagement().removeFriend(selected);
+                        JOptionPane.showMessageDialog(null, selected.getName()+" blocked");
+                        blockButton.setEnabled(false);
+                        blockButton.setText("Blocked");
+                    }
+                });
+                userPanel.add(blockButton);
+            }
+            else {
+                JButton unblockButton = new JButton("Unblock User");
+                unblockButton.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        user.getFriendManagement().unblockUser(selected);
+                        JOptionPane.showMessageDialog(null, selected.getName()+" unblocked");
+                        unblockButton.setEnabled(false);
+                        unblockButton.setText("Unblocked");
+                    }
+                });
+                userPanel.add(unblockButton);
+            }
+
+            JButton viewProfileButton = new JButton("View Profile");
+            viewProfileButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    new FriendProfile(selected).setVisible(true);
+                }
+            });
+            userPanel.add(viewProfileButton);
+
+            if(!user.getFriendManagement().isFriend(selected) && !user.getFriendManagement().getSentRequests().contains(selected) && !user.getFriendManagement().getReceivedRequests().contains(selected) && !user.getFriendManagement().getBlockedUsers().contains(selected)){
+                JButton addButton = new JButton("Add Friend");
                 addButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         user.getFriendManagement().sendFriendRequest(selected);
@@ -143,14 +197,15 @@ public class SearchForFriends extends javax.swing.JFrame {
                         addButton.setText("Pending");
                     }
                 });
-                userPanel.add(nameLabel);
-                userPanel.add(Box.createHorizontalStrut(10)); // Add some space between the label and button
+//                userPanel.add(nameLabel);
+//                userPanel.add(Box.createHorizontalStrut(10)); // Add some space between the label and button
                 userPanel.add(addButton);
 
-                resultsPanel.add(userPanel);
-                resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
+//                resultsPanel.add(userPanel);
+//                resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
             }
-
+            resultsPanel.add(userPanel);
+            resultsPanel.add(Box.createVerticalStrut(10)); // Add some space between user panels
         }
 
         jScrollPane1.setViewportView(resultsPanel);

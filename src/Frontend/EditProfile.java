@@ -125,8 +125,8 @@ public class EditProfile extends javax.swing.JFrame {
            try {
                profileEditor.updateProfilePhoto(path,UserId );
                Profile_Updates.RefreshProfile();
-               profilePage.UpdateProfile();
-               profilePage.UpdateProfilePosts();
+               profilePage.updateProfile();
+               profilePage.updateProfilePosts();
                dispose();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,8 +150,8 @@ public class EditProfile extends javax.swing.JFrame {
            try {
                profileEditor.updateCoverPhoto(path, UserId);
                Profile_Updates.RefreshProfile();
-               profilePage.UpdateProfile();
-               profilePage.UpdateProfilePosts();
+               profilePage.updateProfile();
+               profilePage.updateProfilePosts();
                dispose();
            } catch (IOException ex) {
                Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,8 +176,8 @@ public class EditProfile extends javax.swing.JFrame {
             try {
                   profileEditor.updatePassword(newPassword, UserId);
                 Profile_Updates.RefreshProfile();
-                profilePage.UpdateProfile();
-                profilePage.UpdateProfilePosts();
+                profilePage.updateProfile();
+                profilePage.updateProfilePosts();
                 dispose();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
@@ -199,8 +199,8 @@ public class EditProfile extends javax.swing.JFrame {
             try {
              profileEditor.updateBio(newBio, UserId);
                 Profile_Updates.RefreshProfile();
-                profilePage.UpdateProfile();
-                profilePage.UpdateProfilePosts();
+                profilePage.updateProfile();
+                profilePage.updateProfilePosts();
                 dispose();
             } catch (IOException ex) {
                 Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
