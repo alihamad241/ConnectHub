@@ -203,4 +203,14 @@ public class RealGroup implements Group, Observer {
             return new RealGroup(this);
         }
     }
+
+    public String toString(){
+        return "Group Name: " + name + "\n" +
+                "Description: " + description + "\n" +
+                "Contents: " + contents + "\n" +
+                "Pending Requests: " + pendingRequests + "\n" +
+                "Group ID: " + groupId + "\n" +
+                "Photo Path: " + photoPath + "\n" +
+                "User Roles: " + userRoles + "\n";
+    }
 }
