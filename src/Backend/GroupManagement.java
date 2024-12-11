@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GroupManagement {
-    public static ArrayList<Content> allgroups = new ArrayList<>();
+    public static ArrayList<RealGroup> allgroups = new ArrayList<>();
     private static final String GROUPS_FILE_PATH ="databases/groups.json" ;
     private static final DatabaseManager databaseManager = Backend.DatabaseManager.getInstance();
     public static JSONArray groupsArray = databaseManager.readJSONFile(GROUPS_FILE_PATH);
@@ -73,7 +73,15 @@ public class GroupManagement {
 
         // Write the updated array back to the file
         databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
-
     }
 
+    public static ArrayList<RealGroup> searchForGroupsByName(String name, RealGroup group) {
+        ArrayList<RealGroup> searchGroups = new ArrayList<>();
+        for (RealGroup search: allgroups) {
+            if (search.getName().toLowerCase().contains(name.toLowerCase())) {
+                searchGroups.add(group);
+            }
+        }
+        return searchGroups;
+    }
 }

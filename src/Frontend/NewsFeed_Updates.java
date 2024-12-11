@@ -1,8 +1,8 @@
 package Frontend;
 
-import Backend.ContentManager;
-import Backend.User;
-import Backend.UserManager;
+import Backend.*;
+import Backend.Notifications.Notification;
+import Backend.Notifications.NotificationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,34 +11,37 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static Backend.UserManager.findUser;
+
 
 public class NewsFeed_Updates {
     private static final UserManager userManager = UserManager.getInstance();
     private static final ContentManager contentManager = ContentManager.getInstance();
     private static Timer statusUpdateTimer;
 
-   public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel) {
-       contentManager.readContent();
-       userManager.loadAllUsers();
-       userManager.loadAllFriends();
-       UpdatePosts(user, postPanel);
+    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel) {
+        contentManager.readContent();
+        userManager.loadAllUsers();
+        userManager.loadAllFriends();
+        UpdatePosts(user, postPanel);
 
-       // Start the timer to update friend statuses periodically
-       if (statusUpdateTimer == null) {
-           statusUpdateTimer = new Timer(1000, new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent e) {
-                   contentManager.readContent();
-                   userManager.loadAllUsers();
-                   userManager.loadAllFriends();
-                   UpdateFriends(user, friendsList);
-                   UpdateStories(user, storyPanel);
-                   UpdateSuggestedFriends(user, suggestedFriendPanel);
-               }
-           });
-           statusUpdateTimer.start();
-       }
-}
+        // Start the timer to update friend statuses periodically
+        if (statusUpdateTimer == null) {
+            statusUpdateTimer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    contentManager.readContent();
+                    userManager.loadAllUsers();
+                    userManager.loadAllFriends();
+                    UpdateFriends(user, friendsList);
+                    UpdateStories(user, storyPanel);
+                    UpdateSuggestedFriends(user, suggestedFriendPanel);
+                    UpdateNotifications(user, NotificationPanel);
+                }
+            });
+            statusUpdateTimer.start();
+        }
+    }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
         JPanel containerPanel = new JPanel();
@@ -62,12 +65,12 @@ public class NewsFeed_Updates {
         BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
         containerPanel.setLayout(boxLayout);
 
-        for (int i=0;i<user.getFriendManagement().getSuggestedFriends().size();i++){
+        for (int i = 0; i < user.getFriendManagement().getSuggestedFriends().size(); i++) {
             User suggestedFriend = user.getFriendManagement().getSuggestedFriends().get(i);
             JLabel friendLabel = new JLabel(suggestedFriend.getUsername());
             JButton addFriendButton = new JButton("Add Friend");
             addFriendButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                user.getFriendManagement().sendFriendRequest(suggestedFriend);
+                user.sendFriendRequest(suggestedFriend);
                 JOptionPane.showMessageDialog(null, "Friend Request Sent");
                 user.getFriendManagement().fillSuggestedFriends();
                 UpdateSuggestedFriends(user, suggestedFriendPanel);
@@ -88,20 +91,20 @@ public class NewsFeed_Updates {
         for (int i = 0; i < user.getFriendsPosts().size(); i++) {
             JLabel postLabel = new JLabel(user.getFriendsPosts().get(i).getContent());
             JLabel nameLabel = new JLabel(user.getFriendsPosts().get(i).getAuthorUserName());
-            long  time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-            if(time>60 && time <120){
+            long time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+            if (time > 60 && time < 120) {
                 time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
                 nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-            }else if(time>120 && time <1440) {
+            } else if (time > 120 && time < 1440) {
                 time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
                 nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-            }else if(time>1440 && time <2880) {
+            } else if (time > 1440 && time < 2880) {
                 time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
                 nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-            }else if(time>2880) {
+            } else if (time > 2880) {
                 time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
                 nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-            }else {
+            } else {
                 nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
             }
             // Resize the image
@@ -180,4 +183,66 @@ public class NewsFeed_Updates {
         storyPanel.setViewportView(containerPanel);
     }
 
+    public static void UpdateNotifications(User user, JScrollPane notificationPanel) {
+        JPanel containerPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+        containerPanel.setLayout(boxLayout);
+
+        for (int i = 0; i < user.getNotifications().size(); i++) {
+            Notification notification = user.getNotifications().get(i);
+            if (notification.getType().equals("Friend Request")) {
+                JLabel notificationLabel = new JLabel(notification.getMessage());
+                JButton acceptButton = new JButton("Accept");
+                JButton declineButton = new JButton("Decline");
+
+                acceptButton.addActionListener(e -> {
+                    user.acceptFriendRequest(findUser(notification.getSenderUserId()));
+                    NotificationManager.removeNotification(notification);
+                    UpdateNotifications(user, notificationPanel);
+                });
+                declineButton.addActionListener(e -> {
+                    user.declineFriendRequest(findUser(notification.getSenderUserId()));
+                    NotificationManager.removeNotification(notification);
+                    UpdateNotifications(user, notificationPanel);
+                });
+                JPanel innerNotificationPanel = new JPanel();
+                innerNotificationPanel.add(notificationLabel);
+                innerNotificationPanel.add(acceptButton);
+                innerNotificationPanel.add(declineButton);
+
+                innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                        innerNotificationPanel.getBorder(),
+                        BorderFactory.createEmptyBorder(10, 0, 10, 0)
+                ));
+
+                containerPanel.add(innerNotificationPanel);
+
+            } else if (
+                    notification.getType().equals("Group Activities") ||
+                    notification.getType().equals("New Posts") || notification.getType().equals("Default")){
+                JLabel notificationLabel = new JLabel(notification.getMessage());
+                JButton okButton = new JButton("OK");
+                okButton.addActionListener(e -> {
+                    NotificationManager.removeNotification(notification);
+                    UpdateNotifications(user, notificationPanel);
+                });
+                JPanel innerNotificationPanel = new JPanel();
+                innerNotificationPanel.add(notificationLabel);
+                innerNotificationPanel.add(okButton);
+
+                innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                        innerNotificationPanel.getBorder(),
+                        BorderFactory.createEmptyBorder(10, 0, 10, 0)
+                ));
+
+                containerPanel.add(innerNotificationPanel);
+
+            }
+
+
+        }
+
+        notificationPanel.setViewportView(containerPanel);
+    }
 }
+

@@ -1,13 +1,14 @@
 
 package Backend;
 
-import org.json.JSONObject;
+import Backend.Notifications.Notification;
+import Backend.Notifications.NotificationManager;
+import Backend.Notifications.Observer;
+import Backend.Notifications.RequestNotification;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.UUID;
 
-public class User {
+public class User implements Observer {
     private String name;
     private final String userId;
     private String email;
@@ -103,6 +104,7 @@ public class User {
 
     public void acceptFriendRequest(User user){
         friendManagement.acceptFriendRequest(user);
+        update(new Notification(this.getUserId(),user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
     }
 
     public void declineFriendRequest(User user){
@@ -119,6 +121,7 @@ public class User {
 
     public void sendFriendRequest(User user){
         friendManagement.sendFriendRequest(user);
+        update(new RequestNotification(this.getUserId(),user.getUserId(),"You have a new friend request from " + this.getUsername(), "Friend Request"));
     }
 
     public void cancelFriendRequest(User user){
@@ -137,6 +140,15 @@ public class User {
 
     public ArrayList<Content> getFriendsStories() {
         return ContentManager.getFriendsStories(this);
+    }
+
+    @Override
+    public void update(Notification notification) {
+            NotificationManager.addNotification(notification);
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        return NotificationManager.getNotifications(this.getUserId());
     }
 }
 

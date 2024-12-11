@@ -32,7 +32,7 @@ public class Search {
             if(!user.getFriendManagement().isFriend(selected)){
                 addButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        user.getFriendManagement().sendFriendRequest(selected);
+                        user.sendFriendRequest(selected);
                         JOptionPane.showMessageDialog(null, "Friend request sent to " + selected.getName());
                         addButton.setEnabled(false);
                         addButton.setText("Pending");
@@ -199,7 +199,7 @@ public class Search {
             if(!user.getFriendManagement().isFriend(selected)){
                 addButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        user.getFriendManagement().acceptFriendRequest(selected);
+                        user.acceptFriendRequest(selected);
                         JOptionPane.showMessageDialog(null, "Friend request accepted");
                         addButton.setEnabled(false);
                         declineButton.setEnabled(false);

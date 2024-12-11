@@ -172,4 +172,13 @@ public class ContentManager {
         mainFriendsStories.sort((c1, c2) -> c2.getTime().compareTo(c1.getTime()));
         return mainFriendsStories;
     }
+
+    public static Content getContent(String contentId){
+        for(Content content:allContents){
+            if(content.getContentId().equals(contentId)){
+                return content;
+            }
+        }
+        return null;
+    }
 }

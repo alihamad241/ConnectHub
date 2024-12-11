@@ -1,14 +1,13 @@
 package Backend;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import Backend.Notifications.Notification;
+import Backend.Notifications.Observer;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class RealGroup implements Group {
+public class RealGroup implements Group, Observer {
 
     private String name;
     private String description;
@@ -137,6 +136,11 @@ public class RealGroup implements Group {
         GroupManagement.saveGroupToFile(this);
     }
 
+    @Override
+    public void update(Notification notification) {
+
+    }
+
     public static class Builder {
         private String name;
         private String description;
@@ -199,5 +203,15 @@ public class RealGroup implements Group {
         public RealGroup build() {
             return new RealGroup(this);
         }
+    }
+
+    public String toString(){
+        return "Group Name: " + name + "\n" +
+                "Description: " + description + "\n" +
+                "Contents: " + contents + "\n" +
+                "Pending Requests: " + pendingRequests + "\n" +
+                "Group ID: " + groupId + "\n" +
+                "Photo Path: " + photoPath + "\n" +
+                "User Roles: " + userRoles + "\n";
     }
 }
