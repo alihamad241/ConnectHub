@@ -3,84 +3,38 @@
     "contents": [
         {
             "imagePath": "images/welcome.jpg",
-            "authorUserName": "admin_user",
-            "contentId": "content1",
             "isStory": false,
-            "time": "2024-12-11T18:29:03.844350",
+            "contentId": "content1",
+            "authorUserName": "admin_user",
+            "time": "2024-12-11T18:55:02.698046500",
             "authorId": "user123",
             "content": "Welcome to the Test Group!"
         },
         {
             "imagePath": "images/rules.jpg",
-            "authorUserName": "moderator",
-            "contentId": "content2",
             "isStory": false,
-            "time": "2024-12-11T18:29:06.515602300",
+            "contentId": "content2",
+            "authorUserName": "moderator",
+            "time": "2024-12-11T18:55:04.085783100",
             "authorId": "user456",
             "content": "Group Rules: Be respectful and follow the guidelines."
         },
         {
             "imagePath": "",
-            "authorUserName": "moderator",
-            "contentId": "content1",
             "isStory": false,
-            "time": "2024-12-11T18:29:06.552503500",
+            "contentId": "content1",
+            "authorUserName": "moderator",
+            "time": "2024-12-11T18:55:04.104733300",
             "authorId": "user456",
             "content": "modify shaghala?"
         }
     ],
     "pendingRequests": [
-        {
-            "friendManagement": {
-                "suggestedFriends": [],
-                "receivedRequests": [],
-                "blockedUsers": [],
-                "friends": [],
-                "sentRequests": []
-            },
-            "friendsStories": [],
-            "hashedPassword": "hashed123",
-            "name": "John Doe",
-            "friendsPosts": [],
-            "dateOfBirth": "1990-05-21",
-            "userId": "user789",
-            "posts": [],
-            "email": "john@example.com",
-            "userProfile": {
-                "profilePhotoPath": "",
-                "bio": "",
-                "coverPhotoPath": ""
-            },
-            "status": "offline",
-            "username": "john_doe"
-        },
-        {
-            "friendManagement": {
-                "suggestedFriends": [],
-                "receivedRequests": [],
-                "blockedUsers": [],
-                "friends": [],
-                "sentRequests": []
-            },
-            "friendsStories": [],
-            "hashedPassword": "hashed456",
-            "name": "Jane Smith",
-            "friendsPosts": [],
-            "dateOfBirth": "1992-11-13",
-            "userId": "user890",
-            "posts": [],
-            "email": "jane@example.com",
-            "userProfile": {
-                "profilePhotoPath": "",
-                "bio": "",
-                "coverPhotoPath": ""
-            },
-            "status": "offline",
-            "username": "jane_smith"
-        }
+        "user789",
+        "user890"
     ],
     "photoPath": "",
-    "groupId": "test123",
+    "groupId": "d7733385-cd60-46c3-af19-b7f71617f6e5",
     "name": "HIIII",
     "description": "A group for testing save functionality.",
     "users": ["user456"],
