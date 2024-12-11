@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -17,7 +18,6 @@ import static Backend.UserManager.findUser;
 public class NewsFeed_Updates {
     private static final UserManager userManager = UserManager.getInstance();
     private static final ContentManager contentManager = ContentManager.getInstance();
-    private static Timer statusUpdateTimer;
 
     public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel) {
         contentManager.readContent();
@@ -25,22 +25,17 @@ public class NewsFeed_Updates {
         userManager.loadAllFriends();
         UpdatePosts(user, postPanel);
 
-        // Start the timer to update friend statuses periodically
-        if (statusUpdateTimer == null) {
-            statusUpdateTimer = new Timer(1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    contentManager.readContent();
-                    userManager.loadAllUsers();
-                    userManager.loadAllFriends();
-                    UpdateFriends(user, friendsList);
-                    UpdateStories(user, storyPanel);
-                    UpdateSuggestedFriends(user, suggestedFriendPanel);
-                    UpdateNotifications(user, NotificationPanel);
-                }
-            });
-            statusUpdateTimer.start();
-        }
+        // Start the file watcher to monitor changes in files
+        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+            contentManager.readContent();
+            userManager.loadAllUsers();
+            userManager.loadAllFriends();
+            UpdateFriends(user, friendsList);
+            UpdateStories(user, storyPanel);
+            UpdateSuggestedFriends(user, suggestedFriendPanel);
+            UpdateNotifications(user, NotificationPanel);
+        });
+        new Thread(fileWatcher).start();
     }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
