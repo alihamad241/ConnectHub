@@ -15,6 +15,7 @@ import javax.swing.*;
 public class UserManager {
     private static final String USERS_FILE = "databases/users.json";
     private static final DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private static final NotificationManager notificationManager = NotificationManager.getInstance();
     public static JSONArray users = databaseManager.readJSONFile(USERS_FILE);
     public static ArrayList<User> allUsers = new ArrayList<>();
     private static UserManager instance;
@@ -88,6 +89,7 @@ public class UserManager {
         for (User user : allUsers) {
             if (user.getUsername().equals(username) && PasswordHashing.checkPassword(password, user.getHashedPassword())) {
                 user.setStatus("online");
+                notificationManager.attach(user);
                 saveUserToDatabase(user); // Save the updated status to the database
                 JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 return user;
@@ -99,6 +101,7 @@ public class UserManager {
 
     public static void logout(User user) {
         user.setStatus("offline");
+        notificationManager.detach(user);
         saveUserToDatabase(user);
     }
 

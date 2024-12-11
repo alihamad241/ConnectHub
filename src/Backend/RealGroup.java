@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RealGroup implements Group {
+public class RealGroup implements Group, Observer {
 
     private String name;
     private String description;
@@ -133,6 +133,11 @@ public class RealGroup implements Group {
     @Override
     public void leaveGroup(User user) {
        userRoles.remove(user);
+
+    }
+
+    @Override
+    public void update(Notification notification) {
 
     }
 

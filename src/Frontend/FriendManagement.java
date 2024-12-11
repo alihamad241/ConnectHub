@@ -77,7 +77,7 @@ public final class FriendManagement extends javax.swing.JFrame {
             JLabel friendLabel = new JLabel(suggestedFriend.getUsername());
             JButton addFriendButton = new JButton("Add Friend");
             addFriendButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                user.getFriendManagement().sendFriendRequest(suggestedFriend);
+                user.sendFriendRequest(suggestedFriend);
                 JOptionPane.showMessageDialog(null, "Friend Request Sent");
                 addFriendButton.setEnabled(false);
                 addFriendButton.setText("Pending");
