@@ -1,13 +1,10 @@
 package Backend;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import Backend.Notifications.NotificationManager;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;

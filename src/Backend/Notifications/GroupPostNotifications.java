@@ -1,6 +1,8 @@
-package Backend;
+package Backend.Notifications;
 
-public class GroupPostNotifications extends GroupNotification{
+import Backend.Content;
+
+public class GroupPostNotifications extends GroupNotification {
     Content content;
 
     public GroupPostNotifications(String senderUserId,String recipientId, String message, String type, String groupId, Content content) {

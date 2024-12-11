@@ -1,12 +1,12 @@
 
 package Backend;
 
-import org.json.JSONObject;
+import Backend.Notifications.Notification;
+import Backend.Notifications.NotificationManager;
+import Backend.Notifications.Observer;
+import Backend.Notifications.RequestNotification;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 
 public class User implements Observer {
     private String name;

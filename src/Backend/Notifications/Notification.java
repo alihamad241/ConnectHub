@@ -1,4 +1,4 @@
-package Backend;
+package Backend.Notifications;
 
 public class Notification {
     private final String senderUserId;

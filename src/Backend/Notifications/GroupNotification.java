@@ -1,4 +1,4 @@
-package Backend;
+package Backend.Notifications;
 
 public class GroupNotification extends Notification {
     private final String groupId;

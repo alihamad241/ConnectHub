@@ -1,9 +1,9 @@
-package Backend;
+package Backend.Notifications;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import Backend.Content;
+import Backend.Group;
+import Backend.User;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,5 +1,6 @@
 package Backend;
 
+import Backend.Notifications.RealGroup;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

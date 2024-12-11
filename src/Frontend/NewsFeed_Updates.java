@@ -1,6 +1,8 @@
 package Frontend;
 
 import Backend.*;
+import Backend.Notifications.Notification;
+import Backend.Notifications.NotificationManager;
 
 import javax.swing.*;
 import java.awt.*;

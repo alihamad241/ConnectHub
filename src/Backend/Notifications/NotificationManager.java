@@ -1,12 +1,14 @@
-package Backend;
+package Backend.Notifications;
 
 import java.util.ArrayList;
+
+import Backend.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import static Backend.ContentManager.getContent;
 
-public class NotificationManager implements Subject{
+public class NotificationManager implements Subject {
     private static final String NOTIFICATIONS_FILE_PATH = "databases/notifications.json";
     private static final DatabaseManager databaseManager = DatabaseManager.getInstance();
     private static JSONArray notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);

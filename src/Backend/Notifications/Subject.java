@@ -1,5 +1,4 @@
-package Backend;
-
+package Backend.Notifications;
 
 
 public interface Subject {
