@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class RealGroup implements Group {
 
@@ -174,8 +175,8 @@ public class RealGroup implements Group {
             return this;
         }
 
-        public Builder setGroupId(String groupId) {
-            this.groupId = groupId;
+        public Builder setGroupId() {
+            this.groupId = UUID.randomUUID().toString();;
             return this;
         }
 
