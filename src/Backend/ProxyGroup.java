@@ -1,7 +1,5 @@
 package Backend;
 
-import Backend.Notifications.RealGroup;
-
 import javax.swing.*;
 
 public class ProxyGroup implements Group{

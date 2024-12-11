@@ -1,8 +1,7 @@
-package Backend.Notifications;
+package Backend;
 
-import Backend.Content;
-import Backend.Group;
-import Backend.User;
+import Backend.Notifications.Notification;
+import Backend.Notifications.Observer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
