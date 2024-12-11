@@ -1,23 +1,32 @@
 [{
-    "creator": "Backend.User@37bba400",
+    "creator": "user123",
     "contents": [
         {
             "imagePath": "images/welcome.jpg",
-            "isStory": false,
             "authorUserName": "admin_user",
             "contentId": "content1",
-            "time": "2024-12-11T13:12:47.623758200",
+            "isStory": false,
+            "time": "2024-12-11T18:29:03.844350",
             "authorId": "user123",
             "content": "Welcome to the Test Group!"
         },
         {
             "imagePath": "images/rules.jpg",
-            "isStory": false,
             "authorUserName": "moderator",
             "contentId": "content2",
-            "time": "2024-12-11T13:12:47.626825600",
+            "isStory": false,
+            "time": "2024-12-11T18:29:06.515602300",
             "authorId": "user456",
             "content": "Group Rules: Be respectful and follow the guidelines."
+        },
+        {
+            "imagePath": "",
+            "authorUserName": "moderator",
+            "contentId": "content1",
+            "isStory": false,
+            "time": "2024-12-11T18:29:06.552503500",
+            "authorId": "user456",
+            "content": "modify shaghala?"
         }
     ],
     "pendingRequests": [
@@ -29,8 +38,8 @@
                 "friends": [],
                 "sentRequests": []
             },
-            "hashedPassword": "hashed123",
             "friendsStories": [],
+            "hashedPassword": "hashed123",
             "name": "John Doe",
             "friendsPosts": [],
             "dateOfBirth": "1990-05-21",
@@ -53,8 +62,8 @@
                 "friends": [],
                 "sentRequests": []
             },
-            "hashedPassword": "hashed456",
             "friendsStories": [],
+            "hashedPassword": "hashed456",
             "name": "Jane Smith",
             "friendsPosts": [],
             "dateOfBirth": "1992-11-13",
@@ -72,8 +81,8 @@
     ],
     "photoPath": "",
     "groupId": "test123",
-    "name": "Test Group",
+    "name": "HIIII",
     "description": "A group for testing save functionality.",
-    "users": ["Backend.User@179d3b25"],
-    "admins": ["Backend.User@254989ff"]
+    "users": ["user456"],
+    "admins": ["user789"]
 }]

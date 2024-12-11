@@ -13,7 +13,7 @@ public class GroupMangementTest {
 
             // Step 1: Create a GroupManagement object using the builder
             RealGroup group = new RealGroup.Builder()
-                    .setName("Test Group")
+                    .setName("HIIII")
                     .setDescription("A group for testing save functionality.")
                     .setPhotoPath("")  // Set photoPath as an empty string (or provide a valid path if necessary)
                     .setGroupId("test123")
@@ -56,8 +56,15 @@ public class GroupMangementTest {
             // Step 5: Create a loader instance and call the saveGroupToFile method
 
             GroupManagement.saveGroupToFile(group);
-
-            // Verify the output in groups.json file and check the JOptionPane messages
+            group.addContent(new Content.Builder()
+                    .setContent("modify shaghala?")
+                    .setImagePath("")
+                    .setContentId("content1")
+                    .setAuthorId("user456")
+                    .setTime(LocalDateTime.now())
+                    .setIsStory(false)
+                    .setAuthorUserName("moderator")
+                    .build());
         }
     }
 
