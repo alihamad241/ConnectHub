@@ -3,6 +3,7 @@ package Backend;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class GroupMangementTest {
 
@@ -13,10 +14,10 @@ public class GroupMangementTest {
 
             // Step 1: Create a GroupManagement object using the builder
             RealGroup group = new RealGroup.Builder()
-                    .setName("Test Group")
+                    .setName("HIIII")
                     .setDescription("A group for testing save functionality.")
                     .setPhotoPath("")  // Set photoPath as an empty string (or provide a valid path if necessary)
-                    .setGroupId("test123")
+                    .setGroupId( )
                     .setContents(new ArrayList<Content>())  // Initialize contents as an empty list
                     .setPendingRequests(new ArrayList<User>()) // Initialize pendingRequests as an empty list
                     .setUserRoles(new HashMap<User, String>())// Initialize userRoles as an empty HashMap
@@ -56,8 +57,15 @@ public class GroupMangementTest {
             // Step 5: Create a loader instance and call the saveGroupToFile method
 
             GroupManagement.saveGroupToFile(group);
-
-            // Verify the output in groups.json file and check the JOptionPane messages
+            group.addContent(new Content.Builder()
+                    .setContent("modify shaghala?")
+                    .setImagePath("")
+                    .setContentId("content1")
+                    .setAuthorId("user456")
+                    .setTime(LocalDateTime.now())
+                    .setIsStory(false)
+                    .setAuthorUserName("moderator")
+                    .build());
         }
     }
 
