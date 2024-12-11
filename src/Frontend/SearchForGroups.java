@@ -128,7 +128,7 @@ public class SearchForGroups extends javax.swing.JFrame {
                 userPanel.add(leaveButton);
                 JButton viewButton = new JButton("View");
                 viewButton.addActionListener(e -> {
-                    new GroupPage().setVisible(true);
+                    new GroupPage(user,group).setVisible(true);
                 });
                 userPanel.add(viewButton);
             }else{
