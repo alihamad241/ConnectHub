@@ -1,0 +1,79 @@
+[{
+    "creator": "Backend.User@37bba400",
+    "contents": [
+        {
+            "imagePath": "images/welcome.jpg",
+            "isStory": false,
+            "authorUserName": "admin_user",
+            "contentId": "content1",
+            "time": "2024-12-11T13:12:47.623758200",
+            "authorId": "user123",
+            "content": "Welcome to the Test Group!"
+        },
+        {
+            "imagePath": "images/rules.jpg",
+            "isStory": false,
+            "authorUserName": "moderator",
+            "contentId": "content2",
+            "time": "2024-12-11T13:12:47.626825600",
+            "authorId": "user456",
+            "content": "Group Rules: Be respectful and follow the guidelines."
+        }
+    ],
+    "pendingRequests": [
+        {
+            "friendManagement": {
+                "suggestedFriends": [],
+                "receivedRequests": [],
+                "blockedUsers": [],
+                "friends": [],
+                "sentRequests": []
+            },
+            "hashedPassword": "hashed123",
+            "friendsStories": [],
+            "name": "John Doe",
+            "friendsPosts": [],
+            "dateOfBirth": "1990-05-21",
+            "userId": "user789",
+            "posts": [],
+            "email": "john@example.com",
+            "userProfile": {
+                "profilePhotoPath": "",
+                "bio": "",
+                "coverPhotoPath": ""
+            },
+            "status": "offline",
+            "username": "john_doe"
+        },
+        {
+            "friendManagement": {
+                "suggestedFriends": [],
+                "receivedRequests": [],
+                "blockedUsers": [],
+                "friends": [],
+                "sentRequests": []
+            },
+            "hashedPassword": "hashed456",
+            "friendsStories": [],
+            "name": "Jane Smith",
+            "friendsPosts": [],
+            "dateOfBirth": "1992-11-13",
+            "userId": "user890",
+            "posts": [],
+            "email": "jane@example.com",
+            "userProfile": {
+                "profilePhotoPath": "",
+                "bio": "",
+                "coverPhotoPath": ""
+            },
+            "status": "offline",
+            "username": "jane_smith"
+        }
+    ],
+    "photoPath": "",
+    "groupId": "test123",
+    "name": "Test Group",
+    "description": "A group for testing save functionality.",
+    "users": ["Backend.User@179d3b25"],
+    "admins": ["Backend.User@254989ff"]
+}]
