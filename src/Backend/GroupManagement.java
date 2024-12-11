@@ -15,6 +15,7 @@ public class GroupManagement {
     public static JSONObject toJSONObject(RealGroup group) {
         JSONArray usersArray = new JSONArray();
         JSONArray adminsArray = new JSONArray();
+        JSONArray pendingRequestsArray = new JSONArray();
         String creator ="";
 
         for (User user : group.getUserRoles().keySet()) {
@@ -26,12 +27,15 @@ public class GroupManagement {
                 creator = user.getUserId();
             }
         }
+        for (User pendingUser : group.getPendingRequests()) {
+            pendingRequestsArray.put(pendingUser.getUserId());
+        }
 
         JSONObject groupJson = new JSONObject();
         groupJson.put("name", group.getName());
         groupJson.put("description",group.getDescription());
         groupJson.put("contents",group.getContents());
-        groupJson.put("pendingRequests",group.getPendingRequests());
+        groupJson.put("pendingRequests", pendingRequestsArray);
         groupJson.put("groupId", group.getGroupId());
         groupJson.put("photoPath", group.getPhotoPath());
         groupJson.put("users", usersArray);
@@ -60,11 +64,13 @@ public class GroupManagement {
                 break; // Exit the loop as we found the group
             }
         }
+
         // If the group was not found, optionally add it to the array
         if (!groupFound) {
             groupsArray.put(groupJson);
             JOptionPane.showMessageDialog(null, "Group saved successfully!");
         }
+
         // Write the updated array back to the file
         databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
     }

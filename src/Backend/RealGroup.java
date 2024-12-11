@@ -5,6 +5,7 @@ import Backend.Notifications.Observer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class RealGroup implements Group, Observer {
 
@@ -59,38 +60,38 @@ public class RealGroup implements Group, Observer {
     @Override
     public void addContent(Content content) {
        contents.add(content);
-
+       GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void removeContent(Content content) {
         contents.remove(content);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void addPendingRequest(User user) {
          pendingRequests.add(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void removePendingRequest(User user) {
         pendingRequests.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void addUser(User user, String role) {
         userRoles.put(user, role);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void removeUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.remove(user);
-
+            GroupManagement.saveGroupToFile(this);
         }
     }
 
@@ -105,7 +106,7 @@ public class RealGroup implements Group, Observer {
     public void promoteUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "admin");
-
+            GroupManagement.saveGroupToFile(this);
         }
     }
 
@@ -113,26 +114,26 @@ public class RealGroup implements Group, Observer {
     public void demoteUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "user");
-
+            GroupManagement.saveGroupToFile(this);
         }
     }
 
     @Override
     public void approveRequest(User user) {
          userRoles.put(user, "user");
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void rejectRequest(User user) {
       pendingRequests.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void leaveGroup(User user) {
        userRoles.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
@@ -178,8 +179,8 @@ public class RealGroup implements Group, Observer {
             return this;
         }
 
-        public Builder setGroupId(String groupId) {
-            this.groupId = groupId;
+        public Builder setGroupId() {
+            this.groupId = UUID.randomUUID().toString();;
             return this;
         }
 
