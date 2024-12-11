@@ -104,6 +104,7 @@ public class User implements Observer {
 
     public void acceptFriendRequest(User user){
         friendManagement.acceptFriendRequest(user);
+        update(new Notification(this.getUserId(),user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
     }
 
     public void declineFriendRequest(User user){

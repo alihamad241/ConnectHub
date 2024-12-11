@@ -217,7 +217,7 @@ public class NewsFeed_Updates {
 
             } else if (
                     notification.getType().equals("Group Activities") ||
-                    notification.getType().equals("New Posts")) {
+                    notification.getType().equals("New Posts") || notification.getType().equals("Default")){
                 JLabel notificationLabel = new JLabel(notification.getMessage());
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(e -> {

@@ -113,7 +113,7 @@ public final class FriendManagement extends javax.swing.JFrame {
             JLabel friendLabel = new JLabel(user.getFriendManagement().getReceivedRequests().get(i).getUsername());
             JButton acceptFriendButton = new JButton("Accept");
             acceptFriendButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                user.getFriendManagement().acceptFriendRequest(receivedRequest);
+                user.acceptFriendRequest(receivedRequest);
                 JOptionPane.showMessageDialog(null, "Friend Request Accepted");
                 user.getFriendManagement().fillSuggestedFriends();
                 Profile_Updates.RefreshProfile();
