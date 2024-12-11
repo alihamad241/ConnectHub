@@ -1,180 +1,71 @@
 package Backend;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class GroupManagement implements Group {
-
-    private String name;
-    private String description;
-    private ArrayList<Content> contents;
-    private ArrayList<User> pendingRequests;
-    private String groupId;
-    private String photoPath;
-    private HashMap<User, String> userRoles;
+public class GroupManagement {
+    public static ArrayList<Content> allgroups = new ArrayList<>();
     private static final String GROUPS_FILE_PATH ="databases/groups.json" ;
     private static final DatabaseManager databaseManager = Backend.DatabaseManager.getInstance();
     public static JSONArray groupsArray = databaseManager.readJSONFile(GROUPS_FILE_PATH);
 
-    private GroupManagement(Builder builder) {
-        this.name = builder.name;
-        this.description = builder.description;
-        this.contents = builder.contents;
-        this.groupId = builder.groupId;
-        this.photoPath = builder.photoPath;
-        this.pendingRequests = new ArrayList<>();
-        this.userRoles = new HashMap<>();
-    }
+    public static JSONObject toJSONObject(RealGroup group) {
+        JSONArray usersArray = new JSONArray();
+        JSONArray adminsArray = new JSONArray();
+        User creator =null;
 
-    public HashMap<User, String> getUserRoles() {
-        return userRoles;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    public ArrayList<User> getPendingRequests() {
-        return pendingRequests;
-    }
-
-    public ArrayList<Content> getContents() {
-        return contents;
-    }
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getPhotoPath() {
-        return photoPath;
-    }
-
-    public String toString() {
-        StringBuilder users = new StringBuilder();
-        StringBuilder admins = new StringBuilder();
-        String creator = "";
-        for (User user : userRoles.keySet()) {
-            if (userRoles.get(user).equals("user")) {
-                users.append(user.getUsername()).append(", ");
-            } else if (userRoles.get(user).equals("admin")) {
-                admins.append(user.getUsername()).append(", ");
-            } else if (userRoles.get(user).equals("creator")) {
-                creator = user.getUsername();
+        for (User user : group.getUserRoles().keySet()) {
+            if (group.getUserRoles().get(user).equals("user")) {
+                usersArray.put(user);
+            } else if (group.getUserRoles().get(user).equals("admin")) {
+                adminsArray.put(user);
+            } else if (group.getUserRoles().get(user).equals("creator")) {
+                creator = user;
             }
         }
 
-        return
-                "name=" + name  +
-                ", description='" + description +
-                ", contents=" + contents +
-                ", pendingRequests=" + pendingRequests +
-                ", groupId='" + groupId  +
-                ", photoPath='" + photoPath+
-                        " ,Users =["+users+"]"+
-                ", Admins= ["+admins+"]"+
-                ", creator="+creator;
+        JSONObject groupJson = new JSONObject();
+        groupJson.put("name", group.getName());
+        groupJson.put("description",group.getDescription());
+        groupJson.put("contents",group.getContents());
+        groupJson.put("pendingRequests",group.getPendingRequests());
+        groupJson.put("groupId", group.getGroupId());
+        groupJson.put("photoPath", group.getPhotoPath());
+        groupJson.put("users", usersArray);
+        groupJson.put("admins", adminsArray);
+        groupJson.put("creator", creator);
 
+        return groupJson;
     }
 
-    @Override
-    public void addContent(Content content) {
-       contents.add(content);
+    public static void saveGroupToFile(RealGroup group) {
+        // Get the instance of DatabaseManager
+        DatabaseManager dbManager = DatabaseManager.getInstance();
 
-    }
+        // Read the current JSON data in the file
+        JSONArray groupsArray = dbManager.readJSONFile(GROUPS_FILE_PATH);
 
-    @Override
-    public void removeContent(Content content) {
-        contents.remove(content);
-    }
-
-    @Override
-    public void addPendingRequest(User user) {
-         pendingRequests.add(user);
-    }
-
-    @Override
-    public void removePendingRequest(User user) {
-        pendingRequests.remove(user);
-    }
-
-    @Override
-    public void addUser(User user, String role) {
-        userRoles.put(user, role);
-    }
-
-    @Override
-    public void removeUser(User user) {
-        if (userRoles.containsKey(user))
-          userRoles.remove(user);
-    }
-
-
-
-    @Override
-    public void deleteGroup() {
-
-    }
-
-    @Override
-    public void promoteUser(User user) {
-        if (userRoles.containsKey(user)) {
-            userRoles.replace(user, "admin");
-        }
-    }
-
-    @Override
-    public void demoteUser(User user) {
-        if (userRoles.containsKey(user)) {
-            userRoles.replace(user, "user");
-        }
-    }
-
-    @Override
-    public void approveRequest(User user) {
-         userRoles.put(user, "user");
-    }
-
-    @Override
-    public void rejectRequest(User user) {
-      pendingRequests.remove(user);
-    }
-
-    @Override
-    public void leaveGroup(User user) {
-       userRoles.remove(user);
-    }
-
-    public static class Builder {
-        private String name;
-        private String description;
-        private ArrayList<Content> contents;
-        private String groupId;
-        private String photoPath;
-
-
-        public Builder(String name, String description, String groupId) {
-            this.name = name;
-            this.description = description;
-            this.groupId = groupId;
-            this.contents = new ArrayList<>();
-
+        // If the file is empty or doesn't exist, initialize an empty JSONArray
+        if (groupsArray == null) {
+            groupsArray = new JSONArray();
         }
 
-        public Builder photoPath(String photoPath) {
-            this.photoPath = photoPath;
-            return this;
-        }
+        // Convert the Group object to a JSON object
+        JSONObject groupJson = toJSONObject(group);
 
-        public GroupManagement build() {
-            return new GroupManagement(this);
-        }
+        // Add the group JSON to the array
+        groupsArray.put(groupJson);
 
+        // Write the updated array back to the file
+        boolean success = dbManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Group saved successfully to " + GROUPS_FILE_PATH);
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to save the group to " + GROUPS_FILE_PATH);
+        }
     }
 
 }

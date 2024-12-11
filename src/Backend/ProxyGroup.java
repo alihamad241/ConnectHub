@@ -4,39 +4,39 @@ import javax.swing.*;
 
 public class ProxyGroup implements Group{
 
-    public GroupManagement groupManagement;
+    public RealGroup realGroup;
     public User user;
-    public ProxyGroup(GroupManagement groupManagement) {
-        this.groupManagement = groupManagement;
+    public ProxyGroup(RealGroup realGroup) {
+        this.realGroup = realGroup;
         this.user = user;
     }
     // Helper methods to check roles in the HashMap based on a given user
     private boolean isAdminOrCreator(User user) {
         // Check if the specified user is either an Admin or Creator
-        return groupManagement.getUserRoles().get(user).equals("Admin") || groupManagement.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equals("Admin") || realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
     }
 
     private boolean isAdmin(User user) {
         // Check if the specified user is an Admin
-        return groupManagement.getUserRoles().get(user).equals("Admin");
+        return realGroup.getUserRoles().get(user).equals("Admin");
     }
 
     private boolean isCreator(User user) {
         // Check if the specified user is the Creator
-        return groupManagement.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
     }
 
     @Override
     //anyone can add content
     public void addContent(Content content) {
-         groupManagement.addContent(content);
+         realGroup.addContent(content);
     }
 
     @Override
     //only admin or creator can remove content
     public void removeContent(Content content) {
         if (isAdminOrCreator(user)) {
-            groupManagement.removeContent(content);
+            realGroup.removeContent(content);
         }
         else JOptionPane.showMessageDialog(null, "You do not have permission to remove content");
     }
@@ -44,14 +44,14 @@ public class ProxyGroup implements Group{
     @Override
         //anyone can add pending request
     public void addPendingRequest(User user1) {
-      groupManagement.addPendingRequest(user1);
+      realGroup.addPendingRequest(user1);
     }
 
     @Override
             //only admin or creator can remove pending request
     public void removePendingRequest(User user1) {
         if(isAdminOrCreator(user)){
-            groupManagement.removePendingRequest(user1);
+            realGroup.removePendingRequest(user1);
         }
         else JOptionPane.showMessageDialog(null, "You do not have permission to remove pending request");
     }
@@ -60,7 +60,7 @@ public class ProxyGroup implements Group{
     //only admin or creator can add user
     public void addUser(User user1, String role) {
         if(isAdminOrCreator(user)){
-            groupManagement.addUser(user1, role);
+            realGroup.addUser(user1, role);
         }
         else JOptionPane.showMessageDialog(null, "You do not have permission to add user");
     }
@@ -70,9 +70,9 @@ public class ProxyGroup implements Group{
     //admin can remove only user
     public void removeUser(User user1) {
         if (isCreator(user)) {
-            groupManagement.removeUser(user1);
-        } else if (isAdmin(user) && groupManagement.getUserRoles().get(user1).equals("User")) {
-            groupManagement.removeUser(user1);
+            realGroup.removeUser(user1);
+        } else if (isAdmin(user) && realGroup.getUserRoles().get(user1).equals("User")) {
+            realGroup.removeUser(user1);
         } else JOptionPane.showMessageDialog(null, "You do not have permission to remove user");
     }
 
@@ -81,7 +81,7 @@ public class ProxyGroup implements Group{
     @Override
     public void deleteGroup() {
 if(isCreator(user)){
-    groupManagement.deleteGroup();
+    realGroup.deleteGroup();
 }
     }
 
@@ -89,7 +89,7 @@ if(isCreator(user)){
     //only creator can promote user
     public void promoteUser(User user) {
         if (isCreator(user)) {
-            groupManagement.promoteUser(user);
+            realGroup.promoteUser(user);
         }
     }
 
@@ -99,7 +99,7 @@ if(isCreator(user)){
     //only creator can demote user
     public void demoteUser(User user) {
 if(isCreator(user)) {
-    groupManagement.demoteUser(user);
+    realGroup.demoteUser(user);
 }}
 
 
@@ -108,7 +108,7 @@ if(isCreator(user)) {
     //only admin or creator can approve request
     public void approveRequest(User user) {
         if (isAdminOrCreator(user)) {
-            groupManagement.approveRequest(user);
+            realGroup.approveRequest(user);
 
         }
     }
@@ -117,7 +117,7 @@ if(isCreator(user)) {
     //only admin or creator can reject request
     public void rejectRequest(User user) {
         if (isAdminOrCreator(user)) {
-            groupManagement.rejectRequest(user);
+            realGroup.rejectRequest(user);
         }
     }
 
@@ -126,6 +126,6 @@ if(isCreator(user)) {
     @Override
     //anyone can leave group
     public void leaveGroup(User user) {
-    groupManagement.leaveGroup(user);
+    realGroup.leaveGroup(user);
     }
 }
