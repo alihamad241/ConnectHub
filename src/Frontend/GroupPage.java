@@ -29,6 +29,7 @@ public class GroupPage extends javax.swing.JFrame {
     }
 
     public void updatePage(){
+        Group_Updates.updateGroupPageDetails(group, user,groupPhoto, groupName, groupDescription, groupMembersScroller);
 
     }
 

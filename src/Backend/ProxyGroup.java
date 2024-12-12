@@ -6,22 +6,22 @@ public class ProxyGroup implements Group{
 
     public RealGroup realGroup;
     public User user;
-    public ProxyGroup(RealGroup realGroup) {
+    public ProxyGroup(RealGroup realGroup, User user) {
         this.realGroup = realGroup;
         this.user = user;
     }
     // Helper methods to check roles in the HashMap based on a given user
-    private boolean isAdminOrCreator(User user) {
+    public boolean isAdminOrCreator(User user) {
         // Check if the specified user is either an Admin or Creator
         return realGroup.getUserRoles().get(user).equals("Admin") || realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
     }
 
-    private boolean isAdmin(User user) {
+    public boolean isAdmin(User user) {
         // Check if the specified user is an Admin
         return realGroup.getUserRoles().get(user).equals("Admin");
     }
 
-    private boolean isCreator(User user) {
+    public boolean isCreator(User user) {
         // Check if the specified user is the Creator
         return realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
     }
@@ -71,7 +71,7 @@ public class ProxyGroup implements Group{
     public void removeUser(User user1) {
         if (isCreator(user)) {
             realGroup.removeUser(user1);
-        } else if (isAdmin(user) && realGroup.getUserRoles().get(user1).equals("User")) {
+        } else if (isAdmin(user) && !isAdminOrCreator(user1)) {
             realGroup.removeUser(user1);
         } else JOptionPane.showMessageDialog(null, "You do not have permission to remove user");
     }
@@ -82,14 +82,20 @@ public class ProxyGroup implements Group{
     public void deleteGroup() {
 if(isCreator(user)){
     realGroup.deleteGroup();
+}else{
+    JOptionPane.showMessageDialog(null,"You do not have permission to delete group","Error",JOptionPane.ERROR_MESSAGE);
+    return;
 }
     }
 
     @Override
     //only creator can promote user
-    public void promoteUser(User user) {
+    public void promoteUser(User user1) {
         if (isCreator(user)) {
-            realGroup.promoteUser(user);
+            realGroup.promoteUser(user1);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to promote user","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
@@ -97,27 +103,36 @@ if(isCreator(user)){
 
     @Override
     //only creator can demote user
-    public void demoteUser(User user) {
+    public void demoteUser(User user1) {
 if(isCreator(user)) {
-    realGroup.demoteUser(user);
-}}
+    realGroup.demoteUser(user1);
+}else{
+    JOptionPane.showMessageDialog(null,"You do not have permission to demote user","Error",JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    }
 
 
 
     @Override
     //only admin or creator can approve request
-    public void approveRequest(User user) {
+    public void approveRequest(User user1) {
         if (isAdminOrCreator(user)) {
-            realGroup.approveRequest(user);
-
+            realGroup.approveRequest(user1);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to approve request","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
     @Override
     //only admin or creator can reject request
-    public void rejectRequest(User user) {
+    public void rejectRequest(User user1) {
         if (isAdminOrCreator(user)) {
-            realGroup.rejectRequest(user);
+            realGroup.rejectRequest(user1);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to reject request","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
