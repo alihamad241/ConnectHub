@@ -242,6 +242,8 @@ public class NewsFeed_Updates {
             acceptButton.addActionListener(e -> {
                 group.approveRequest(findUser(((GroupNotification)notification).getSenderId()));
                 NotificationManager.removeNotification(notification);
+               // NotificationManager.removeAllRelatedNotifications((GroupNotification) notification);
+                //commented out because it deletes all notifications even if the user doesnt have access to accept new users
                 UpdateNotifications(user, notificationPanel);
             });
             declineButton.addActionListener(e -> {

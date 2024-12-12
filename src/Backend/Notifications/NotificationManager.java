@@ -111,6 +111,22 @@ public class NotificationManager implements Subject {
         }
     }
 
+   public static void removeAllRelatedNotifications(GroupNotification notification) {
+    notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);
+    if (notificationsArray != null) {
+        for (int i = 0; i < notificationsArray.length(); i++) {
+            JSONObject notificationJson = notificationsArray.getJSONObject(i);
+            if(notificationJson.getString("type").equalsIgnoreCase("Group Activity")) {
+                if (notificationJson.getString("SenderUserId").equals(notification.getSenderId()) && notificationJson.getString("message").equals(notification.getMessage()) && notificationJson.getString("GroupId").equals(notification.getGroupId())) {
+                    notificationsArray.remove(i);
+                    i--; // Adjust the index after removal
+                }
+            }
+        }
+        databaseManager.writeJSONFile(NOTIFICATIONS_FILE_PATH, notificationsArray);
+    }
+}
+
 
     @Override
     public void attach(Observer observer) {
