@@ -186,18 +186,11 @@ public class GroupManagement {
 
                         }
                     }
-                    RealGroup group = new RealGroup.Builder()
-                            .setGroupId(groupId)
-                            .setName(name)
-                            .setDescription(description)
-                            .setPhotoPath(photoPath)
-                            .setUserRoles(userRoles)
-                            .setPendingRequests(pendingRequests)
-                            .build();
 
 
                     // Extract group contents
                     JSONArray contentsArray = groupJson.getJSONArray("contents");
+                    ArrayList<Content> contents = new ArrayList<>();
 
                     for (int j = 0; j < contentsArray.length(); j++) {
                         JSONObject contentJson = contentsArray.getJSONObject(j);
@@ -205,8 +198,7 @@ public class GroupManagement {
                         String authorId = contentJson.getString("authorId");
                         String authorUserName = contentJson.getString("authorUserName");
                         String contentText = contentJson.getString("content");
-                        String imagePath = contentJson.getString("imagePath");
-                        boolean isStory = contentJson.getBoolean("isStory");
+                        String imagePath = contentJson.has("imagePath") ? contentJson.getString("imagePath") : "";                        boolean isStory = contentJson.getBoolean("isStory");
                         LocalDateTime time=LocalDateTime.parse(contentJson.getString("time"));
 
                         Content content = new Content
@@ -220,9 +212,19 @@ public class GroupManagement {
                                 .setAuthorUserName(authorUserName)
                                 .build();
 
-                        group.addContent(content);
-
+//                        group.addContent(content);
+                        contents.add(content);
                     }
+
+                    RealGroup group = new RealGroup.Builder()
+                                .setGroupId(groupId)
+                                .setName(name)
+                                .setDescription(description)
+                                .setPhotoPath(photoPath)
+                                .setUserRoles(userRoles)
+                                .setContents(contents)
+                                .setPendingRequests(pendingRequests)
+                                .build();
 
 
                     allgroups.add(group);

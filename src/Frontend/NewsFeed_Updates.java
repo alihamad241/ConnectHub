@@ -28,30 +28,31 @@ public class NewsFeed_Updates {
         groupManagement.loadGroups();
         UpdatePosts(user, postPanel);
 
-        timer = new Timer(1000, e -> {
-            contentManager.readContent();
-            userManager.loadAllUsers();
-            userManager.loadAllFriends();
-            groupManagement.loadGroups();
-            UpdatePosts(user, postPanel);
-            UpdateFriends(user, friendsList);
-            UpdateStories(user, storyPanel);
-            UpdateSuggestedFriends(user, suggestedFriendPanel);
-            UpdateNotifications(user, NotificationPanel);
-            UpdateGroups(user, groupsList);
-        });
-//        // Start the file watcher to monitor changes in files
-//        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+//        timer = new Timer(1000, e -> {
 //            contentManager.readContent();
 //            userManager.loadAllUsers();
 //            userManager.loadAllFriends();
+//            groupManagement.loadGroups();
+//            UpdatePosts(user, postPanel);
 //            UpdateFriends(user, friendsList);
 //            UpdateStories(user, storyPanel);
 //            UpdateSuggestedFriends(user, suggestedFriendPanel);
 //            UpdateNotifications(user, NotificationPanel);
 //            UpdateGroups(user, groupsList);
 //        });
-//        new Thread(fileWatcher).start();
+        // Start the file watcher to monitor changes in files
+        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+            contentManager.readContent();
+            userManager.loadAllUsers();
+            userManager.loadAllFriends();
+            groupManagement.loadGroups();
+            UpdateFriends(user, friendsList);
+            UpdateStories(user, storyPanel);
+            UpdateSuggestedFriends(user, suggestedFriendPanel);
+            UpdateNotifications(user, NotificationPanel);
+            UpdateGroups(user, groupsList);
+        });
+        new Thread(fileWatcher).start();
     }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
@@ -252,6 +253,26 @@ public class NewsFeed_Updates {
             innerNotificationPanel.add(notificationLabel);
             innerNotificationPanel.add(acceptButton);
             innerNotificationPanel.add(declineButton);
+
+            innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerNotificationPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
+
+            containerPanel.add(innerNotificationPanel);
+        }
+        else if(notification.getType().equalsIgnoreCase("Post") && notification instanceof GroupNotification){
+            JLabel notificationLabel = new JLabel(notification.getMessage());
+            JButton viewButton = new JButton("View");
+            viewButton.addActionListener(e -> {
+                // Open the group page
+                GroupPage groupPage = new GroupPage(user, GroupManagement.getGroup(((GroupNotification) notification).getGroupId()));
+                groupPage.setVisible(true);
+
+            });
+            JPanel innerNotificationPanel = new JPanel();
+            innerNotificationPanel.add(notificationLabel);
+            innerNotificationPanel.add(viewButton);
 
             innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
                     innerNotificationPanel.getBorder(),

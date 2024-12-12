@@ -63,7 +63,7 @@ public class RealGroup implements Group, Observer {
        contents.add(content);
        GroupManagement.saveGroupToFile(this);
        User author = findUser(content.getAuthorId());
-       sendGroupNotification(author, new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Group Activity", this.getGroupId(), content));
+       sendGroupNotification(author, new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Post", this.getGroupId(), content));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class RealGroup implements Group, Observer {
          pendingRequests.add(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been sent", "Default"));
-        sendGroupNotification(user, new GroupNotification( user.getUserId(), user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
+        sendGroupNotification(user, new GroupNotification( user.getUserId(), user.getUserId(), user.getUsername() + " has requested to join " + name, "Group Activity", this.getGroupId()));
     }
 
     @Override
@@ -113,7 +113,7 @@ public class RealGroup implements Group, Observer {
             userRoles.replace(user, "admin");
             GroupManagement.saveGroupToFile(this);
             update(new Notification(user.getUserId(), "You have been promoted to admin in " + name, "Default"));
-            sendGroupNotification(user, new GroupNotification(user.getUserId(), user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
+            sendGroupNotification(user, new Notification(user.getUserId(), user.getUsername() + " has been promoted to admin", "Default"));
         }
     }
 
@@ -131,7 +131,7 @@ public class RealGroup implements Group, Observer {
         pendingRequests.remove(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been approved", "Default"));
-        sendGroupNotification(user, new Notification(user.getUserId(), user.getUsername() + " has joined the group", "Default"));
+        sendGroupNotification(user, new Notification(user.getUserId(), user.getUsername() + " has joined " + name, "Default"));
     }
 
     @Override

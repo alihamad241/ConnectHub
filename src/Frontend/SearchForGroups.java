@@ -120,6 +120,8 @@ public class SearchForGroups extends javax.swing.JFrame {
                 JButton leaveButton = new JButton("Leave");
                 leaveButton.addActionListener(e -> {
                     selected.removeUser(user);
+                    leaveButton.setEnabled(false);
+                    leaveButton.setText("Left");
                     JOptionPane.showMessageDialog(null, "You have left the group successfully");
                 });
                 JButton viewButton = new JButton("View");

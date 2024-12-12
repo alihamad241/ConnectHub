@@ -185,9 +185,11 @@ public class CreateNewGroup extends javax.swing.JFrame {
         String description=groupDescription.getText();
         if (name.isEmpty()){
             JOptionPane.showMessageDialog(this,"Please write the group name");
+            return;
         }
         if(description.isEmpty()){
             JOptionPane.showMessageDialog(this,"Please write a description the group");
+            return;
         }
         RealGroup group = new RealGroup.Builder()
                 .setName(name)
@@ -197,6 +199,7 @@ public class CreateNewGroup extends javax.swing.JFrame {
                 .addUserRole(user,"creator")
                 .build();
         GroupManagement.saveGroupToFile(group);
+        JOptionPane.showMessageDialog(this,"Group created successfully");
         System.out.println(group);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed

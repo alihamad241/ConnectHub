@@ -1,80 +1,29 @@
 [
     {
-        "SenderUserId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
-        "message": "You have a new friend request from uehd",
-        "type": "Friend Request"
-    },
-    {
-        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "message": "Your request to join group 1 has been sent",
-        "type": "Default"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-        "message": "uehd1 has requested to join the group",
-        "type": "Group Activity",
-        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "message": "uehd1 has requested to join the group",
-        "type": "Group Activity",
-        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
-    },
-    {
-        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "message": "Your request to join group2 has been sent",
-        "type": "Default"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-        "message": "uehd1 has requested to join the group",
-        "type": "Group Activity",
-        "GroupId": "2094b602-231d-4c9a-aaab-860ea7721320"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "message": "uehd1 has requested to join the group",
-        "type": "Group Activity",
-        "GroupId": "2094b602-231d-4c9a-aaab-860ea7721320"
-    },
-    {
-        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "message": "Your request to join group 3 has been sent",
-        "type": "Default"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-        "message": "uehd1 has requested to join the group",
-        "type": "Group Activity",
-        "GroupId": "d4888566-d669-444f-bf6c-751bb7fae162"
-    },
-    {
-        "SenderUserId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "SenderUserId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
         "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
-        "message": "uehd1 has requested to join the group",
+        "message": "uehd4 has requested to join group 1",
         "type": "Group Activity",
-        "GroupId": "d4888566-d669-444f-bf6c-751bb7fae162"
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
     },
     {
-        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
         "message": "Your request to join group 1 has been approved",
         "type": "Default"
     },
     {
-        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "message": "uehd1 has joined the group",
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "uehd4 has joined group 1",
         "type": "Default"
     },
     {
-        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-        "message": "uehd1 has joined the group",
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "Your request to join group 1 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "uehd4 has joined group 1",
         "type": "Default"
     }
 ]
