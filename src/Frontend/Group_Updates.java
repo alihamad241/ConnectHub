@@ -91,12 +91,29 @@ public class Group_Updates {
             Image newimg = image.getScaledInstance(postsScroller.getWidth() - 10, 300, Image.SCALE_SMOOTH);
             ImageIcon newIcon = new ImageIcon(newimg);
             JLabel imageLabel = new JLabel(newIcon);
+            JButton deleteButton = new JButton("Delete");
+            deleteButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                groupProxy.removeContent(content);
+                if(groupProxy.isAdminOrCreator(mainUser)){
+                JOptionPane.showMessageDialog(null, "Post deleted successfully");
+                deleteButton.setEnabled(false);
+                deleteButton.setText("Deleted");}
+            });
+            JButton editButton = new JButton("Edit");
+            editButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                if(groupProxy.isAdminOrCreator(mainUser)){
+                    new EditPostForGroup().setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "You do not have permission to edit this post");
+                }
+            });
             JPanel postPanel = new JPanel();
             postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
             postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             postPanel.add(userNameLabel);
             postPanel.add(postLabel);
             postPanel.add(imageLabel);
+            postPanel.add(deleteButton);
             postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             postPanel.setBorder(BorderFactory.createCompoundBorder(
                     postPanel.getBorder(),
