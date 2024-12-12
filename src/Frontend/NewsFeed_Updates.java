@@ -18,11 +18,14 @@ import static Backend.UserManager.findUser;
 public class NewsFeed_Updates {
     private static final UserManager userManager = UserManager.getInstance();
     private static final ContentManager contentManager = ContentManager.getInstance();
+    private static final GroupManagement groupManagement = GroupManagement.getInstance();
+    private static Timer statusUpdateTimer;
 
-    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel) {
+    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel, JScrollPane groupsList) {
         contentManager.readContent();
         userManager.loadAllUsers();
         userManager.loadAllFriends();
+        groupManagement.loadGroups();
         UpdatePosts(user, postPanel);
 
         // Start the file watcher to monitor changes in files
@@ -238,6 +241,42 @@ public class NewsFeed_Updates {
         }
 
         notificationPanel.setViewportView(containerPanel);
+    }
+
+    public static void UpdateGroups(User user, JScrollPane groupsList) {
+
+        JPanel containerPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+        containerPanel.setLayout(boxLayout);
+
+        for (int i = 0; i < user.getGroups().size(); i++) {
+            RealGroup group = user.getGroups().get(i);
+            JLabel groupLabel = new JLabel(group.getName());
+            JButton viewGroupButton = new JButton("View Group");
+            viewGroupButton.addActionListener(e -> {
+                // Open the group page
+                GroupPage groupPage = new GroupPage(user, group);
+                groupPage.setVisible(true);
+            });
+            JButton leaveGroupButton = new JButton("Leave Group");
+            leaveGroupButton.addActionListener(e -> {
+                user.leaveGroup(group);
+                UpdateGroups(user, groupsList);
+            });
+            JPanel innerGroupPanel = new JPanel();
+            innerGroupPanel.add(groupLabel);
+            innerGroupPanel.add(viewGroupButton);
+
+            innerGroupPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerGroupPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
+
+            containerPanel.add(innerGroupPanel);
+        }
+
+        groupsList.setViewportView(containerPanel);
+
     }
 }
 
