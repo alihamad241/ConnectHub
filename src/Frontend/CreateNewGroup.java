@@ -191,6 +191,7 @@ public class CreateNewGroup extends javax.swing.JFrame {
         }
         RealGroup group = new RealGroup.Builder()
                 .setName(name)
+                .setGroupId(null)
                 .setDescription(description)
                 .setPhotoPath(path)
                 .addUserRole(user,"creator")
