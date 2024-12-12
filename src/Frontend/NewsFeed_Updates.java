@@ -1,8 +1,10 @@
 package Frontend;
 
 import Backend.*;
+import Backend.Notifications.GroupNotification;
 import Backend.Notifications.Notification;
 import Backend.Notifications.NotificationManager;
+import Backend.Notifications.RequestNotification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +38,7 @@ public class NewsFeed_Updates {
             UpdateStories(user, storyPanel);
             UpdateSuggestedFriends(user, suggestedFriendPanel);
             UpdateNotifications(user, NotificationPanel);
+            UpdateGroups(user, groupsList);
         });
         new Thread(fileWatcher).start();
     }
@@ -181,66 +184,80 @@ public class NewsFeed_Updates {
     }
 
     public static void UpdateNotifications(User user, JScrollPane notificationPanel) {
-        JPanel containerPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-        containerPanel.setLayout(boxLayout);
+    JPanel containerPanel = new JPanel();
+    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+    containerPanel.setLayout(boxLayout);
 
-        for (int i = 0; i < user.getNotifications().size(); i++) {
-            Notification notification = user.getNotifications().get(i);
-            if (notification.getType().equals("Friend Request")) {
-                JLabel notificationLabel = new JLabel(notification.getMessage());
-                JButton acceptButton = new JButton("Accept");
-                JButton declineButton = new JButton("Decline");
+    for (int i = 0; i < user.getNotifications().size(); i++) {
+        Notification notification = user.getNotifications().get(i);
+        if (notification.getType().equals("Friend Request") && notification instanceof RequestNotification) {
+            JLabel notificationLabel = new JLabel(notification.getMessage());
+            JButton acceptButton = new JButton("Accept");
+            JButton declineButton = new JButton("Decline");
 
-                acceptButton.addActionListener(e -> {
-                    user.acceptFriendRequest(findUser(notification.getSenderUserId()));
-                    NotificationManager.removeNotification(notification);
-                    UpdateNotifications(user, notificationPanel);
-                });
-                declineButton.addActionListener(e -> {
-                    user.declineFriendRequest(findUser(notification.getSenderUserId()));
-                    NotificationManager.removeNotification(notification);
-                    UpdateNotifications(user, notificationPanel);
-                });
-                JPanel innerNotificationPanel = new JPanel();
-                innerNotificationPanel.add(notificationLabel);
-                innerNotificationPanel.add(acceptButton);
-                innerNotificationPanel.add(declineButton);
+            acceptButton.addActionListener(e -> {
+                user.acceptFriendRequest(findUser(((RequestNotification) notification).getUserId()));
+                NotificationManager.removeNotification(notification);
+                UpdateNotifications(user, notificationPanel);
+            });
+            declineButton.addActionListener(e -> {
+                user.declineFriendRequest(findUser(((RequestNotification) notification).getUserId()));
+                NotificationManager.removeNotification(notification);
+                UpdateNotifications(user, notificationPanel);
+            });
+            JPanel innerNotificationPanel = new JPanel();
+            innerNotificationPanel.add(notificationLabel);
+            innerNotificationPanel.add(acceptButton);
+            innerNotificationPanel.add(declineButton);
 
-                innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
-                        innerNotificationPanel.getBorder(),
-                        BorderFactory.createEmptyBorder(10, 0, 10, 0)
-                ));
+            innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerNotificationPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
 
-                containerPanel.add(innerNotificationPanel);
+            containerPanel.add(innerNotificationPanel);
 
-            } else if (
-                    notification.getType().equals("Group Activities") ||
-                    notification.getType().equals("New Posts") || notification.getType().equals("Default")){
-                JLabel notificationLabel = new JLabel(notification.getMessage());
-                JButton okButton = new JButton("OK");
-                okButton.addActionListener(e -> {
-                    NotificationManager.removeNotification(notification);
-                    UpdateNotifications(user, notificationPanel);
-                });
-                JPanel innerNotificationPanel = new JPanel();
-                innerNotificationPanel.add(notificationLabel);
-                innerNotificationPanel.add(okButton);
+        } else if (notification.getType().equals("Default")) {
+            JLabel notificationLabel = new JLabel(notification.getMessage());
+            JButton okButton = new JButton("OK");
+            okButton.addActionListener(e -> {
+                NotificationManager.removeNotification(notification);
+                UpdateNotifications(user, notificationPanel);
+            });
+            JPanel innerNotificationPanel = new JPanel();
+            innerNotificationPanel.add(notificationLabel);
+            innerNotificationPanel.add(okButton);
 
-                innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
-                        innerNotificationPanel.getBorder(),
-                        BorderFactory.createEmptyBorder(10, 0, 10, 0)
-                ));
+            innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerNotificationPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
 
-                containerPanel.add(innerNotificationPanel);
-
-            }
-
-
+            containerPanel.add(innerNotificationPanel);
         }
+        else if(notification.getType().equals("groupActivity") && notification instanceof GroupNotification){
+            JLabel notificationLabel = new JLabel(notification.getMessage());
+            JButton viewGroupButton = new JButton("Accept User");
+            viewGroupButton.addActionListener(e -> {
+                user.acceptGroupRequest(((GroupNotification) notification).getGroupId() , findUser(notification.getRecipientId()));
+                NotificationManager.removeNotification(notification);
+                UpdateNotifications(user, notificationPanel);
+            });
+            JPanel innerNotificationPanel = new JPanel();
+            innerNotificationPanel.add(notificationLabel);
+            innerNotificationPanel.add(viewGroupButton);
 
-        notificationPanel.setViewportView(containerPanel);
+            innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerNotificationPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
+
+            containerPanel.add(innerNotificationPanel);
+        }
     }
+
+    notificationPanel.setViewportView(containerPanel);
+}
 
     public static void UpdateGroups(User user, JScrollPane groupsList) {
 
@@ -265,6 +282,7 @@ public class NewsFeed_Updates {
             JPanel innerGroupPanel = new JPanel();
             innerGroupPanel.add(groupLabel);
             innerGroupPanel.add(viewGroupButton);
+            innerGroupPanel.add(leaveGroupButton);
 
             innerGroupPanel.setBorder(BorderFactory.createCompoundBorder(
                     innerGroupPanel.getBorder(),

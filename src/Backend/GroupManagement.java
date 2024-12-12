@@ -113,6 +113,15 @@ public class GroupManagement {
         return userGroups;
     }
 
+    public static RealGroup getGroup(String groupId) {
+        for (RealGroup group : allgroups) {
+            if (group.getGroupId().equals(groupId)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
     public void loadGroups() {
         allgroups.clear(); // Clear the current list of groups
 

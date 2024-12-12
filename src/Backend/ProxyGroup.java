@@ -6,7 +6,7 @@ public class ProxyGroup implements Group{
 
     public RealGroup realGroup;
     public User user;
-    public ProxyGroup(RealGroup realGroup) {
+    public ProxyGroup(RealGroup realGroup, User user) {
         this.realGroup = realGroup;
         this.user = user;
     }
@@ -87,9 +87,9 @@ if(isCreator(user)){
 
     @Override
     //only creator can promote user
-    public void promoteUser(User user) {
+    public void promoteUser(User user1) {
         if (isCreator(user)) {
-            realGroup.promoteUser(user);
+            realGroup.promoteUser(user1);
         }
     }
 
@@ -97,27 +97,27 @@ if(isCreator(user)){
 
     @Override
     //only creator can demote user
-    public void demoteUser(User user) {
+    public void demoteUser(User user1) {
 if(isCreator(user)) {
-    realGroup.demoteUser(user);
+    realGroup.demoteUser(user1);
 }}
 
 
 
     @Override
     //only admin or creator can approve request
-    public void approveRequest(User user) {
+    public void approveRequest(User user1) {
         if (isAdminOrCreator(user)) {
-            realGroup.approveRequest(user);
+            realGroup.approveRequest(user1);
 
         }
     }
 
     @Override
     //only admin or creator can reject request
-    public void rejectRequest(User user) {
+    public void rejectRequest(User user1) {
         if (isAdminOrCreator(user)) {
-            realGroup.rejectRequest(user);
+            realGroup.rejectRequest(user1);
         }
     }
 

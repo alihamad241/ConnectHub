@@ -14,13 +14,6 @@
         "sentRequests": []
     },
     {
-        "receivedRequests": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
-        "blockedUsers": [],
-        "userId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-        "friends": [],
-        "sentRequests": []
-    },
-    {
         "receivedRequests": [],
         "blockedUsers": [],
         "userId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
@@ -32,23 +25,6 @@
         "blockedUsers": [],
         "userId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
         "friends": [],
-        "sentRequests": []
-    },
-    {
-        "receivedRequests": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
-        "blockedUsers": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
-        "userId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
-        "friends": [],
-        "sentRequests": ["1f9af5a9-372c-473d-925c-0c139ca9f3be"]
-    },
-    {
-        "receivedRequests": [],
-        "blockedUsers": [],
-        "userId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
-        "friends": [
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
-        ],
         "sentRequests": []
     },
     {
@@ -67,23 +43,53 @@
         ]
     },
     {
-        "receivedRequests": ["decd10e0-a53b-4ae2-8930-6368a3f0f957"],
-        "blockedUsers": [],
-        "userId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-        "friends": [
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f"
-        ],
-        "sentRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"]
-    },
-    {
         "receivedRequests": [],
         "blockedUsers": [],
         "userId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "friends": [
             "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+            "ea37b028-525c-4401-8f24-bae15d5b1b09"
         ],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "friends": [
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f"
+        ],
+        "sentRequests": ["616a96a0-f3c4-45c2-9cb4-c9d9b33db278"]
+    },
+    {
+        "receivedRequests": [
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+            "ea37b028-525c-4401-8f24-bae15d5b1b09"
+        ],
+        "blockedUsers": [],
+        "userId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "friends": [],
+        "sentRequests": []
+    },
+    {
+        "receivedRequests": [],
+        "blockedUsers": [],
+        "userId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "friends": [
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "decd10e0-a53b-4ae2-8930-6368a3f0f957"
+        ],
+        "sentRequests": ["ea37b028-525c-4401-8f24-bae15d5b1b09"]
+    },
+    {
+        "receivedRequests": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
+        "blockedUsers": ["a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"],
+        "userId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "friends": ["1f9af5a9-372c-473d-925c-0c139ca9f3be"],
         "sentRequests": []
     }
 ]

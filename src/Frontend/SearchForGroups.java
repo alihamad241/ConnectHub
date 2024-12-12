@@ -129,7 +129,7 @@ public class SearchForGroups extends javax.swing.JFrame {
                     new GroupPage(user,selected).setVisible(true);
                 });
                 userPanel.add(viewButton);
-            }else{
+            }else if(!selected.getPendingRequests().contains(user)){
                 JButton joinButton = new JButton("Join");
                 joinButton.addActionListener(e -> {
                     selected.addPendingRequest(user);
@@ -140,6 +140,7 @@ public class SearchForGroups extends javax.swing.JFrame {
             resultsPanel.add(userPanel);
             resultsPanel.add(Box.createVerticalStrut(10));
         }
+        jScrollPane1.setViewportView(resultsPanel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

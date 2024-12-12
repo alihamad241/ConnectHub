@@ -73,6 +73,8 @@ public class RealGroup implements Group, Observer {
     public void addPendingRequest(User user) {
          pendingRequests.add(user);
         GroupManagement.saveGroupToFile(this);
+        update(new Notification(user.getUserId(), "Your request to join " + name + " has been sent", "Default"));
+        sendGroupNotification(new GroupNotification( user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
     }
 
     @Override
@@ -107,8 +109,8 @@ public class RealGroup implements Group, Observer {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "admin");
             GroupManagement.saveGroupToFile(this);
-            update(new Notification(null, user.getUserId(), "You have been promoted to admin in " + name, "Group Activity"));
-            sendGroupNotification(new GroupNotification(null, user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
+            update(new Notification(user.getUserId(), "You have been promoted to admin in " + name, "Default"));
+            sendGroupNotification(new GroupNotification(user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
         }
     }
 
@@ -124,8 +126,8 @@ public class RealGroup implements Group, Observer {
     public void approveRequest(User user) {
          userRoles.put(user, "user");
         GroupManagement.saveGroupToFile(this);
-        update(new Notification(null, user.getUserId(), "Your request to join " + name + " has been approved", "Group Activity"));
-        sendGroupNotification(new Notification(null, user.getUserId(), user.getUsername() + " has joined the group", "Group Activity"));
+        update(new Notification(user.getUserId(), "Your request to join " + name + " has been approved", "Default"));
+        sendGroupNotification(new GroupNotification(user.getUserId(), user.getUsername() + " has joined the group", "Group Activity", this.getGroupId()));
     }
 
     @Override

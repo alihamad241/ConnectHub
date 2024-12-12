@@ -1,10 +1,29 @@
-[{
-    "creator": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-    "contents": [],
-    "pendingRequests": [],
-    "groupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911",
-    "name": "group 1",
-    "description": "aaa",
-    "users": [],
-    "admins": []
-}]
+[
+    {
+        "creator": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "contents": [],
+        "pendingRequests": [
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+        ],
+        "photoPath": "",
+        "groupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911",
+        "name": "group 1",
+        "description": "aaa",
+        "users": [],
+        "admins": []
+    },
+    {
+        "creator": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+        "contents": [],
+        "pendingRequests": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+        ],
+        "photoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
+        "groupId": "2094b602-231d-4c9a-aaab-860ea7721320",
+        "name": "group2",
+        "description": "bbbbbbb",
+        "users": [],
+        "admins": []
+    }
+]

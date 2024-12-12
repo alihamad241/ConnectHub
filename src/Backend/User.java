@@ -7,7 +7,6 @@ import Backend.Notifications.Observer;
 import Backend.Notifications.RequestNotification;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class User implements Observer {
     private String name;
@@ -105,7 +104,7 @@ public class User implements Observer {
 
     public void acceptFriendRequest(User user){
         friendManagement.acceptFriendRequest(user);
-        update(new Notification(this.getUserId(),user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
+        update(new Notification(user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
     }
 
     public void declineFriendRequest(User user){
@@ -158,6 +157,11 @@ public class User implements Observer {
 
     public void leaveGroup(RealGroup group) {
         group.leaveGroup(this);
+    }
+
+    public void acceptGroupRequest(String groupId, User user) {
+        ProxyGroup group = new ProxyGroup(GroupManagement.getGroup(groupId) , this);
+        group.approveRequest(user);
     }
 }
 
