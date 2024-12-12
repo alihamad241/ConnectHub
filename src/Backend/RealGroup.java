@@ -1,20 +1,20 @@
 package Backend;
 
-import Backend.Notifications.Notification;
-import Backend.Notifications.Observer;
+import Backend.Notifications.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class RealGroup implements Group, Observer {
 
-    private String name;
-    private String description;
-    private ArrayList<Content> contents;
-    private ArrayList<User> pendingRequests;
-    private String groupId;
-    private String photoPath;
-    private HashMap<User, String> userRoles;
+    private final String name;
+    private final String description;
+    private final ArrayList<Content> contents;
+    private final ArrayList<User> pendingRequests;
+    private final String groupId;
+    private final String photoPath;
+    private HashMap<User, String> userRoles = new HashMap<>();
 
 
     private RealGroup(Builder builder) {
@@ -59,38 +59,39 @@ public class RealGroup implements Group, Observer {
     @Override
     public void addContent(Content content) {
        contents.add(content);
-
+       GroupManagement.saveGroupToFile(this);
+       sendGroupNotification(new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Group Activity", this.getGroupId(), content));
     }
 
     @Override
     public void removeContent(Content content) {
         contents.remove(content);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void addPendingRequest(User user) {
          pendingRequests.add(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void removePendingRequest(User user) {
         pendingRequests.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void addUser(User user, String role) {
         userRoles.put(user, role);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void removeUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.remove(user);
-
+            GroupManagement.saveGroupToFile(this);
         }
     }
 
@@ -105,7 +106,9 @@ public class RealGroup implements Group, Observer {
     public void promoteUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "admin");
-
+            GroupManagement.saveGroupToFile(this);
+            update(new Notification(null, user.getUserId(), "You have been promoted to admin in " + name, "Group Activity"));
+            sendGroupNotification(new GroupNotification(null, user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
         }
     }
 
@@ -113,31 +116,40 @@ public class RealGroup implements Group, Observer {
     public void demoteUser(User user) {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "user");
-
+            GroupManagement.saveGroupToFile(this);
         }
     }
 
     @Override
     public void approveRequest(User user) {
          userRoles.put(user, "user");
-
+        GroupManagement.saveGroupToFile(this);
+        update(new Notification(null, user.getUserId(), "Your request to join " + name + " has been approved", "Group Activity"));
+        sendGroupNotification(new Notification(null, user.getUserId(), user.getUsername() + " has joined the group", "Group Activity"));
     }
 
     @Override
     public void rejectRequest(User user) {
       pendingRequests.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void leaveGroup(User user) {
        userRoles.remove(user);
-
+        GroupManagement.saveGroupToFile(this);
     }
 
     @Override
     public void update(Notification notification) {
+        NotificationManager.addNotification(notification);
+    }
 
+    public void sendGroupNotification(Notification notification){
+        for(User user : userRoles.keySet()){
+            notification.setReceiverUserId(user.getUserId());
+            update(notification);
+        }
     }
 
     public static class Builder {
@@ -179,7 +191,12 @@ public class RealGroup implements Group, Observer {
         }
 
         public Builder setGroupId(String groupId) {
-            this.groupId = groupId;
+            if(groupId != null){
+                this.groupId = groupId;
+            }
+            else {
+                this.groupId = UUID.randomUUID().toString();
+            }
             return this;
         }
 
@@ -202,5 +219,15 @@ public class RealGroup implements Group, Observer {
         public RealGroup build() {
             return new RealGroup(this);
         }
+    }
+
+    public String toString(){
+        return "Group Name: " + name + "\n" +
+                "Description: " + description + "\n" +
+                "Contents: " + contents + "\n" +
+                "Pending Requests: " + pendingRequests + "\n" +
+                "Group ID: " + groupId + "\n" +
+                "Photo Path: " + photoPath + "\n" +
+                "User Roles: " + userRoles + "\n";
     }
 }
