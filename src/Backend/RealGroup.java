@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import static Backend.UserManager.findUser;
+
 public class RealGroup implements Group, Observer {
 
     private final String name;
@@ -60,7 +62,8 @@ public class RealGroup implements Group, Observer {
     public void addContent(Content content) {
        contents.add(content);
        GroupManagement.saveGroupToFile(this);
-       sendGroupNotification(new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Group Activity", this.getGroupId(), content));
+       User author = findUser(content.getAuthorId());
+       sendGroupNotification(author, new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Group Activity", this.getGroupId(), content));
     }
 
     @Override
@@ -74,7 +77,7 @@ public class RealGroup implements Group, Observer {
          pendingRequests.add(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been sent", "Default"));
-        sendGroupNotification(new GroupNotification( user.getUserId(), user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
+        sendGroupNotification(user, new GroupNotification( user.getUserId(), user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
     }
 
     @Override
@@ -110,7 +113,7 @@ public class RealGroup implements Group, Observer {
             userRoles.replace(user, "admin");
             GroupManagement.saveGroupToFile(this);
             update(new Notification(user.getUserId(), "You have been promoted to admin in " + name, "Default"));
-            sendGroupNotification(new GroupNotification(user.getUserId(), user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
+            sendGroupNotification(user, new GroupNotification(user.getUserId(), user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
         }
     }
 
@@ -128,7 +131,7 @@ public class RealGroup implements Group, Observer {
         pendingRequests.remove(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been approved", "Default"));
-        sendGroupNotification(new Notification(user.getUserId(), user.getUsername() + " has joined the group", "Default"));
+        sendGroupNotification(user, new Notification(user.getUserId(), user.getUsername() + " has joined the group", "Default"));
     }
 
     @Override
@@ -158,24 +161,30 @@ public class RealGroup implements Group, Observer {
 
 
 
-    public void sendGroupNotification(GroupNotification notification){
+    public void sendGroupNotification(User sender, GroupNotification notification){
         for(User user : userRoles.keySet()){
-            notification.setReceiverUserId(user.getUserId());
-            update(notification);
+            if(!user.getUserId().equals(sender.getUserId())){
+                notification.setReceiverUserId(user.getUserId());
+                update(notification);
+            }
         }
     }
 
-    public void sendGroupNotification(GroupPostNotifications notification){
+    public void sendGroupNotification(User sender, GroupPostNotifications notification){
         for(User user : userRoles.keySet()){
-            notification.setReceiverUserId(user.getUserId());
-            update(notification);
+            if(!user.getUserId().equals(sender.getUserId())){
+                notification.setReceiverUserId(user.getUserId());
+                update(notification);
+            }
         }
     }
 
-    public void sendGroupNotification(Notification notification){
+    public void sendGroupNotification(User sender, Notification notification){
         for(User user : userRoles.keySet()){
-            notification.setReceiverUserId(user.getUserId());
-            update(notification);
+            if(!user.getUserId().equals(sender.getUserId())) {
+                notification.setReceiverUserId(user.getUserId());
+                update(notification);
+            }
         }
     }
 

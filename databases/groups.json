@@ -9,14 +9,15 @@
         "description": "aaa",
         "users": [
             "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"
         ],
         "admins": []
     },
     {
         "creator": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
         "contents": [],
-        "pendingRequests": [],
+        "pendingRequests": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
         "photoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
         "groupId": "2094b602-231d-4c9a-aaab-860ea7721320",
         "name": "group2",
@@ -30,7 +31,7 @@
     {
         "creator": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
         "contents": [],
-        "pendingRequests": [],
+        "pendingRequests": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
         "photoPath": "",
         "groupId": "d4888566-d669-444f-bf6c-751bb7fae162",
         "name": "group 3",

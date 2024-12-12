@@ -71,7 +71,7 @@ public class ProxyGroup implements Group{
     public void removeUser(User user1) {
         if (isCreator(user)) {
             realGroup.removeUser(user1);
-        } else if (isAdmin(user) && realGroup.getUserRoles().get(user1).equals("User")) {
+        } else if (isAdmin(user) && !isAdminOrCreator(user1)) {
             realGroup.removeUser(user1);
         } else JOptionPane.showMessageDialog(null, "You do not have permission to remove user");
     }
@@ -82,6 +82,9 @@ public class ProxyGroup implements Group{
     public void deleteGroup() {
 if(isCreator(user)){
     realGroup.deleteGroup();
+}else{
+    JOptionPane.showMessageDialog(null,"You do not have permission to delete group","Error",JOptionPane.ERROR_MESSAGE);
+    return;
 }
     }
 
@@ -90,6 +93,9 @@ if(isCreator(user)){
     public void promoteUser(User user1) {
         if (isCreator(user)) {
             realGroup.promoteUser(user1);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to promote user","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
@@ -100,7 +106,11 @@ if(isCreator(user)){
     public void demoteUser(User user1) {
 if(isCreator(user)) {
     realGroup.demoteUser(user1);
-}}
+}else{
+    JOptionPane.showMessageDialog(null,"You do not have permission to demote user","Error",JOptionPane.ERROR_MESSAGE);
+    return;
+}
+    }
 
 
 
@@ -109,7 +119,9 @@ if(isCreator(user)) {
     public void approveRequest(User user1) {
         if (isAdminOrCreator(user)) {
             realGroup.approveRequest(user1);
-
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to approve request","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
@@ -118,6 +130,9 @@ if(isCreator(user)) {
     public void rejectRequest(User user1) {
         if (isAdminOrCreator(user)) {
             realGroup.rejectRequest(user1);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to reject request","Error",JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
 
