@@ -13,17 +13,17 @@ public class ProxyGroup implements Group{
     // Helper methods to check roles in the HashMap based on a given user
     public boolean isAdminOrCreator(User user) {
         // Check if the specified user is either an Admin or Creator
-        return realGroup.getUserRoles().get(user).equals("Admin") || realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin") || realGroup.getUserRoles().get(user).equalsIgnoreCase("creator");
     }
 
     public boolean isAdmin(User user) {
         // Check if the specified user is an Admin
-        return realGroup.getUserRoles().get(user).equals("Admin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin");
     }
 
     public boolean isCreator(User user) {
         // Check if the specified user is the Creator
-        return realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("creator");
     }
 
     @Override
@@ -84,7 +84,6 @@ if(isCreator(user)){
     realGroup.deleteGroup();
 }else{
     JOptionPane.showMessageDialog(null,"You do not have permission to delete group","Error",JOptionPane.ERROR_MESSAGE);
-    return;
 }
     }
 
@@ -95,7 +94,6 @@ if(isCreator(user)){
             realGroup.promoteUser(user1);
         }else{
             JOptionPane.showMessageDialog(null,"You do not have permission to promote user","Error",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
 
@@ -108,7 +106,6 @@ if(isCreator(user)) {
     realGroup.demoteUser(user1);
 }else{
     JOptionPane.showMessageDialog(null,"You do not have permission to demote user","Error",JOptionPane.ERROR_MESSAGE);
-    return;
 }
     }
 
@@ -121,7 +118,6 @@ if(isCreator(user)) {
             realGroup.approveRequest(user1);
         }else{
             JOptionPane.showMessageDialog(null,"You do not have permission to approve request","Error",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
 
@@ -132,7 +128,6 @@ if(isCreator(user)) {
             realGroup.rejectRequest(user1);
         }else{
             JOptionPane.showMessageDialog(null,"You do not have permission to reject request","Error",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }
 
