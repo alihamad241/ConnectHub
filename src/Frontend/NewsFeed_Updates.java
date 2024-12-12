@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -27,24 +28,17 @@ public class NewsFeed_Updates {
         groupManagement.loadGroups();
         UpdatePosts(user, postPanel);
 
-        // Start the timer to update friend statuses periodically
-        if (statusUpdateTimer == null) {
-            statusUpdateTimer = new Timer(1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    contentManager.readContent();
-                    userManager.loadAllUsers();
-                    userManager.loadAllFriends();
-                    groupManagement.loadGroups();
-                    UpdateFriends(user, friendsList);
-                    UpdateStories(user, storyPanel);
-                    UpdateSuggestedFriends(user, suggestedFriendPanel);
-                    UpdateNotifications(user, NotificationPanel);
-                    UpdateGroups(user, groupsList);
-                }
-            });
-            statusUpdateTimer.start();
-        }
+        // Start the file watcher to monitor changes in files
+        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+            contentManager.readContent();
+            userManager.loadAllUsers();
+            userManager.loadAllFriends();
+            UpdateFriends(user, friendsList);
+            UpdateStories(user, storyPanel);
+            UpdateSuggestedFriends(user, suggestedFriendPanel);
+            UpdateNotifications(user, NotificationPanel);
+        });
+        new Thread(fileWatcher).start();
     }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {

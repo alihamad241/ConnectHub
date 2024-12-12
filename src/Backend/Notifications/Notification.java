@@ -2,7 +2,7 @@ package Backend.Notifications;
 
 public class Notification {
     private final String senderUserId;
-    private final String receiverUserId;
+    private String receiverUserId;
     private final String message;
     private final String type;
 
@@ -18,5 +18,9 @@ public class Notification {
     public String getMessage() { return message; }
     public String getType() { return type; }
     public String getRecipientId() { return receiverUserId; }
+
+    public void setReceiverUserId(String receiverUserId) {
+        this.receiverUserId = receiverUserId;
+    }
 
 }

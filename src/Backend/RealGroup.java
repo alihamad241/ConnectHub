@@ -1,7 +1,6 @@
 package Backend;
 
-import Backend.Notifications.Notification;
-import Backend.Notifications.Observer;
+import Backend.Notifications.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +60,7 @@ public class RealGroup implements Group, Observer {
     public void addContent(Content content) {
        contents.add(content);
        GroupManagement.saveGroupToFile(this);
+       sendGroupNotification(new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Group Activity", this.getGroupId(), content));
     }
 
     @Override
@@ -107,6 +107,8 @@ public class RealGroup implements Group, Observer {
         if (userRoles.containsKey(user)) {
             userRoles.replace(user, "admin");
             GroupManagement.saveGroupToFile(this);
+            update(new Notification(null, user.getUserId(), "You have been promoted to admin in " + name, "Group Activity"));
+            sendGroupNotification(new GroupNotification(null, user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
         }
     }
 
@@ -122,6 +124,8 @@ public class RealGroup implements Group, Observer {
     public void approveRequest(User user) {
          userRoles.put(user, "user");
         GroupManagement.saveGroupToFile(this);
+        update(new Notification(null, user.getUserId(), "Your request to join " + name + " has been approved", "Group Activity"));
+        sendGroupNotification(new Notification(null, user.getUserId(), user.getUsername() + " has joined the group", "Group Activity"));
     }
 
     @Override
@@ -138,7 +142,14 @@ public class RealGroup implements Group, Observer {
 
     @Override
     public void update(Notification notification) {
+        NotificationManager.addNotification(notification);
+    }
 
+    public void sendGroupNotification(Notification notification){
+        for(User user : userRoles.keySet()){
+            notification.setReceiverUserId(user.getUserId());
+            update(notification);
+        }
     }
 
     public static class Builder {
