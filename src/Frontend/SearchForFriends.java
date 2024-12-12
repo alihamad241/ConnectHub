@@ -4,7 +4,6 @@
  */
 package Frontend;
 
-import Backend.Search;
 import Backend.User;
 import Backend.UserManager;
 
@@ -158,7 +157,6 @@ public class SearchForFriends extends javax.swing.JFrame {
                 blockButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         user.getFriendManagement().blockUser(selected);
-                        user.getFriendManagement().removeFriend(selected);
                         JOptionPane.showMessageDialog(null, selected.getName()+" blocked");
                         blockButton.setEnabled(false);
                         blockButton.setText("Blocked");
@@ -191,7 +189,7 @@ public class SearchForFriends extends javax.swing.JFrame {
                 JButton addButton = new JButton("Add Friend");
                 addButton.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        user.getFriendManagement().sendFriendRequest(selected);
+                        user.sendFriendRequest(selected);
                         JOptionPane.showMessageDialog(null, "Friend request sent to " + selected.getName());
                         addButton.setEnabled(false);
                         addButton.setText("Pending");

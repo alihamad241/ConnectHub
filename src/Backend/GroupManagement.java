@@ -77,7 +77,16 @@ public class GroupManagement {
         allgroups.add(group);
         // Write the updated array back to the file
         databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
+    }
 
+    public static ArrayList<RealGroup> searchForGroupsByName(String name, RealGroup group) {
+        ArrayList<RealGroup> searchGroups = new ArrayList<>();
+        for (RealGroup search: allgroups) {
+            if (search.getName().toLowerCase().contains(name.toLowerCase())) {
+                searchGroups.add(group);
+            }
+        }
+        return searchGroups;
     }
 
     public void loadGroups() {
