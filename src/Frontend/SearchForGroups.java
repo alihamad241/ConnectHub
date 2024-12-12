@@ -21,11 +21,9 @@ public class SearchForGroups extends javax.swing.JFrame {
     /**
      * Creates new form SearchForGroups
      */
-    private final  RealGroup group;
     private final User user;
-    public SearchForGroups(RealGroup group, User user) {
+    public SearchForGroups(User user) {
         initComponents();
-        this.group = group;
         this.user = user;
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -103,7 +101,7 @@ public class SearchForGroups extends javax.swing.JFrame {
        if(search.isEmpty()){
            JOptionPane.showMessageDialog(null, "Please enter a group name to search for");
        }
-        ArrayList<RealGroup> groups = GroupManagement.searchForGroupsByName(search,group);
+        ArrayList<RealGroup> groups = GroupManagement.searchForGroupsByName(search);
         if(groups.isEmpty()){
             JOptionPane.showMessageDialog(null, "No groups found with this name", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -119,16 +117,16 @@ public class SearchForGroups extends javax.swing.JFrame {
             userPanel.add(Box.createHorizontalStrut(10));
 
 
-            if(group.getUserRoles().get(user).equals(selected)){
+            if(selected.getUserRoles().containsKey(user)){
                 JButton leaveButton = new JButton("Leave");
                 leaveButton.addActionListener(e -> {
-                    group.removeUser(user);
+                    selected.removeUser(user);
                     JOptionPane.showMessageDialog(null, "You have left the group successfully");
                 });
                 userPanel.add(leaveButton);
                 JButton viewButton = new JButton("View");
                 viewButton.addActionListener(e -> {
-                    new GroupPage(user,group).setVisible(true);
+                    new GroupPage(user,selected).setVisible(true);
                 });
                 userPanel.add(viewButton);
             }else{

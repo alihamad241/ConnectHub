@@ -17,7 +17,7 @@ public class GroupMangementTest {
                     .setName("HIIII")
                     .setDescription("A group for testing save functionality.")
                     .setPhotoPath("")  // Set photoPath as an empty string (or provide a valid path if necessary)
-                    .setGroupId( )
+                    .setGroupId(null)
                     .setContents(new ArrayList<Content>())  // Initialize contents as an empty list
                     .setPendingRequests(new ArrayList<User>()) // Initialize pendingRequests as an empty list
                     .setUserRoles(new HashMap<User, String>())// Initialize userRoles as an empty HashMap

@@ -28,7 +28,7 @@ public final class Newsfeed extends javax.swing.JFrame {
     public Newsfeed(User user) {
         initComponents();
         this.user = user;
-        NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel, NotificationsPanel);
+        NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel, NotificationsPanel, groupsList);
         UpdateFriends();
         UpdateSuggestedFriends();
         UpdatePosts();
@@ -62,6 +62,10 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     public void UpdateNotifications() {
         NewsFeed_Updates.UpdateNotifications(user, NotificationsPanel);
+    }
+
+    public void UpdateGroups(){
+        NewsFeed_Updates.UpdateGroups(user, groupsList);
     }
 
 
@@ -289,16 +293,17 @@ public final class Newsfeed extends javax.swing.JFrame {
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
     // Refresh the news feed
-    NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel, NotificationsPanel);
+    NewsFeed_Updates.RefreshNewsFeed(user, friendsList, suggestedFriendPanel, postPanel, storyPanel, NotificationsPanel, groupsList);
     }//GEN-LAST:event_refreshActionPerformed
 
     private void createGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGroupsActionPerformed
         // TODO add your handling code here:
+        new CreateNewGroup(user).setVisible(true);
     }//GEN-LAST:event_createGroupsActionPerformed
 
     private void seachForGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seachForGroupsActionPerformed
         // TODO add your handling code here:
-
+        new SearchForGroups(user).setVisible(true);
     }//GEN-LAST:event_seachForGroupsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
