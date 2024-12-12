@@ -9,13 +9,13 @@ import java.util.UUID;
 
 public class RealGroup implements Group, Observer {
 
-    private String name;
-    private String description;
-    private ArrayList<Content> contents;
-    private ArrayList<User> pendingRequests;
-    private String groupId;
-    private String photoPath;
-    private HashMap<User, String> userRoles;
+    private final String name;
+    private final String description;
+    private final ArrayList<Content> contents;
+    private final ArrayList<User> pendingRequests;
+    private final String groupId;
+    private final String photoPath;
+    private HashMap<User, String> userRoles = new HashMap<>();
 
 
     private RealGroup(Builder builder) {
@@ -179,8 +179,13 @@ public class RealGroup implements Group, Observer {
             return this;
         }
 
-        public Builder setGroupId() {
-            this.groupId = UUID.randomUUID().toString();;
+        public Builder setGroupId(String groupId) {
+            if(groupId != null){
+                this.groupId = groupId;
+            }
+            else {
+                this.groupId = UUID.randomUUID().toString();
+            }
             return this;
         }
 

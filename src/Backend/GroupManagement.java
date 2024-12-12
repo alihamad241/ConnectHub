@@ -16,6 +16,20 @@ public class GroupManagement {
     private static final DatabaseManager databaseManager = Backend.DatabaseManager.getInstance();
     public static JSONArray groupsArray = databaseManager.readJSONFile(GROUPS_FILE_PATH);
 
+
+    private static GroupManagement instance;
+
+    private GroupManagement() {
+        loadGroups();
+    }
+
+    public static GroupManagement getInstance() {
+        if (instance == null) {
+            instance = new GroupManagement();
+        }
+        return instance;
+    }
+
     public static JSONObject toJSONObject(RealGroup group) {
         JSONArray usersArray = new JSONArray();
         JSONArray adminsArray = new JSONArray();
@@ -79,14 +93,24 @@ public class GroupManagement {
         databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
     }
 
-    public static ArrayList<RealGroup> searchForGroupsByName(String name, RealGroup group) {
+    public static ArrayList<RealGroup> searchForGroupsByName(String name) {
         ArrayList<RealGroup> searchGroups = new ArrayList<>();
         for (RealGroup search: allgroups) {
             if (search.getName().toLowerCase().contains(name.toLowerCase())) {
-                searchGroups.add(group);
+                searchGroups.add(search);
             }
         }
         return searchGroups;
+    }
+
+    public static ArrayList<RealGroup> getGroups(User user) {
+        ArrayList<RealGroup> userGroups = new ArrayList<>();
+        for (RealGroup group : allgroups) {
+            if (group.getUserRoles().containsKey(user)) {
+                userGroups.add(group);
+            }
+        }
+        return userGroups;
     }
 
     public void loadGroups() {
@@ -153,7 +177,7 @@ public class GroupManagement {
                         }
                     }
                     RealGroup group = new RealGroup.Builder()
-                            .setGroupId()
+                            .setGroupId(groupId)
                             .setName(name)
                             .setDescription(description)
                             .setPhotoPath(photoPath)

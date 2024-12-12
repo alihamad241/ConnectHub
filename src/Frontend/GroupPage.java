@@ -24,11 +24,11 @@ public class GroupPage extends javax.swing.JFrame {
         this.group=group;
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        updatePge();
+        updatePage();
         updatePosts();
     }
 
-    public void updatePge(){
+    public void updatePage(){
 
     }
 
