@@ -1,12 +1,11 @@
 package Frontend;
 
-import Backend.Group;
-import Backend.ProxyGroup;
-import Backend.RealGroup;
-import Backend.User;
+import Backend.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Group_Updates {
 
@@ -61,5 +60,50 @@ public class Group_Updates {
             containerPanel.add(Box.createVerticalStrut(10));
         }
         groupMembersScroller.setViewportView(containerPanel);
+    }
+
+    public static void updateGroupPosts(RealGroup group,User mainUser, JScrollPane postsScroller){
+        ProxyGroup groupProxy = new ProxyGroup(group, mainUser);
+        JPanel containerPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+        containerPanel.setLayout(boxLayout);
+        for(Content content : group.getContents()){
+            JLabel postLabel = new JLabel(content.getContent());
+            JLabel userNameLabel = new JLabel(content.getAuthorUserName());
+            Long time = content.getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+            if (time > 60 && time < 120) {
+                time = content.getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+                userNameLabel.setText(userNameLabel.getText() + " " + time + " hour ago");
+            } else if (time > 120 && time < 1440) {
+                time = content.getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+                userNameLabel.setText(userNameLabel.getText() + " " + time + " hours ago");
+            } else if (time > 1440 && time < 2880) {
+                time = content.getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+                userNameLabel.setText(userNameLabel.getText() + " " + time + " day ago");
+            } else if (time > 2880) {
+                time = content.getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+                userNameLabel.setText(userNameLabel.getText() + " " + time + " days ago");
+            } else {
+                userNameLabel.setText(userNameLabel.getText() + " " + time + " minutes ago");
+            }
+            ImageIcon icon = new ImageIcon(content.getImagePath());
+            Image image = icon.getImage();
+            Image newimg = image.getScaledInstance(postsScroller.getWidth() - 10, 300, Image.SCALE_SMOOTH);
+            ImageIcon newIcon = new ImageIcon(newimg);
+            JLabel imageLabel = new JLabel(newIcon);
+            JPanel postPanel = new JPanel();
+            postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+            postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            postPanel.add(userNameLabel);
+            postPanel.add(postLabel);
+            postPanel.add(imageLabel);
+            postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            postPanel.setBorder(BorderFactory.createCompoundBorder(
+                    postPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
+            containerPanel.add(postPanel);
+        }
+        postsScroller.setViewportView(containerPanel);
     }
 }

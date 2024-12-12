@@ -34,7 +34,7 @@ public class GroupPage extends javax.swing.JFrame {
     }
 
     public void updatePosts(){
-
+        Group_Updates.updateGroupPosts(group, user, postsScroller);
     }
 
     /**
