@@ -36,15 +36,16 @@ public class NotificationManager implements Subject {
         notificationJson.put("message", notification.getMessage());
         notificationJson.put("type", notification.getType());
         notificationJson.put("RecipientId", notification.getRecipientId());
-        if(notification.getType().equalsIgnoreCase("friendRequest")) {
+        if(notification.getType().equalsIgnoreCase("friend Request")) {
             notificationJson.put("SenderUserId", ((RequestNotification) notification).getUserId());
         }
         else
-       if(notification.getType().equalsIgnoreCase("groupActivity")) {
-            notificationJson.put("groupId", ((GroupNotification) notification).getGroupId());
+       if(notification.getType().equalsIgnoreCase("group Activity")) {
+            notificationJson.put("SenderUserId", ((GroupNotification) notification).getSenderId());
+            notificationJson.put("GroupId", ((GroupNotification) notification).getGroupId());
         }
         else if(notification.getType().equalsIgnoreCase("Post")) {
-            notificationJson.put("AuthorId", ((GroupPostNotifications) notification).getAuthorId());
+            notificationJson.put("SenderUserId", ((GroupPostNotifications) notification).getSenderId());
             notificationJson.put("GroupId", ((GroupNotification) notification).getGroupId());
             notificationJson.put("ContentId", ((GroupPostNotifications) notification).getContent().getContentId());
         }
@@ -63,17 +64,18 @@ public class NotificationManager implements Subject {
             if (notificationJson.getString("RecipientId").equals(userId)) {
                 String type = notificationJson.getString("type");
                 Notification notification = switch (type) {
-                    case "friendRequest" -> new RequestNotification(
+                    case "Friend Request" -> new RequestNotification(
                             notificationJson.getString("SenderUserId"),
                             notificationJson.getString("message"),
                             type,
                             notificationJson.getString("RecipientId")
                     );
-                    case "groupActivity" -> new GroupNotification(
+                    case "Group Activity" -> new GroupNotification(
+                            notificationJson.getString("SenderUserId"),
                             notificationJson.getString("RecipientId"),
                             notificationJson.getString("message"),
                             type,
-                            notificationJson.getString("groupId")
+                            notificationJson.getString("GroupId")
                     );
                     case "Post" -> new GroupPostNotifications(
                             notificationJson.getString("SenderUserId"),

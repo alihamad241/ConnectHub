@@ -147,6 +147,10 @@ public class User implements Observer {
             NotificationManager.addNotification(notification);
     }
 
+    public void update(RequestNotification notification) {
+        NotificationManager.addNotification(notification);
+    }
+
     public ArrayList<Notification> getNotifications() {
         return NotificationManager.getNotifications(this.getUserId());
     }
@@ -159,9 +163,5 @@ public class User implements Observer {
         group.leaveGroup(this);
     }
 
-    public void acceptGroupRequest(String groupId, User user) {
-        ProxyGroup group = new ProxyGroup(GroupManagement.getGroup(groupId) , this);
-        group.approveRequest(user);
-    }
 }
 

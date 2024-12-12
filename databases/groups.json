@@ -2,28 +2,43 @@
     {
         "creator": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "contents": [],
-        "pendingRequests": [
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
-        ],
+        "pendingRequests": [],
         "photoPath": "",
         "groupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911",
         "name": "group 1",
         "description": "aaa",
-        "users": [],
+        "users": [
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+        ],
         "admins": []
     },
     {
         "creator": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
         "contents": [],
-        "pendingRequests": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
-        ],
+        "pendingRequests": [],
         "photoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
         "groupId": "2094b602-231d-4c9a-aaab-860ea7721320",
         "name": "group2",
         "description": "bbbbbbb",
-        "users": [],
+        "users": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "1f9af5a9-372c-473d-925c-0c139ca9f3be"
+        ],
+        "admins": []
+    },
+    {
+        "creator": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "contents": [],
+        "pendingRequests": [],
+        "photoPath": "",
+        "groupId": "d4888566-d669-444f-bf6c-751bb7fae162",
+        "name": "group 3",
+        "description": "ccccccc",
+        "users": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "ea37b028-525c-4401-8f24-bae15d5b1b09"
+        ],
         "admins": []
     }
 ]

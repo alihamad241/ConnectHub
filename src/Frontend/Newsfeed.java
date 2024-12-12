@@ -34,6 +34,7 @@ public final class Newsfeed extends javax.swing.JFrame {
         UpdatePosts();
         UpdateStories();
         UpdateNotifications();
+        UpdateGroups();
         this.setLocationRelativeTo(null);
 
         addWindowListener(new WindowAdapter() {

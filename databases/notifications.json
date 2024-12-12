@@ -1,22 +1,43 @@
 [
     {
-        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "message": "uehd has requested to join the group",
-        "type": "Group Activity"
+        "SenderUserId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "message": "You have a new friend request from uehd",
+        "type": "Friend Request"
     },
     {
-        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
-        "message": "You are now friends with rehab",
+        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
+        "message": "rehab has joined the group",
         "type": "Default"
     },
     {
         "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-        "message": "rehab has requested to join the group",
-        "type": "Group Activity"
+        "message": "Your request to join group 3 has been sent",
+        "type": "Default"
     },
     {
-        "RecipientId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "message": "rehab has requested to join the group",
-        "type": "Group Activity"
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "Your request to join group 3 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "uehd has joined the group",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "Your request to join group 3 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "ue2hd has joined the group",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "ue2hd has joined the group",
+        "type": "Default"
     }
 ]

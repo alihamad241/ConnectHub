@@ -105,6 +105,7 @@ public class GroupManagement {
 
     public static ArrayList<RealGroup> getGroups(User user) {
         ArrayList<RealGroup> userGroups = new ArrayList<>();
+        System.out.println(allgroups.size() + " groups");
         for (RealGroup group : allgroups) {
             if (group.getUserRoles().containsKey(user)) {
                 userGroups.add(group);

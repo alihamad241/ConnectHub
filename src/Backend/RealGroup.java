@@ -74,7 +74,7 @@ public class RealGroup implements Group, Observer {
          pendingRequests.add(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been sent", "Default"));
-        sendGroupNotification(new GroupNotification( user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
+        sendGroupNotification(new GroupNotification( user.getUserId(), user.getUserId(), user.getUsername() + " has requested to join the group", "Group Activity", this.getGroupId()));
     }
 
     @Override
@@ -110,7 +110,7 @@ public class RealGroup implements Group, Observer {
             userRoles.replace(user, "admin");
             GroupManagement.saveGroupToFile(this);
             update(new Notification(user.getUserId(), "You have been promoted to admin in " + name, "Default"));
-            sendGroupNotification(new GroupNotification(user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
+            sendGroupNotification(new GroupNotification(user.getUserId(), user.getUserId(), user.getUsername() + " has been promoted to admin", "Group Activity", this.getGroupId()));
         }
     }
 
@@ -125,9 +125,10 @@ public class RealGroup implements Group, Observer {
     @Override
     public void approveRequest(User user) {
          userRoles.put(user, "user");
+        pendingRequests.remove(user);
         GroupManagement.saveGroupToFile(this);
         update(new Notification(user.getUserId(), "Your request to join " + name + " has been approved", "Default"));
-        sendGroupNotification(new GroupNotification(user.getUserId(), user.getUsername() + " has joined the group", "Group Activity", this.getGroupId()));
+        sendGroupNotification(new Notification(user.getUserId(), user.getUsername() + " has joined the group", "Default"));
     }
 
     @Override
@@ -145,6 +146,30 @@ public class RealGroup implements Group, Observer {
     @Override
     public void update(Notification notification) {
         NotificationManager.addNotification(notification);
+    }
+
+    public void update(GroupNotification notification) {
+        NotificationManager.addNotification(notification);
+    }
+
+    public void update(GroupPostNotifications notification) {
+        NotificationManager.addNotification(notification);
+    }
+
+
+
+    public void sendGroupNotification(GroupNotification notification){
+        for(User user : userRoles.keySet()){
+            notification.setReceiverUserId(user.getUserId());
+            update(notification);
+        }
+    }
+
+    public void sendGroupNotification(GroupPostNotifications notification){
+        for(User user : userRoles.keySet()){
+            notification.setReceiverUserId(user.getUserId());
+            update(notification);
+        }
     }
 
     public void sendGroupNotification(Notification notification){

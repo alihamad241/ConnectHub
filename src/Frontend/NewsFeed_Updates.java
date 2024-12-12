@@ -8,8 +8,6 @@ import Backend.Notifications.RequestNotification;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +19,7 @@ public class NewsFeed_Updates {
     private static final UserManager userManager = UserManager.getInstance();
     private static final ContentManager contentManager = ContentManager.getInstance();
     private static final GroupManagement groupManagement = GroupManagement.getInstance();
+    private static Timer timer;
 
     public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel, JScrollPane groupsList) {
         contentManager.readContent();
@@ -29,18 +28,30 @@ public class NewsFeed_Updates {
         groupManagement.loadGroups();
         UpdatePosts(user, postPanel);
 
-        // Start the file watcher to monitor changes in files
-        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+        timer = new Timer(1000, e -> {
             contentManager.readContent();
             userManager.loadAllUsers();
             userManager.loadAllFriends();
+            groupManagement.loadGroups();
+            UpdatePosts(user, postPanel);
             UpdateFriends(user, friendsList);
             UpdateStories(user, storyPanel);
             UpdateSuggestedFriends(user, suggestedFriendPanel);
             UpdateNotifications(user, NotificationPanel);
             UpdateGroups(user, groupsList);
         });
-        new Thread(fileWatcher).start();
+//        // Start the file watcher to monitor changes in files
+//        FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
+//            contentManager.readContent();
+//            userManager.loadAllUsers();
+//            userManager.loadAllFriends();
+//            UpdateFriends(user, friendsList);
+//            UpdateStories(user, storyPanel);
+//            UpdateSuggestedFriends(user, suggestedFriendPanel);
+//            UpdateNotifications(user, NotificationPanel);
+//            UpdateGroups(user, groupsList);
+//        });
+//        new Thread(fileWatcher).start();
     }
 
     public static void UpdateFriends(User user, JScrollPane friendsList) {
@@ -217,35 +228,30 @@ public class NewsFeed_Updates {
 
             containerPanel.add(innerNotificationPanel);
 
-        } else if (notification.getType().equals("Default")) {
-            JLabel notificationLabel = new JLabel(notification.getMessage());
-            JButton okButton = new JButton("OK");
-            okButton.addActionListener(e -> {
-                NotificationManager.removeNotification(notification);
-                UpdateNotifications(user, notificationPanel);
-            });
-            JPanel innerNotificationPanel = new JPanel();
-            innerNotificationPanel.add(notificationLabel);
-            innerNotificationPanel.add(okButton);
-
-            innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
-                    innerNotificationPanel.getBorder(),
-                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
-            ));
+        } else if (notification.getType().equalsIgnoreCase("Default")) {
+            JPanel innerNotificationPanel = getJPanel(user, notificationPanel, notification);
 
             containerPanel.add(innerNotificationPanel);
         }
-        else if(notification.getType().equals("groupActivity") && notification instanceof GroupNotification){
+        else if(notification.getType().equalsIgnoreCase("Group Activity") && notification instanceof GroupNotification){
+            ProxyGroup group = new ProxyGroup(GroupManagement.getGroup(((GroupNotification) notification).getGroupId()), user);
             JLabel notificationLabel = new JLabel(notification.getMessage());
-            JButton viewGroupButton = new JButton("Accept User");
-            viewGroupButton.addActionListener(e -> {
-                user.acceptGroupRequest(((GroupNotification) notification).getGroupId() , findUser(notification.getRecipientId()));
+            JButton acceptButton = new JButton("Accept");
+            JButton declineButton = new JButton("Decline");
+            acceptButton.addActionListener(e -> {
+                group.approveRequest(findUser(((GroupNotification)notification).getSenderId()));
+                NotificationManager.removeNotification(notification);
+                UpdateNotifications(user, notificationPanel);
+            });
+            declineButton.addActionListener(e -> {
+                group.rejectRequest(findUser(((GroupNotification) notification).getSenderId()));
                 NotificationManager.removeNotification(notification);
                 UpdateNotifications(user, notificationPanel);
             });
             JPanel innerNotificationPanel = new JPanel();
             innerNotificationPanel.add(notificationLabel);
-            innerNotificationPanel.add(viewGroupButton);
+            innerNotificationPanel.add(acceptButton);
+            innerNotificationPanel.add(declineButton);
 
             innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
                     innerNotificationPanel.getBorder(),
@@ -259,6 +265,24 @@ public class NewsFeed_Updates {
     notificationPanel.setViewportView(containerPanel);
 }
 
+    private static JPanel getJPanel(User user, JScrollPane notificationPanel, Notification notification) {
+        JLabel notificationLabel = new JLabel(notification.getMessage());
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> {
+            NotificationManager.removeNotification(notification);
+            UpdateNotifications(user, notificationPanel);
+        });
+        JPanel innerNotificationPanel = new JPanel();
+        innerNotificationPanel.add(notificationLabel);
+        innerNotificationPanel.add(okButton);
+
+        innerNotificationPanel.setBorder(BorderFactory.createCompoundBorder(
+                innerNotificationPanel.getBorder(),
+                BorderFactory.createEmptyBorder(10, 0, 10, 0)
+        ));
+        return innerNotificationPanel;
+    }
+
     public static void UpdateGroups(User user, JScrollPane groupsList) {
 
         JPanel containerPanel = new JPanel();
@@ -266,15 +290,16 @@ public class NewsFeed_Updates {
         containerPanel.setLayout(boxLayout);
 
         for (int i = 0; i < user.getGroups().size(); i++) {
+            System.out.println(user.getGroups().size());
             RealGroup group = user.getGroups().get(i);
             JLabel groupLabel = new JLabel(group.getName());
-            JButton viewGroupButton = new JButton("View Group");
+            JButton viewGroupButton = new JButton("View");
             viewGroupButton.addActionListener(e -> {
                 // Open the group page
                 GroupPage groupPage = new GroupPage(user, group);
                 groupPage.setVisible(true);
             });
-            JButton leaveGroupButton = new JButton("Leave Group");
+            JButton leaveGroupButton = new JButton("Leave");
             leaveGroupButton.addActionListener(e -> {
                 user.leaveGroup(group);
                 UpdateGroups(user, groupsList);

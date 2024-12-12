@@ -113,7 +113,6 @@ public class SearchForGroups extends javax.swing.JFrame {
             JPanel userPanel = new JPanel();
             userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
             JLabel nameLabel = new JLabel(selected.getName());
-            userPanel.add(nameLabel);
             userPanel.add(Box.createHorizontalStrut(10));
 
 
@@ -123,18 +122,22 @@ public class SearchForGroups extends javax.swing.JFrame {
                     selected.removeUser(user);
                     JOptionPane.showMessageDialog(null, "You have left the group successfully");
                 });
-                userPanel.add(leaveButton);
                 JButton viewButton = new JButton("View");
                 viewButton.addActionListener(e -> {
                     new GroupPage(user,selected).setVisible(true);
                 });
+                userPanel.add(nameLabel);
                 userPanel.add(viewButton);
+                userPanel.add(leaveButton);
             }else if(!selected.getPendingRequests().contains(user)){
                 JButton joinButton = new JButton("Join");
                 joinButton.addActionListener(e -> {
                     selected.addPendingRequest(user);
+                    joinButton.setText("Request Sent");
+                    joinButton.setEnabled(false);
                     JOptionPane.showMessageDialog(null, "Request sent successfully");
                 });
+                userPanel.add(nameLabel);
                 userPanel.add(joinButton);
             }
             resultsPanel.add(userPanel);

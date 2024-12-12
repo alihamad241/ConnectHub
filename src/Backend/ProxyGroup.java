@@ -13,17 +13,17 @@ public class ProxyGroup implements Group{
     // Helper methods to check roles in the HashMap based on a given user
     private boolean isAdminOrCreator(User user) {
         // Check if the specified user is either an Admin or Creator
-        return realGroup.getUserRoles().get(user).equals("Admin") || realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin") || realGroup.getUserRoles().get(user).equalsIgnoreCase("creator");
     }
 
     private boolean isAdmin(User user) {
         // Check if the specified user is an Admin
-        return realGroup.getUserRoles().get(user).equals("Admin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin");
     }
 
     private boolean isCreator(User user) {
         // Check if the specified user is the Creator
-        return realGroup.getUserRoles().get(user).equals("PrimaryAdmin");
+        return realGroup.getUserRoles().get(user).equalsIgnoreCase("creator");
     }
 
     @Override
