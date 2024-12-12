@@ -19,7 +19,6 @@ public class NewsFeed_Updates {
     private static final UserManager userManager = UserManager.getInstance();
     private static final ContentManager contentManager = ContentManager.getInstance();
     private static final GroupManagement groupManagement = GroupManagement.getInstance();
-    private static Timer statusUpdateTimer;
 
     public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel, JScrollPane groupsList) {
         contentManager.readContent();

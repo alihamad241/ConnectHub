@@ -10,11 +10,11 @@ public class RealGroup implements Group, Observer {
 
     private final String name;
     private final String description;
-    private final ArrayList<Content> contents;
-    private final ArrayList<User> pendingRequests;
+    private ArrayList<Content> contents;
+    private ArrayList<User> pendingRequests;
     private final String groupId;
     private final String photoPath;
-    private HashMap<User, String> userRoles = new HashMap<>();
+    private HashMap<User, String> userRoles;
 
 
     private RealGroup(Builder builder) {
@@ -155,11 +155,11 @@ public class RealGroup implements Group, Observer {
     public static class Builder {
         private String name;
         private String description;
-        private ArrayList<Content> contents;
-        private ArrayList<User> pendingRequests;
+        private ArrayList<Content> contents = new ArrayList<>();
+        private ArrayList<User> pendingRequests = new ArrayList<>();
         private String groupId;
         private String photoPath;
-        private HashMap<User, String> userRoles;
+        private HashMap<User, String> userRoles = new HashMap<>();
         public Builder setName(String name) {
             this.name = name;
             return this;
