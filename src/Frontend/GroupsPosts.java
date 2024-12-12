@@ -168,7 +168,7 @@ public class GroupsPosts extends javax.swing.JFrame {
        if(text.isEmpty()){
            JOptionPane.showMessageDialog(null, "Please enter a caption");
            return;
-       } 
+       }
        String authorId=user.getUserId();
         Content newContent = new Content.Builder()
                 .setContentId(UUID.randomUUID().toString())
