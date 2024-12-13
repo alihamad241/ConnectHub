@@ -4,6 +4,7 @@
  */
 package Frontend;
 
+import Backend.GroupManagement;
 import Backend.ProxyGroup;
 import Backend.RealGroup;
 import Backend.User;
@@ -192,6 +193,7 @@ public class GroupPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         ProxyGroup groupProxy = new ProxyGroup(group, user);
         groupProxy.deleteGroup();
+        GroupManagement.getInstance().loadGroups();
         if(groupProxy.isCreator(user)){
             JOptionPane.showMessageDialog(null, "Group deleted successfully");
             this.dispose();
