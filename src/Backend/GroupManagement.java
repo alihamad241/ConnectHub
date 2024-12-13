@@ -127,7 +127,7 @@ public class GroupManagement {
                 String groupId = groupJson.getString("groupId");
                 String name = groupJson.getString("name");
                 String description = groupJson.getString("description");
-                String photoPath = groupJson.getString("photoPath");
+                String photoPath = groupJson.has("photoPath") ? groupJson.getString("photoPath") : "";
 
                 //extract pending requests
                 JSONArray pendingRequestsArray = groupJson.getJSONArray("pendingRequests");

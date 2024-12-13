@@ -1,42 +1,10 @@
 [{
-    "creator": "user123",
-    "contents": [
-        {
-            "imagePath": "images/welcome.jpg",
-            "isStory": false,
-            "contentId": "content1",
-            "authorUserName": "admin_user",
-            "time": "2024-12-11T18:55:02.698046500",
-            "authorId": "user123",
-            "content": "Welcome to the Test Group!"
-        },
-        {
-            "imagePath": "images/rules.jpg",
-            "isStory": false,
-            "contentId": "content2",
-            "authorUserName": "moderator",
-            "time": "2024-12-11T18:55:04.085783100",
-            "authorId": "user456",
-            "content": "Group Rules: Be respectful and follow the guidelines."
-        },
-        {
-            "imagePath": "",
-            "isStory": false,
-            "contentId": "content1",
-            "authorUserName": "moderator",
-            "time": "2024-12-11T18:55:04.104733300",
-            "authorId": "user456",
-            "content": "modify shaghala?"
-        }
-    ],
-    "pendingRequests": [
-        "user789",
-        "user890"
-    ],
-    "photoPath": "",
-    "groupId": "d7733385-cd60-46c3-af19-b7f71617f6e5",
-    "name": "HIIII",
-    "description": "A group for testing save functionality.",
-    "users": ["user456"],
-    "admins": ["user789"]
+    "creator": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+    "contents": [],
+    "pendingRequests": [],
+    "groupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911",
+    "name": "group 1",
+    "description": "aaa",
+    "users": [],
+    "admins": []
 }]
