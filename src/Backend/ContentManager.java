@@ -62,6 +62,13 @@ public class ContentManager {
         databaseManager.writeJSONFile(CONTENTS_FILE, contentsArray);
     }
 
+
+
+
+
+
+
+
     public void removeStory() {
         Iterator<Content> iterator = allContents.iterator();
         while (iterator.hasNext()) {
