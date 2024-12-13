@@ -133,6 +133,22 @@ public class GroupManagement {
         return suggestions;
     }
 
+    public static synchronized void deleteGroup(RealGroup realGroup) {
+        // Remove the group from the list
+        allgroups.remove(realGroup);
+
+        // Remove the group from the file
+        JSONArray newGroupsArray = new JSONArray();
+        for (int i = 0; i < groupsArray.length(); i++) {
+            JSONObject groupJson = groupsArray.getJSONObject(i);
+            if (!groupJson.getString("groupId").equals(realGroup.getGroupId())) {
+                newGroupsArray.put(groupJson);
+            }
+        }
+        groupsArray = newGroupsArray;
+        databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
+    }
+
     public synchronized void loadGroups() {
         allgroups.clear(); // Clear the current list of groups
 

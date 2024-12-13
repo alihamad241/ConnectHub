@@ -143,7 +143,7 @@ public class FriendManagement {
         }
     }
 
-    public void loadFriends() {
+    public synchronized void loadFriends() {
         friends.clear();
         receivedRequests.clear();
         sentRequests.clear();
@@ -196,7 +196,7 @@ public class FriendManagement {
         }
     }
 
-    public void saveFriends() {
+    public synchronized void saveFriends() {
     JSONObject json = new JSONObject();
 
     // Check if userFriends is null
