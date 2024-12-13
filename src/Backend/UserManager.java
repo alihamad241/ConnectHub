@@ -22,14 +22,14 @@ public class UserManager {
         loadAllFriends();
     }
 
-    public static UserManager getInstance() {
+    public static synchronized UserManager getInstance() {
         if (instance == null) {
             instance = new UserManager();
         }
         return instance;
     }
 
-    public static User findUser(String userId) {
+    public static synchronized User findUser(String userId) {
         for (User user : allUsers) {
             if (user.getUserId().equals(userId)) {
                 return user;
@@ -38,7 +38,7 @@ public class UserManager {
         return null;
     }
 
-    public boolean signup(String name, String email, String username, String password, String dateOfBirth) {
+    public synchronized boolean signup(String name, String email, String username, String password, String dateOfBirth) {
         // Hash the password
         String hashedPassword = PasswordHashing.hashPassword(password);
 
@@ -82,7 +82,7 @@ public class UserManager {
         return databaseManager.writeJSONFile(USERS_FILE, users);
     }
 
-    public User login(String username, String password) {
+    public synchronized User login(String username, String password) {
         for (User user : allUsers) {
             if (user.getUsername().equals(username) && PasswordHashing.checkPassword(password, user.getHashedPassword())) {
                 user.setStatus("online");
@@ -96,13 +96,13 @@ public class UserManager {
         return null;
     }
 
-    public static void logout(User user) {
+    public static synchronized void logout(User user) {
         user.setStatus("offline");
         notificationManager.detach(user);
         saveUserToDatabase(user);
     }
 
-    public static void saveUserToDatabase(User user) {
+    public static synchronized void saveUserToDatabase(User user) {
         // Save the user to the file
         for (Object obj : users) {
             JSONObject userObject = (JSONObject) obj;
@@ -121,7 +121,7 @@ public class UserManager {
         databaseManager.writeJSONFile(USERS_FILE, users);
     }
 
-    public void loadAllUsers() {
+    public synchronized void loadAllUsers() {
     JSONArray newUsers = databaseManager.readJSONFile(USERS_FILE);
     for (Object obj : newUsers) {
         JSONObject user = (JSONObject) obj;
@@ -149,13 +149,13 @@ public class UserManager {
     }
 }
 
-    public void loadAllFriends() {
+    public synchronized void loadAllFriends() {
         for (User user : allUsers) {
             user.getFriendManagement().loadFriends();
         }
     }
 
-    public static ArrayList<User> searchByName(String name, User user) {
+    public static synchronized ArrayList<User> searchByName(String name, User user) {
         ArrayList<User> searchResults = new ArrayList<>();
         for (User search : allUsers) {
             if ((search.getName().toLowerCase().contains(name.toLowerCase()) || search.getUsername().toLowerCase().contains(name.toLowerCase())) && !user.equals(search)) {

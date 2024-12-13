@@ -17,7 +17,7 @@ public class FileWatcher implements Runnable {
         try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             path.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
 
-            while (true) {
+           while (!Thread.currentThread().isInterrupted()) {
                 WatchKey key = watchService.take();
                 for (WatchEvent<?> event : key.pollEvents()) {
                     if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
@@ -27,7 +27,7 @@ public class FileWatcher implements Runnable {
                 key.reset();
             }
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
     }
 }

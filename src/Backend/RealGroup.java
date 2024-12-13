@@ -63,7 +63,7 @@ public class RealGroup implements Group, Observer {
        contents.add(content);
        GroupManagement.saveGroupToFile(this);
        User author = findUser(content.getAuthorId());
-       sendGroupNotification(author, new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + "has added a post.", "Post", this.getGroupId(), content));
+       sendGroupNotification(author, new GroupPostNotifications(content.getAuthorId(), content.getAuthorUserName(), content.getAuthorUserName() + " has added a post.", "Post", this.getGroupId(), content));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class RealGroup implements Group, Observer {
 
     @Override
     public void deleteGroup() {
-
+        GroupManagement.deleteGroup(this);
     }
 
     @Override

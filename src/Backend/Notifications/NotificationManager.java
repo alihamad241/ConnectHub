@@ -13,7 +13,7 @@ public class NotificationManager implements Subject {
     private static final DatabaseManager databaseManager = DatabaseManager.getInstance();
     private static JSONArray notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);
     private final ArrayList<Observer> observers;
-    private final ArrayList<Notification> notifications;
+    private ArrayList<Notification> notifications;
     private static NotificationManager instance;
 
     private NotificationManager() {
@@ -21,14 +21,14 @@ public class NotificationManager implements Subject {
         notifications = new ArrayList<>();
     }
 
-    public static NotificationManager getInstance() {
+    public static synchronized NotificationManager getInstance() {
         if (instance == null) {
             instance = new NotificationManager();
         }
         return instance;
     }
 
-    public static void addNotification(Notification notification) {
+    public static synchronized void addNotification(Notification notification) {
         if (notificationsArray == null) {
             notificationsArray = new JSONArray();
         }
@@ -55,8 +55,8 @@ public class NotificationManager implements Subject {
         databaseManager.writeJSONFile(NOTIFICATIONS_FILE_PATH, notificationsArray);
     }
 
-   public static ArrayList<Notification> getNotifications(String userId) {
-        notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);
+   public static synchronized ArrayList<Notification> getNotifications(String userId) {
+    notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);
     ArrayList<Notification> userNotifications = new ArrayList<>();
     if (notificationsArray != null) {
         for (int i = 0; i < notificationsArray.length(); i++) {
@@ -66,9 +66,9 @@ public class NotificationManager implements Subject {
                 Notification notification = switch (type) {
                     case "Friend Request" -> new RequestNotification(
                             notificationJson.getString("SenderUserId"),
+                            notificationJson.getString("RecipientId"),
                             notificationJson.getString("message"),
-                            type,
-                            notificationJson.getString("RecipientId")
+                            type
                     );
                     case "Group Activity" -> new GroupNotification(
                             notificationJson.getString("SenderUserId"),
@@ -98,7 +98,7 @@ public class NotificationManager implements Subject {
     return userNotifications;
 }
 
-    public static void removeNotification(Notification notification) {
+    public static synchronized void removeNotification(Notification notification) {
         if (notificationsArray != null) {
             for (int i = 0; i < notificationsArray.length(); i++) {
                 JSONObject notificationJson = notificationsArray.getJSONObject(i);

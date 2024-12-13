@@ -38,7 +38,7 @@ public class ContentManager {
     }
 
     // Public method to provide access to the instance
-    public static ContentManager getInstance() {
+    public static synchronized ContentManager getInstance() {
         if (instance == null) {
             instance = new ContentManager();
         }
@@ -73,7 +73,7 @@ public class ContentManager {
         }
     }
 
-    public static void writeContent(Content content) {
+    public static synchronized void writeContent(Content content) {
 
         JSONObject newContentObject = new JSONObject();
         JSONArray contentsArray = databaseManager.readJSONFile(CONTENTS_FILE);
@@ -94,7 +94,7 @@ public class ContentManager {
 
     }
 
-    public void readContent(){
+    public synchronized void readContent(){
       allContents.clear();
         try{
             String json=new String(Files.readAllBytes(Paths.get(CONTENTS_FILE)));
