@@ -207,11 +207,6 @@
         "type": "Default"
     },
     {
-        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-        "message": "hanine has joined group2",
-        "type": "Default"
-    },
-    {
         "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
         "message": "hanine has been promoted to admin",
         "type": "Default"
@@ -228,11 +223,6 @@
     },
     {
         "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-        "message": "hanine has been promoted to admin",
-        "type": "Default"
-    },
-    {
-        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "message": "hanine has been promoted to admin",
         "type": "Default"
     },
@@ -258,11 +248,6 @@
     },
     {
         "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
-        "message": "habiba has joined group2",
-        "type": "Default"
-    },
-    {
-        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "message": "habiba has joined group2",
         "type": "Default"
     },
@@ -293,11 +278,6 @@
     },
     {
         "RecipientId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
-        "message": "habiba has joined group2",
-        "type": "Default"
-    },
-    {
-        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "message": "habiba has joined group2",
         "type": "Default"
     }

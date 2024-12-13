@@ -3,17 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/StartMenu.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Backend/UserManager.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/GroupPage.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Backend/User.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/FriendManagement.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/EditProfile.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Backend/ContentManager.java</file>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Signup.java</file>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Newsfeed.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Backend/UpdateProfile.java</file>
-            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/ProfilePage.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/NewsFeed_Updates.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/GroupsPosts.java</file>
             <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Login.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Group_Updates.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/StartMenu.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/CreateNewGroup.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/SearchForFriends.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Signup.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/CreateContent.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/EditPostForGroup.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Newsfeed.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/Profile_Updates.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/FriendProfile.java</file>
+            <file>file:/C:/Users/mrali/OneDrive/Documents/GitHub/lab-9/src/Frontend/ProfilePage.java</file>
         </group>
     </open-files>
 </project-private>
