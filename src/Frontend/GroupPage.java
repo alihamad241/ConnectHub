@@ -192,11 +192,11 @@ public class GroupPage extends javax.swing.JFrame {
     private void deleteGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGroupActionPerformed
         // TODO add your handling code here:
         ProxyGroup groupProxy = new ProxyGroup(group, user);
-        groupProxy.deleteGroup();
-        GroupManagement.getInstance().loadGroups();
         if(groupProxy.isCreator(user)){
             JOptionPane.showMessageDialog(null, "Group deleted successfully");
             this.dispose();
+            groupProxy.deleteGroup();
+            GroupManagement.getInstance().loadGroups();
         }
     }//GEN-LAST:event_deleteGroupActionPerformed
 

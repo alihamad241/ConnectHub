@@ -1,55 +1,27 @@
 [
     {
-        "creator": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-        "contents": [{
-            "imagePath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture1.png",
-            "authorUserName": "uehd",
-            "contentId": "03b5a264-544d-423f-ba60-fc8bbb05e860",
-            "isStory": false,
-            "time": "2024-12-12T23:53:40.713402700",
-            "authorId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "content": "hiiiiii"
-        }],
-        "pendingRequests": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
-        "photoPath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture3.png",
-        "groupId": "2094b602-231d-4c9a-aaab-860ea7721320",
-        "name": "group2",
-        "description": "bbbbbbb",
-        "users": [
-            "1f9af5a9-372c-473d-925c-0c139ca9f3be",
-            "decd10e0-a53b-4ae2-8930-6368a3f0f957",
-            "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
-            "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
-            "ea37b028-525c-4401-8f24-bae15d5b1b09"
-        ],
-        "admins": [
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-            "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd"
-        ]
-    },
-    {
-        "creator": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "creator": "",
         "contents": [{
             "imagePath": "",
-            "authorUserName": "uehd",
-            "isStory": false,
             "contentId": "762b0f3f-dc5f-41d7-a605-6eb3b2a3abfe",
+            "isStory": false,
+            "authorUserName": "uehd",
             "time": "2024-12-13T00:24:55.662207600",
             "authorId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
             "content": "ddddddddddd"
         }],
-        "pendingRequests": [],
+        "pendingRequests": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
         "photoPath": "",
         "groupId": "d4888566-d669-444f-bf6c-751bb7fae162",
         "name": "group 3",
         "description": "ccccccc",
         "users": [
-            "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
-            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
-            "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
             "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
             "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
-            "ea37b028-525c-4401-8f24-bae15d5b1b09"
+            "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+            "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+            "ea37b028-525c-4401-8f24-bae15d5b1b09",
+            "616a96a0-f3c4-45c2-9cb4-c9d9b33db278"
         ],
         "admins": [
             "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
@@ -60,14 +32,17 @@
         "creator": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
         "contents": [{
             "imagePath": "C:\\Users\\mrali\\OneDrive\\Pictures\\elec\\Picture1.png",
-            "isStory": false,
             "contentId": "c68e09d5-03bc-48eb-968d-36170c122747",
+            "isStory": false,
             "authorUserName": "uehd",
             "time": "2024-12-13T20:18:57.496736300",
             "authorId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
             "content": "post 6"
         }],
-        "pendingRequests": [],
+        "pendingRequests": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
+        ],
         "photoPath": "",
         "groupId": "541e550d-f401-4b80-af8a-c3fe138ccaae",
         "name": "group 4",
@@ -78,7 +53,10 @@
     {
         "creator": "",
         "contents": [],
-        "pendingRequests": [],
+        "pendingRequests": [
+            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
+        ],
         "photoPath": "",
         "groupId": "266ac7f0-d2b1-44e1-9e25-fff43544b42b",
         "name": "group 5",

@@ -134,20 +134,18 @@ public class GroupManagement {
     }
 
     public static synchronized void deleteGroup(RealGroup realGroup) {
-    // Remove the group from the list
-    allgroups.remove(realGroup);
+        allgroups.remove(realGroup);
 
-    // Remove the group from the file
-    JSONArray newGroupsArray = new JSONArray();
-    for (int i = 0; i < groupsArray.length(); i++) {
-        JSONObject groupJson = groupsArray.getJSONObject(i);
-        if (!groupJson.getString("groupId").equals(realGroup.getGroupId())) {
-            newGroupsArray.put(groupJson);
+        for (int i = 0; i < groupsArray.length(); i++) {
+            JSONObject currentGroup = groupsArray.getJSONObject(i);
+            if (currentGroup.getString("groupId").equals(realGroup.getGroupId())) {
+                groupsArray.remove(i);
+                break;
+            }
         }
+        allgroups.remove(realGroup);
+        databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
     }
-    groupsArray = newGroupsArray;
-    databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
-}
 
     public synchronized void loadGroups() {
         allgroups.clear(); // Clear the current list of groups

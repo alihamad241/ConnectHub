@@ -102,10 +102,13 @@ public class RealGroup implements Group, Observer {
 
 
 
-    @Override
-    public void deleteGroup() {
-        GroupManagement.deleteGroup(this);
-    }
+@Override
+public void deleteGroup() {
+    userRoles.clear();
+    contents.clear();
+    pendingRequests.clear();
+    GroupManagement.deleteGroup(this);
+}
 
     @Override
     public void promoteUser(User user) {
