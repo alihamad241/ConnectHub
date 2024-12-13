@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Content {
 
     private String content;
-    private final String imagePath;
+    private String imagePath;
     private final String contentId;
     private final String authorId;
     private final LocalDateTime time;
@@ -38,6 +38,10 @@ public class Content {
 
     public String getContent() {
         return content;
+    }
+    
+    public void setImagePath(String path){
+        this.imagePath=path;
     }
 
     public String getImagePath() {
