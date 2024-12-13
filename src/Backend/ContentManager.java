@@ -64,6 +64,7 @@ public class ContentManager {
 
 
 
+
     public void removeStory() {
         Iterator<Content> iterator = allContents.iterator();
         while (iterator.hasNext()) {
