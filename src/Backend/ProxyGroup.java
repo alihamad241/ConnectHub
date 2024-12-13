@@ -18,7 +18,7 @@ public class ProxyGroup implements Group {
         return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin") || realGroup.getUserRoles().get(user).equalsIgnoreCase("creator");
     }
 
-    private boolean isAdmin(User user) {
+    public boolean isAdmin(User user) {
         // Check if the specified user is an Admin
         return realGroup.getUserRoles().get(user).equalsIgnoreCase("admin");
     }
@@ -91,8 +91,8 @@ public class ProxyGroup implements Group {
     public void promoteUser(User user1) {
         if (isCreator(user)) {
             realGroup.promoteUser(user1);
-        } else {
-            JOptionPane.showMessageDialog(null, "You do not have permission to promote user", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to promote user","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -113,8 +113,8 @@ public class ProxyGroup implements Group {
     public void approveRequest(User user1) {
         if (isAdminOrCreator(user)) {
             realGroup.approveRequest(user1);
-        } else {
-            JOptionPane.showMessageDialog(null, "You do not have permission to approve request", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to approve request","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -123,8 +123,8 @@ public class ProxyGroup implements Group {
     public void rejectRequest(User user1) {
         if (isAdminOrCreator(user)) {
             realGroup.rejectRequest(user1);
-        } else {
-            JOptionPane.showMessageDialog(null, "You do not have permission to reject request", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null,"You do not have permission to reject request","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 

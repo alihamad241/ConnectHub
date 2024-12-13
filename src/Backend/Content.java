@@ -39,6 +39,10 @@ public class Content {
     public String getContent() {
         return content;
     }
+    
+    public void setImagePath(String path){
+        this.imagePath=path;
+    }
 
     public void setImagePath(String path){
         this.imagePath=path;

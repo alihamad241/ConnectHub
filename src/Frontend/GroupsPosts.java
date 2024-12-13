@@ -30,6 +30,8 @@ public class GroupsPosts extends javax.swing.JFrame {
         initComponents();
         this.user=user;
         this.group=group;
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -158,7 +160,7 @@ public class GroupsPosts extends javax.swing.JFrame {
             path = file.getAbsolutePath();
         }
         else{
-            path = null;
+            path = "";
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

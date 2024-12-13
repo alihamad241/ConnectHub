@@ -13,7 +13,4 @@ public interface Group {
     public void approveRequest(User user);
     public void rejectRequest(User user);
     public void leaveGroup(User user);
-
-
-
 }
