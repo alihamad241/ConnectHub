@@ -102,7 +102,7 @@ public class Group_Updates {
             JButton editButton = new JButton("Edit");
             editButton.addActionListener((java.awt.event.ActionEvent evt) -> {
                 if(groupProxy.isAdminOrCreator(mainUser)){
-                    new EditPostForGroup().setVisible(true);
+                    new EditPostForGroup(content,group).setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(null, "You do not have permission to edit this post");
                 }

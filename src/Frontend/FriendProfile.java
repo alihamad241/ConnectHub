@@ -24,6 +24,7 @@ public class FriendProfile extends javax.swing.JFrame {
         this.user=user;
         updateProfile();
         updateProfilePosts();
+        this.setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
