@@ -1,6 +1,6 @@
 [
     {
-        "creator": "",
+        "creator": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
         "contents": [{
             "imagePath": "",
             "contentId": "762b0f3f-dc5f-41d7-a605-6eb3b2a3abfe",
@@ -10,7 +10,7 @@
             "authorId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
             "content": "ddddddddddd"
         }],
-        "pendingRequests": ["58f84fb7-1fe0-44da-9413-9b9d4645734f"],
+        "pendingRequests": [],
         "photoPath": "",
         "groupId": "d4888566-d669-444f-bf6c-751bb7fae162",
         "name": "group 3",
@@ -48,20 +48,6 @@
         "name": "group 4",
         "description": "idk",
         "users": ["aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd"],
-        "admins": []
-    },
-    {
-        "creator": "",
-        "contents": [],
-        "pendingRequests": [
-            "58f84fb7-1fe0-44da-9413-9b9d4645734f",
-            "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c"
-        ],
-        "photoPath": "",
-        "groupId": "266ac7f0-d2b1-44e1-9e25-fff43544b42b",
-        "name": "group 5",
-        "description": "idkkkkkk",
-        "users": ["36e1d4a2-34e2-4a6b-9f87-62402e70cdd8"],
         "admins": []
     }
 ]
