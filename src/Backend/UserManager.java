@@ -121,7 +121,7 @@ public class UserManager {
         databaseManager.writeJSONFile(USERS_FILE, users);
     }
 
-    public synchronized void loadAllUsers() {
+    public void loadAllUsers() {
     JSONArray newUsers = databaseManager.readJSONFile(USERS_FILE);
     for (Object obj : newUsers) {
         JSONObject user = (JSONObject) obj;
@@ -149,7 +149,7 @@ public class UserManager {
     }
 }
 
-    public synchronized void loadAllFriends() {
+    public void loadAllFriends() {
         for (User user : allUsers) {
             user.getFriendManagement().loadFriends();
         }

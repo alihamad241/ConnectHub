@@ -111,7 +111,7 @@ public class NotificationManager implements Subject {
         }
     }
 
-   public static void removeAllRelatedNotifications(GroupNotification notification) {
+   public static synchronized void removeAllRelatedNotifications(GroupNotification notification) {
     notificationsArray = databaseManager.readJSONFile(NOTIFICATIONS_FILE_PATH);
     if (notificationsArray != null) {
         for (int i = 0; i < notificationsArray.length(); i++) {

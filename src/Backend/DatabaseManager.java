@@ -21,7 +21,7 @@ public class DatabaseManager {
     }
 
 
-    public synchronized JSONArray readJSONFile(String filename) {
+    public JSONArray readJSONFile(String filename) {
         StringBuilder jsonData = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -34,7 +34,7 @@ public class DatabaseManager {
         return new JSONArray(jsonData.toString());
     }
 
-    public synchronized boolean writeJSONFile(String filename, JSONArray jsonArray) {
+    public boolean writeJSONFile(String filename, JSONArray jsonArray) {
         try (FileWriter file = new FileWriter(filename)) {
             file.write(jsonArray.toString(4)); // Indent with 4 spaces for readability
             return true;

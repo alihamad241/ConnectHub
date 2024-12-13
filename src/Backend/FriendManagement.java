@@ -143,7 +143,7 @@ public class FriendManagement {
         }
     }
 
-    public synchronized void loadFriends() {
+    public void loadFriends() {
         friends.clear();
         receivedRequests.clear();
         sentRequests.clear();
