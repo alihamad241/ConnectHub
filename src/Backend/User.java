@@ -105,7 +105,7 @@ public class User implements Observer {
 
     public void acceptFriendRequest(User user){
         friendManagement.acceptFriendRequest(user);
-        update(new Notification(this.getUserId(),user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
+        update(new Notification(user.getUserId(),"You are now friends with " + this.getUsername(), "Default"));
     }
 
     public void declineFriendRequest(User user){
@@ -148,6 +148,10 @@ public class User implements Observer {
             NotificationManager.addNotification(notification);
     }
 
+    public void update(RequestNotification notification) {
+        NotificationManager.addNotification(notification);
+    }
+
     public ArrayList<Notification> getNotifications() {
         return NotificationManager.getNotifications(this.getUserId());
     }
@@ -158,6 +162,10 @@ public class User implements Observer {
 
     public void leaveGroup(RealGroup group) {
         group.leaveGroup(this);
+    }
+
+    public ArrayList<RealGroup> getGroupSuggestions() {
+        return GroupManagement.getGroupSuggestions(this);
     }
 }
 

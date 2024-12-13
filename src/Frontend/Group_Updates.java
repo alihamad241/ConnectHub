@@ -1,13 +1,19 @@
 package Frontend;
 
 import Backend.*;
+import Backend.Notifications.GroupNotification;
+import Backend.Notifications.NotificationManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static Backend.UserManager.findUser;
+
 public class Group_Updates {
+
+
 
     public static void updateGroupPageDetails(RealGroup group,User mainUser ,JLabel groupPhoto, JLabel groupName, JLabel groupDescription, JScrollPane groupMembersScroller) {
         ProxyGroup groupProxy = new ProxyGroup(group,mainUser);
@@ -23,41 +29,57 @@ public class Group_Updates {
         BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
         containerPanel.setLayout(boxLayout);
         for (User user : group.getUserRoles().keySet()) {
-            System.out.println(user.getName());
-            JLabel userLabel = new JLabel(user.getName());
-            JButton promoteButton = new JButton("Promote");
-            promoteButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                groupProxy.promoteUser(user);
-                if(groupProxy.isCreator(mainUser)){
-                JOptionPane.showMessageDialog(null, "User promoted successfully");
-                promoteButton.setEnabled(false);
-                promoteButton.setText("Promoted");}
-            });
-            JButton demoteButton = new JButton("Demote");
-            demoteButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                groupProxy.demoteUser(user);
-                if(groupProxy.isCreator(mainUser)){
-                JOptionPane.showMessageDialog(null, "User demoted successfully");
-                demoteButton.setEnabled(false);
-                demoteButton.setText("Demoted");}
-            });
-            JButton removeButton = new JButton("Remove");
-            removeButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-                groupProxy.removeUser(user);
-                if(groupProxy.isAdminOrCreator(mainUser)){
-                JOptionPane.showMessageDialog(null, user.getName()+" removed successfully");
-                removeButton.setEnabled(false);
-                removeButton.setText("Removed");}
-            });
-            JPanel userPanel = new JPanel();
-            userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
-            userPanel.add(userLabel);
-            userPanel.add(Box.createHorizontalStrut(10));
-            userPanel.add(promoteButton);
-            userPanel.add(demoteButton);
-            userPanel.add(removeButton);
-            containerPanel.add(userPanel);
-            containerPanel.add(Box.createVerticalStrut(10));
+            if(!user.equals(mainUser)){
+
+                System.out.println(user.getName());
+                JLabel userLabel = new JLabel(user.getUsername());
+                JButton promoteButton = new JButton("Promote");
+                promoteButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                    if(groupProxy.isAdminOrCreator(user))
+                    {
+                        JOptionPane.showMessageDialog(null, "User is already an admin");
+                    }
+                    else {
+                        groupProxy.promoteUser(user);
+                        if (groupProxy.isCreator(mainUser)) {
+                            JOptionPane.showMessageDialog(null, "User promoted successfully");
+                            promoteButton.setEnabled(false);
+                            promoteButton.setText("Promoted");
+                        }
+                    }});
+                JButton demoteButton = new JButton("Demote");
+                demoteButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                    if(groupProxy.isCreator(user)){
+                        JOptionPane.showMessageDialog(null, "You can't demote the creator");
+                    }
+                    else if(!groupProxy.isAdminOrCreator(user)){
+                        JOptionPane.showMessageDialog(null, "User is already a member");
+                    }
+                    else{
+                        groupProxy.demoteUser(user);
+                        if(groupProxy.isCreator(mainUser) ){
+                            JOptionPane.showMessageDialog(null, "User demoted successfully");
+                            demoteButton.setEnabled(false);
+                            demoteButton.setText("Demoted");}
+                    }});
+                JButton removeButton = new JButton("Remove");
+                removeButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                if(groupProxy.isAdminOrCreator(mainUser) && !groupProxy.isCreator(user)){
+                    groupProxy.removeUser(user);
+                    JOptionPane.showMessageDialog(null, user.getName()+" removed successfully");
+                    removeButton.setEnabled(false);
+                    removeButton.setText("Removed");}
+                });
+                JPanel userPanel = new JPanel();
+                userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
+                userPanel.add(userLabel);
+                userPanel.add(Box.createHorizontalStrut(10));
+                userPanel.add(promoteButton);
+                userPanel.add(demoteButton);
+                userPanel.add(removeButton);
+                containerPanel.add(userPanel);
+                containerPanel.add(Box.createVerticalStrut(10));
+            }
         }
         groupMembersScroller.setViewportView(containerPanel);
     }
@@ -114,6 +136,7 @@ public class Group_Updates {
             postPanel.add(postLabel);
             postPanel.add(imageLabel);
             postPanel.add(deleteButton);
+            postPanel.add(editButton);
             postPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             postPanel.setBorder(BorderFactory.createCompoundBorder(
                     postPanel.getBorder(),
@@ -122,5 +145,36 @@ public class Group_Updates {
             containerPanel.add(postPanel);
         }
         postsScroller.setViewportView(containerPanel);
+    }
+
+    public static void updateGroupMembersRequests(RealGroup group, User user, JScrollPane membersRequests) {
+        ProxyGroup groupProxy = new ProxyGroup(group, user);
+        JPanel containerPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+        containerPanel.setLayout(boxLayout);
+        for(User member : group.getPendingRequests()){
+            JLabel userLabel = new JLabel(member.getName());
+            JButton acceptButton = new JButton("Accept");
+            JButton rejectButton = new JButton("Reject");
+            acceptButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                groupProxy.approveRequest(member);
+                acceptButton.setEnabled(false);
+                updateGroupMembersRequests(group, user, membersRequests);
+            });
+            rejectButton.addActionListener((java.awt.event.ActionEvent evt) -> {
+                groupProxy.rejectRequest(member);
+                rejectButton.setEnabled(false);
+                updateGroupMembersRequests(group, user, membersRequests);
+            });
+            JPanel userPanel = new JPanel();
+            userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.X_AXIS));
+            userPanel.add(userLabel);
+            userPanel.add(Box.createHorizontalStrut(10));
+            userPanel.add(acceptButton);
+            userPanel.add(rejectButton);
+            containerPanel.add(userPanel);
+            containerPanel.add(Box.createVerticalStrut(10));
+        }
+        membersRequests.setViewportView(containerPanel);
     }
 }

@@ -199,6 +199,7 @@ public class CreateNewGroup extends javax.swing.JFrame {
                 .addUserRole(user,"creator")
                 .build();
         GroupManagement.saveGroupToFile(group);
+        JOptionPane.showMessageDialog(this,"Group created successfully");
         System.out.println(group);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed

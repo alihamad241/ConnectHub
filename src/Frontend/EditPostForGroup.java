@@ -6,13 +6,10 @@ package Frontend;
 
 import Backend.Content;
 import Backend.GroupManagement;
-import Backend.ProxyGroup;
 import Backend.RealGroup;
-
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Logger;
+
 
 /**
  *

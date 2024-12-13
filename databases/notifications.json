@@ -1,6 +1,304 @@
-[{
-    "SenderUserId": "a2eefbc5-37b3-4c12-8cd2-72b7db40c03c",
-    "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
-    "message": "You have a new friend request from fahdbinhamad",
-    "type": "Friend Request"
-}]
+[
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "habiba has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "message": "habiba has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "habiba has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "message": "Your request to join group 3 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "omar has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "omar has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "omar has joined group 3",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "message": "You have been promoted to admin in group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "SenderUserId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "message": "uehd3 has requested to join group 3",
+        "type": "Group Activity",
+        "GroupId": "d4888566-d669-444f-bf6c-751bb7fae162"
+    },
+    {
+        "SenderUserId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "message": "uehd3 has requested to join group 3",
+        "type": "Group Activity",
+        "GroupId": "d4888566-d669-444f-bf6c-751bb7fae162"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "message": "hanine has joined group 1",
+        "type": "Default"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "decd10e0-a53b-4ae2-8930-6368a3f0f957",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "ea37b028-525c-4401-8f24-bae15d5b1b09",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "SenderUserId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "ContentId": "e99ee90a-4323-4788-afba-984b9451c28f",
+        "message": "haninehas added a post.",
+        "type": "Post",
+        "GroupId": "d7758be6-41e8-4572-b6a8-b178d8c1b911"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "hanine has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "message": "hanine has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "hanine has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "message": "hanine has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "hanine has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "hanine has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "message": "hanine has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "hanine has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "message": "hanine has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "hanine has been promoted to admin",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "message": "Your request to join group2 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "05ddd937-ec6f-4456-a7ed-89b1e1aae011",
+        "message": "Your request to join group2 has been approved",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1b60e6ed-16e0-4ee5-a6af-1054cc453c1f",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "1f9af5a9-372c-473d-925c-0c139ca9f3be",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "36e1d4a2-34e2-4a6b-9f87-62402e70cdd8",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "616a96a0-f3c4-45c2-9cb4-c9d9b33db278",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    },
+    {
+        "RecipientId": "58f84fb7-1fe0-44da-9413-9b9d4645734f",
+        "message": "habiba has joined group2",
+        "type": "Default"
+    }
+]
