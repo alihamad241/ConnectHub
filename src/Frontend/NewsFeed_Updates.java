@@ -1,16 +1,14 @@
 package Frontend;
 
 import Backend.*;
-import Backend.Notifications.GroupNotification;
-import Backend.Notifications.Notification;
-import Backend.Notifications.NotificationManager;
-import Backend.Notifications.RequestNotification;
+import Backend.Notifications.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import static Backend.UserManager.findUser;
 
@@ -21,25 +19,13 @@ public class NewsFeed_Updates {
     private static final GroupManagement groupManagement = GroupManagement.getInstance();
     private static Timer timer;
 
-    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel, JScrollPane groupsList) {
+    public static void RefreshNewsFeed(User user, JScrollPane friendsList, JScrollPane suggestedFriendPanel, JScrollPane postPanel, JScrollPane storyPanel, JScrollPane NotificationPanel, JScrollPane groupsList, JScrollPane groupsSuggestionList) {
         contentManager.readContent();
         userManager.loadAllUsers();
         userManager.loadAllFriends();
         groupManagement.loadGroups();
         UpdatePosts(user, postPanel);
 
-//        timer = new Timer(1000, e -> {
-//            contentManager.readContent();
-//            userManager.loadAllUsers();
-//            userManager.loadAllFriends();
-//            groupManagement.loadGroups();
-//            UpdatePosts(user, postPanel);
-//            UpdateFriends(user, friendsList);
-//            UpdateStories(user, storyPanel);
-//            UpdateSuggestedFriends(user, suggestedFriendPanel);
-//            UpdateNotifications(user, NotificationPanel);
-//            UpdateGroups(user, groupsList);
-//        });
         // Start the file watcher to monitor changes in files
         FileWatcher fileWatcher = new FileWatcher(Paths.get("databases"), () -> {
             contentManager.readContent();
@@ -51,6 +37,7 @@ public class NewsFeed_Updates {
             UpdateSuggestedFriends(user, suggestedFriendPanel);
             UpdateNotifications(user, NotificationPanel);
             UpdateGroups(user, groupsList);
+            UpdateGroupSuggestions(user, groupsSuggestionList);
         });
         new Thread(fileWatcher).start();
     }
@@ -95,55 +82,72 @@ public class NewsFeed_Updates {
         suggestedFriendPanel.setViewportView(containerPanel);
     }
 
-    public static void UpdatePosts(User user, JScrollPane postPanel) {
-        JPanel containerPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
-        containerPanel.setLayout(boxLayout);
+public static void UpdatePosts(User user, JScrollPane postPanel) {
+    JPanel containerPanel = new JPanel();
+    BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+    containerPanel.setLayout(boxLayout);
 
-        for (int i = 0; i < user.getFriendsPosts().size(); i++) {
-            JLabel postLabel = new JLabel(user.getFriendsPosts().get(i).getContent());
-            JLabel nameLabel = new JLabel(user.getFriendsPosts().get(i).getAuthorUserName());
-            long time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
-            if (time > 60 && time < 120) {
-                time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
-            } else if (time > 120 && time < 1440) {
-                time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
-            } else if (time > 1440 && time < 2880) {
-                time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
-            } else if (time > 2880) {
-                time = user.getFriendsPosts().get(i).getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
-                nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
-            } else {
-                nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
-            }
-            // Resize the image
-            ImageIcon imageIcon = new ImageIcon(user.getFriendsPosts().get(i).getImagePath());
-            Image image = imageIcon.getImage();
-            Image resizedImage = image.getScaledInstance(postPanel.getWidth(), 300, Image.SCALE_SMOOTH);
-            ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
-            JLabel photo = new JLabel(resizedImageIcon);
-            JPanel innerPostPanel = new JPanel();
-            innerPostPanel.setLayout(new BoxLayout(innerPostPanel, BoxLayout.Y_AXIS));
-            innerPostPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// Add padding
-            innerPostPanel.add(nameLabel);
-            innerPostPanel.add(photo);
-            innerPostPanel.add(postLabel);
-            innerPostPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
-
-            // Add margin between posts
-            innerPostPanel.setBorder(BorderFactory.createCompoundBorder(
-                    innerPostPanel.getBorder(),
-                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
-            ));
-
-            containerPanel.add(innerPostPanel);
-        }
-        postPanel.setViewportView(containerPanel);
+    // Display friends' posts
+    for (Content post : user.getFriendsPosts()) {
+        addPostToPanel(post, containerPanel, postPanel, null);
     }
+
+    // Display group posts
+    for (RealGroup group : user.getGroups()) {
+        for (Content post : group.getContents()) {
+            addPostToPanel(post, containerPanel, postPanel, group.getGroupId());
+        }
+    }
+
+    postPanel.setViewportView(containerPanel);
+}
+
+private static void addPostToPanel(Content post, JPanel containerPanel, JScrollPane postPanel, String flag) {
+    JLabel postLabel = new JLabel(post.getContent());
+    JLabel nameLabel = new JLabel(post.getAuthorUserName());
+    if(flag != null){
+        nameLabel.setText(nameLabel.getText() + " in " + Objects.requireNonNull(GroupManagement.getGroup(flag)).getName());
+    }
+    long time = post.getTime().until(LocalDateTime.now(), ChronoUnit.MINUTES);
+    if (time > 60 && time < 120) {
+        time = post.getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+        nameLabel.setText(nameLabel.getText() + " " + time + " hour ago");
+    } else if (time > 120 && time < 1440) {
+        time = post.getTime().until(LocalDateTime.now(), ChronoUnit.HOURS);
+        nameLabel.setText(nameLabel.getText() + " " + time + " hours ago");
+    } else if (time > 1440 && time < 2880) {
+        time = post.getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+        nameLabel.setText(nameLabel.getText() + " " + time + " day ago");
+    } else if (time > 2880) {
+        time = post.getTime().until(LocalDateTime.now(), ChronoUnit.DAYS);
+        nameLabel.setText(nameLabel.getText() + " " + time + " days ago");
+    } else {
+        nameLabel.setText(nameLabel.getText() + " " + time + " minutes ago");
+    }
+    // Resize the image
+    ImageIcon imageIcon = new ImageIcon(post.getImagePath());
+    Image image = imageIcon.getImage();
+    Image resizedImage = image.getScaledInstance(postPanel.getWidth(), 300, Image.SCALE_SMOOTH);
+    ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
+
+    JLabel photo = new JLabel(resizedImageIcon);
+    JPanel innerPostPanel = new JPanel();
+    innerPostPanel.setLayout(new BoxLayout(innerPostPanel, BoxLayout.Y_AXIS));
+    innerPostPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
+    innerPostPanel.add(nameLabel);
+    innerPostPanel.add(postLabel);
+    innerPostPanel.add(photo);
+    innerPostPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
+
+    // Add margin between posts
+    innerPostPanel.setBorder(BorderFactory.createCompoundBorder(
+            innerPostPanel.getBorder(),
+            BorderFactory.createEmptyBorder(10, 0, 10, 0)
+    ));
+
+    containerPanel.add(innerPostPanel);
+}
 
     public static void UpdateStories(User user, JScrollPane storyPanel) {
         JPanel containerPanel = new JPanel();
@@ -242,8 +246,7 @@ public class NewsFeed_Updates {
             acceptButton.addActionListener(e -> {
                 group.approveRequest(findUser(((GroupNotification)notification).getSenderId()));
                 NotificationManager.removeNotification(notification);
-               // NotificationManager.removeAllRelatedNotifications((GroupNotification) notification);
-                //commented out because it deletes all notifications even if the user doesnt have access to accept new users
+                NotificationManager.removeAllRelatedNotifications((GroupNotification) notification);
                 UpdateNotifications(user, notificationPanel);
             });
             declineButton.addActionListener(e -> {
@@ -263,13 +266,14 @@ public class NewsFeed_Updates {
 
             containerPanel.add(innerNotificationPanel);
         }
-        else if(notification.getType().equalsIgnoreCase("Post") && notification instanceof GroupNotification){
+        else if(notification.getType().equalsIgnoreCase("Post") && notification instanceof GroupPostNotifications){
             JLabel notificationLabel = new JLabel(notification.getMessage());
             JButton viewButton = new JButton("View");
             viewButton.addActionListener(e -> {
                 // Open the group page
                 GroupPage groupPage = new GroupPage(user, GroupManagement.getGroup(((GroupNotification) notification).getGroupId()));
                 groupPage.setVisible(true);
+                NotificationManager.removeNotification(notification);
 
             });
             JPanel innerNotificationPanel = new JPanel();
@@ -342,6 +346,35 @@ public class NewsFeed_Updates {
 
         groupsList.setViewportView(containerPanel);
 
+    }
+
+    public static void UpdateGroupSuggestions(User user, JScrollPane groupSuggestionList) {
+        JPanel containerPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(containerPanel, BoxLayout.Y_AXIS);
+        containerPanel.setLayout(boxLayout);
+
+        for (int i = 0; i < user.getGroupSuggestions().size(); i++) {
+            RealGroup group = user.getGroupSuggestions().get(i);
+            ProxyGroup proxy = new ProxyGroup(group, user);
+            JLabel groupLabel = new JLabel(group.getName());
+            JButton joinGroupButton = new JButton("Join");
+            joinGroupButton.addActionListener(e -> {
+                proxy.addPendingRequest(user);
+                UpdateGroupSuggestions(user, groupSuggestionList);
+            });
+            JPanel innerGroupPanel = new JPanel();
+            innerGroupPanel.add(groupLabel);
+            innerGroupPanel.add(joinGroupButton);
+
+            innerGroupPanel.setBorder(BorderFactory.createCompoundBorder(
+                    innerGroupPanel.getBorder(),
+                    BorderFactory.createEmptyBorder(10, 0, 10, 0)
+            ));
+
+            containerPanel.add(innerGroupPanel);
+        }
+
+        groupSuggestionList.setViewportView(containerPanel);
     }
 }
 

@@ -7,6 +7,7 @@ import Backend.Notifications.Observer;
 import Backend.Notifications.RequestNotification;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class User implements Observer {
     private String name;
@@ -163,5 +164,8 @@ public class User implements Observer {
         group.leaveGroup(this);
     }
 
+    public ArrayList<RealGroup> getGroupSuggestions() {
+        return GroupManagement.getGroupSuggestions(this);
+    }
 }
 

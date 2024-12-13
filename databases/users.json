@@ -154,5 +154,17 @@
         "Name": "rehab",
         "username": "rehab",
         "status": "offline"
+    },
+    {
+        "profilePhotoPath": "",
+        "hashedPassword": "$2a$10$KoCRZiASDfXwY/GoAdR0Bup2cOJ1XU3iJCS.W09pCdQ7yP7GIjQZq",
+        "bio": "",
+        "dateOfBirth": "14-6-2003",
+        "coverPhotoPath": "",
+        "userId": "aa6aa4f2-5cf7-4ca5-a2c0-ca8d813ff5fd",
+        "email": "hanine614@gmail.com",
+        "Name": "hanine",
+        "username": "hanine",
+        "status": "offline"
     }
 ]

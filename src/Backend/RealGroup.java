@@ -163,7 +163,7 @@ public class RealGroup implements Group, Observer {
 
     public void sendGroupNotification(User sender, GroupNotification notification){
         for(User user : userRoles.keySet()){
-            if(!user.getUserId().equals(sender.getUserId())){
+            if(!user.getUserId().equals(sender.getUserId()) && !userRoles.get(user).equals("user")){
                 notification.setReceiverUserId(user.getUserId());
                 update(notification);
             }

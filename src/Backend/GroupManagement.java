@@ -63,7 +63,7 @@ public class GroupManagement {
         return groupJson;
     }
 
-    public static void saveGroupToFile(RealGroup group) {
+    public static synchronized void saveGroupToFile(RealGroup group) {
         // Convert the Group object to a JSON object
         JSONObject groupJson = toJSONObject(group);
 
@@ -93,7 +93,7 @@ public class GroupManagement {
         databaseManager.writeJSONFile(GROUPS_FILE_PATH, groupsArray);
     }
 
-    public static ArrayList<RealGroup> searchForGroupsByName(String name) {
+    public static synchronized ArrayList<RealGroup> searchForGroupsByName(String name) {
         ArrayList<RealGroup> searchGroups = new ArrayList<>();
         for (RealGroup search: allgroups) {
             if (search.getName().toLowerCase().contains(name.toLowerCase())) {
@@ -103,7 +103,7 @@ public class GroupManagement {
         return searchGroups;
     }
 
-    public static ArrayList<RealGroup> getGroups(User user) {
+    public static synchronized ArrayList<RealGroup> getGroups(User user) {
         ArrayList<RealGroup> userGroups = new ArrayList<>();
         System.out.println(allgroups.size() + " groups");
         for (RealGroup group : allgroups) {
@@ -114,7 +114,7 @@ public class GroupManagement {
         return userGroups;
     }
 
-    public static RealGroup getGroup(String groupId) {
+    public static synchronized RealGroup getGroup(String groupId) {
         for (RealGroup group : allgroups) {
             if (group.getGroupId().equals(groupId)) {
                 return group;
@@ -123,7 +123,17 @@ public class GroupManagement {
         return null;
     }
 
-    public void loadGroups() {
+    public static synchronized ArrayList<RealGroup> getGroupSuggestions(User user) {
+        ArrayList<RealGroup> suggestions = new ArrayList<>();
+        for (RealGroup group : allgroups) {
+            if (!group.getUserRoles().containsKey(user) && !group.getPendingRequests().contains(user)) {
+                suggestions.add(group);
+            }
+        }
+        return suggestions;
+    }
+
+    public synchronized void loadGroups() {
         allgroups.clear(); // Clear the current list of groups
 
         File file = new File(GROUPS_FILE_PATH);
